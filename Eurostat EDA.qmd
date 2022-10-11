@@ -1,6 +1,6 @@
 ---
 title: "Eurostat EDA"
-author: "Sindre H. Øveraas, Alen Colacovic & Sebastian M. Fløysand"
+author: "Sindre H. Øveraas, Alen Colakovic & Sebastian M. Fløysand"
 format: pdf
 editor: visual
 ---
