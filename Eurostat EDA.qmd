@@ -1,0 +1,10 @@
+---
+title: "Eurostat EDA"
+author: "Sindre H. Øveraas, Alen Colacovic & Sebastian M. Fløysand"
+format: pdf
+editor: visual
+---
+
+## Eurostat EDA
+
+### Sub-National GDP
