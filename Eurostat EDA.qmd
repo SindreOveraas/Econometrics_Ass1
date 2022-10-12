@@ -3,6 +3,7 @@ title: "Eurostat EDA"
 author: "Sindre H. Øveraas, Alen Colakovic & Sebastian M. Fløysand"
 format: pdf
 editor: visual
+bibliography: references.bib
 ---
 
 ## Eurostat EDA
@@ -11,136 +12,23 @@ editor: visual
 
 # Meta Data Description
 
-### pjanaggr nuts3
-
-Each year Eurostat collects demographic data at regional level from 37 countries as part of the Unified Demography (Unidemo) project.
-**UNIDEMO** is Eurostat's main annual demographic data collection and aims to gather information on demography and migration.
-UNIDEMO collects data *at national and regional levels by various breakdowns* on:
-
--   population stocks;
-
--   vital events (live births and deaths);
-
--   marriages;
-
--   divorces; and
-
--   migration flows.
-
-Each country must send the statistics for the reference year (T) to Eurostat by 31 December of the following calendar year (T+1).
-Eurostat then publishes the data in March of the calendar year after that (T+2).
-
-**Demographic data at regional level** include statistics on the population at the end of the calendar year and on live births and deaths during that year, according to the official classification for statistics at regional level (NUTS - nomenclature of territorial units for statistics).
-These data are broken down by NUTS 2 and 3 levels.
-The current online demographic data refers to the NUTS 2016 classification, which subdivides the territory of the European Union into:
-
--   104 regions at NUTS level 1;
-
--   281 at NUTS level 2; and
-
--   1348 at NUTS level 3.
-
-Starting with 1 January 2018, the data transmission to Eurostat according to the new NUTS 2016 regional territorial classification entered into force in accordance with the [Commission Regulation (EU) 2016/2066.](https://eur-lex.europa.eu/legal-content/EN/TXT/?qid=1485253108026&uri=CELEX:32016R2066) 
-This new NUTS 2016 classification affected the current EU Member States: Germany, Ireland, France, Lithuania, Hungary, Netherlands, Poland and Finland.
-
-The demographic data at regional level are collected in accordance with the following EU legal acts:
-
--   [Article 3 of the Regulation (EU) No 1260/2013](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32013R1260) on European demographic statistics and its implementing measures stated in the [Regulation (EU) No 205/2014](https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX%3A32014R0205)
-
--   [Commission Regulation (EU) 2016/2066](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex%3A32016R2066) which is the nomenclature of territorial units for statistics (abbreviated as NUTS 2016);
-
--   For EFTA and Candidate countries the data are collected according to the agreed [statistical regions](https://ec.europa.eu/eurostat/web/nuts/statistical-regions-outside-eu) that have been coded in a way that resembles NUTS.
-
-    -   The EFTA countries are: Iceland, Liechtenstein, Norway and Switzerland.
-
-    -   The Candidate countries are: Montenegro, North Macedonia, Albania, Serbia and Turkey.
-
-The breakdown of demographic data collected at regional level varies depending on the NUTS level.
-These breakdowns are summarised below, along with the link to the corresponding online table:
-
-**NUTS 2 level**
-
--   Population by sex, age and region of residence --- [demo_r\_d2jan](http://appsso.eurostat.ec.europa.eu/nui/show.do?query=BOOKMARK_DS-115359_QID_380581F4_UID_-3F171EB0&layout=TIME,C,X,0;GEO,L,Y,0;SEX,L,Z,0;AGE,L,Z,1;UNIT,L,Z,2;INDICATORS,C,Z,3;&zSelection=DS-115359UNIT,NR;DS-115359AGE,TOTAL;DS-115359INDICATORS,OBS_FLAG;DS-115359SEX,T;&rankName1=TIME_1_0_0_0&rankName2=UNIT_1_2_-1_2&rankName3=GEO_1_2_0_1&rankName4=AGE_1_2_-1_2&rankName5=INDICATORS_1_2_-1_2&rankName6=SEX_1_2_-1_2&sortC=ASC_-1_FIRST&rStp=&cStp=&rDCh=&cDCh=&rDM=true&cDM=true&footnes=false&empty=false&wai=false&time_mode=ROLLING&time_most_recent=false&lang=EN&cfo=%23%23%23%2C%23%23%23.%23%23%23)
-
--   Live births by mother's age, mother's year of birth and mother's region of residence --- [demo_r\_fagec](http://appsso.eurostat.ec.europa.eu/nui/show.do?query=BOOKMARK_DS-303119_QID_-6E1D2710_UID_-3F171EB0&layout=TIME,C,X,0;GEO,L,Y,0;AGE,L,Z,0;UNIT,L,Z,1;INDICATORS,C,Z,2;&zSelection=DS-303119INDICATORS,OBS_FLAG;DS-303119UNIT,NR;DS-303119AGE,TOTAL;&rankName1=TIME_1_0_0_0&rankName2=UNIT_1_2_-1_2&rankName3=GEO_1_2_0_1&rankName4=AGE_1_2_-1_2&rankName5=INDICATORS_1_2_-1_2&sortC=ASC_-1_FIRST&rStp=&cStp=&rDCh=&cDCh=&rDM=true&cDM=true&footnes=false&empty=false&wai=false&time_mode=ROLLING&time_most_recent=false&lang=EN&cfo=%23%23%23%2C%23%23%23.%23%23%23)
-
--   Deaths by sex, age, year of birth and region of residence --- [demo_r\_magec](http://appsso.eurostat.ec.europa.eu/nui/show.do?query=BOOKMARK_DS-303104_QID_B551334_UID_-3F171EB0&layout=TIME,C,X,0;GEO,L,Y,0;SEX,L,Z,0;AGE,L,Z,1;UNIT,L,Z,2;INDICATORS,C,Z,3;&zSelection=DS-303104INDICATORS,OBS_FLAG;DS-303104AGE,TOTAL;DS-303104SEX,T;DS-303104UNIT,NR;&rankName1=TIME_1_0_0_0&rankName2=UNIT_1_2_-1_2&rankName3=GEO_1_2_0_1&rankName4=AGE_1_2_-1_2&rankName5=INDICATORS_1_2_-1_2&rankName6=SEX_1_2_-1_2&sortC=ASC_-1_FIRST&rStp=&cStp=&rDCh=&cDCh=&rDM=true&cDM=true&footnes=false&empty=false&wai=false&time_mode=ROLLING&time_most_recent=false&lang=EN&cfo=%23%23%23%2C%23%23%23.%23%23%23)
-
-**NUTS 3 level**
-
--   Population by sex, five-year age group and region of residence --- [demo_r\_pjangrp3](http://appsso.eurostat.ec.europa.eu/nui/show.do?query=BOOKMARK_DS-488855_QID_-1CA40564_UID_-3F171EB0&layout=TIME,C,X,0;GEO,L,Y,0;SEX,L,Z,0;UNIT,L,Z,1;AGE,L,Z,2;INDICATORS,C,Z,3;&zSelection=DS-488855AGE,TOTAL;DS-488855SEX,T;DS-488855UNIT,NR;DS-488855INDICATORS,OBS_FLAG;&rankName1=TIME_1_0_0_0&rankName2=UNIT_1_2_-1_2&rankName3=GEO_1_2_0_1&rankName4=AGE_1_2_-1_2&rankName5=INDICATORS_1_2_-1_2&rankName6=SEX_1_2_-1_2&sortC=ASC_-1_FIRST&rStp=&cStp=&rDCh=&cDCh=&rDM=true&cDM=true&footnes=false&empty=false&wai=false&time_mode=ROLLING&time_most_recent=false&lang=EN&cfo=%23%23%23%2C%23%23%23.%23%23%23)
-
--   Live births by five-year age group of the mothers and region of residence --- [demo_r\_fagec3](http://appsso.eurostat.ec.europa.eu/nui/show.do?query=BOOKMARK_DS-508139_QID_-66CAD533_UID_-3F171EB0&layout=TIME,C,X,0;GEO,L,Y,0;AGE,L,Z,0;UNIT,L,Z,1;INDICATORS,C,Z,2;&zSelection=DS-508139UNIT,NR;DS-508139INDICATORS,OBS_FLAG;DS-508139AGE,TOTAL;&rankName1=TIME_1_0_0_0&rankName2=UNIT_1_2_-1_2&rankName3=GEO_1_2_0_1&rankName4=AGE_1_2_-1_2&rankName5=INDICATORS_1_2_-1_2&sortC=ASC_-1_FIRST&rStp=&cStp=&rDCh=&cDCh=&rDM=true&cDM=true&footnes=false&empty=false&wai=false&time_mode=ROLLING&time_most_recent=false&lang=EN&cfo=%23%23%23%2C%23%23%23.%23%23%23)
-
--   Deaths by sex, five-year age group and region of residence --- [demo_r\_magec3](http://appsso.eurostat.ec.europa.eu/nui/show.do?query=BOOKMARK_DS-508141_QID_77F2D1F1_UID_-3F171EB0&layout=TIME,C,X,0;GEO,L,Y,0;AGE,L,Z,0;UNIT,L,Z,1;SEX,L,Z,2;INDICATORS,C,Z,3;&zSelection=DS-508141AGE,TOTAL;DS-508141SEX,T;DS-508141INDICATORS,OBS_FLAG;DS-508141UNIT,NR;&rankName1=TIME_1_0_0_0&rankName2=UNIT_1_2_-1_2&rankName3=GEO_1_2_0_1&rankName4=AGE_1_2_-1_2&rankName5=INDICATORS_1_2_-1_2&rankName6=SEX_1_2_-1_2&sortC=ASC_-1_FIRST&rStp=&cStp=&rDCh=&cDCh=&rDM=true&cDM=true&footnes=false&empty=false&wai=false&time_mode=ROLLING&time_most_recent=false&lang=EN&cfo=%23%23%23%2C%23%23%23.%23%23%23)
-
-This more detailed breakdown (by five-year age group) of the data collected at NUTS 3 level started with the reference year 2013 and is in accordance with the European laws on demographic statistics.
-In addition to the regional codes set out in the [Commission Regulation (EU) 2016/2066](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex%3A32016R2066) these online tables include few additional codes that are meant to cover data on persons and events that cannot be allocated to any official NUTS region.
-These codes are denoted as CCX/CCXX/CCXXX (Not regionalised/Unknown level 1/2/3; CC stands for country code) and are available only for France, Hungary, North Macedonia and Albania, reflecting the raw data as transmitted to Eurostat.
-
-For the reference years from 1990 to 2012 all countries sent to Eurostat all the data on a voluntary basis, therefore the completeness of the tables and the length of time series reflect the level of data received from the responsible national statistical institutes' (NSIs) data provider.
-As a general remark, a lower data breakdown is available at NUTS 3 level as detailed:
-
--   population data are broken down by sex and broad age groups (0-14, 15-64 and 65 or more).
-    The data have this disaggregation since the reference year 2007 for all countries, and even longer for some --- [demo_r\_pjanaggr3](http://appsso.eurostat.ec.europa.eu/nui/show.do?query=BOOKMARK_DS-115347_QID_-4688BEF6_UID_-3F171EB0&layout=TIME,C,X,0;GEO,L,Y,0;SEX,L,Z,0;AGE,L,Z,1;UNIT,L,Z,2;INDICATORS,C,Z,3;&zSelection=DS-115347AGE,TOTAL;DS-115347INDICATORS,OBS_FLAG;DS-115347UNIT,NR;DS-115347SEX,T;&rankName1=TIME_1_0_0_0&rankName2=UNIT_1_2_-1_2&rankName3=GEO_1_2_0_1&rankName4=AGE_1_2_-1_2&rankName5=INDICATORS_1_2_-1_2&rankName6=SEX_1_2_-1_2&sortC=ASC_-1_FIRST&rStp=&cStp=&rDCh=&cDCh=&rDM=true&cDM=true&footnes=false&empty=false&wai=false&time_mode=ROLLING&time_most_recent=false&lang=EN&cfo=%23%23%23%2C%23%23%23.%23%23%23)
-
--   vital events (live births and deaths) data are available only as totals, without any further breakdown --- [demo_r\_births](http://appsso.eurostat.ec.europa.eu/nui/show.do?query=BOOKMARK_DS-303125_QID_-34E571C3_UID_-3F171EB0&layout=TIME,C,X,0;GEO,L,Y,0;UNIT,L,Z,0;INDICATORS,C,Z,1;&zSelection=DS-303125UNIT,NR;DS-303125INDICATORS,OBS_FLAG;&rankName1=TIME_1_0_0_0&rankName2=UNIT_1_2_-1_2&rankName3=GEO_1_2_0_1&rankName4=INDICATORS_1_2_-1_2&sortC=ASC_-1_FIRST&rStp=&cStp=&rDCh=&cDCh=&rDM=true&cDM=true&footnes=false&empty=false&wai=false&time_mode=ROLLING&time_most_recent=false&lang=EN&cfo=%23%23%23%2C%23%23%23.%23%23%23) and [demo_r\_deaths](http://appsso.eurostat.ec.europa.eu/nui/show.do?query=BOOKMARK_DS-303117_QID_6E47D4FC_UID_-3F171EB0&layout=TIME,C,X,0;GEO,L,Y,0;UNIT,L,Z,0;INDICATORS,C,Z,1;&zSelection=DS-303117UNIT,NR;DS-303117INDICATORS,OBS_FLAG;&rankName1=TIME_1_0_0_0&rankName2=UNIT_1_2_-1_2&rankName3=GEO_1_2_0_1&rankName4=INDICATORS_1_2_-1_2&sortC=ASC_-1_FIRST&rStp=&cStp=&rDCh=&cDCh=&rDM=true&cDM=true&footnes=false&empty=false&wai=false&time_mode=ROLLING&time_most_recent=false&lang=EN&cfo=%23%23%23%2C%23%23%23.%23%23%23)
-
-**Demographic indicators** are calculated by Eurostat based on the above raw data using a common methodology for all countries and regions.
-The regional demographic indicators computed by NUTS level and the corresponding online tables are summarised below:
-
-**NUTS 2 level**
-
--   Population structure indicators (shares of various population age groups, dependency ratios and median age) --- [demo_r\_pjanind2](http://appsso.eurostat.ec.europa.eu/nui/show.do?query=BOOKMARK_DS-747451_QID_-515991C4_UID_-3F171EB0&layout=TIME,C,X,0;GEO,L,Y,0;INDIC_DE,L,Z,0;UNIT,L,Z,1;INDICATORS,C,Z,2;&zSelection=DS-747451UNIT,YR;DS-747451INDICATORS,OBS_FLAG;DS-747451INDIC_DE,MEDAGEPOP;&rankName1=TIME_1_0_0_0&rankName2=UNIT_1_2_-1_2&rankName3=GEO_1_2_0_1&rankName4=INDICATORS_1_2_-1_2&rankName5=INDIC-DE_1_2_-1_2&sortC=ASC_-1_FIRST&rStp=&cStp=&rDCh=&cDCh=&rDM=true&cDM=true&footnes=false&empty=false&wai=false&time_mode=ROLLING&time_most_recent=false&lang=EN&cfo=%23%23%23%2C%23%23%23.%23%23%23)
-
--   Total fertility rate (TFR) and age-specific fertility rates (ASFR) --- [demo_r\_frate2](http://appsso.eurostat.ec.europa.eu/nui/show.do?query=BOOKMARK_DS-115349_QID_622F440F_UID_-3F171EB0&layout=TIME,C,X,0;GEO,L,Y,0;AGE,L,Z,0;UNIT,L,Z,1;INDICATORS,C,Z,2;&zSelection=DS-115349UNIT,NR;DS-115349INDICATORS,OBS_FLAG;DS-115349AGE,TOTAL;&rankName1=TIME_1_0_0_0&rankName2=UNIT_1_2_-1_2&rankName3=GEO_1_2_0_1&rankName4=AGE_1_2_-1_2&rankName5=INDICATORS_1_2_-1_2&sortC=ASC_-1_FIRST&rStp=&cStp=&rDCh=&cDCh=&rDM=true&cDM=true&footnes=false&empty=false&wai=false&time_mode=ROLLING&time_most_recent=false&lang=EN&cfo=%23%23%23%2C%23%23%23.%23%23%23)
-
--   Fertility indicators (total fertility rate, mean age of woman at childbirth, median age of woman at childbirth) --- [demo_r\_find2](http://appsso.eurostat.ec.europa.eu/nui/show.do?query=BOOKMARK_DS-747453_QID_C8A9BBC_UID_-3F171EB0&layout=TIME,C,X,0;GEO,L,Y,0;INDIC_DE,L,Z,0;UNIT,L,Z,1;INDICATORS,C,Z,2;&zSelection=DS-747453UNIT,YR;DS-747453INDICATORS,OBS_FLAG;DS-747453INDIC_DE,AGEMOTH;&rankName1=TIME_1_0_0_0&rankName2=UNIT_1_2_-1_2&rankName3=GEO_1_2_0_1&rankName4=INDICATORS_1_2_-1_2&rankName5=INDIC-DE_1_2_-1_2&sortC=ASC_-1_FIRST&rStp=&cStp=&rDCh=&cDCh=&rDM=true&cDM=true&footnes=false&empty=false&wai=false&time_mode=ROLLING&time_most_recent=false&lang=EN&cfo=%23%23%23%2C%23%23%23.%23%23%23)
-
--   Life table including life expectancy at a given exact age --- [demo_r\_mlife](http://appsso.eurostat.ec.europa.eu/nui/show.do?query=BOOKMARK_DS-429080_QID_5A8DA322_UID_-3F171EB0&layout=TIME,C,X,0;GEO,L,Y,0;INDIC_DE,L,Z,0;SEX,L,Z,1;AGE,L,Z,2;UNIT,L,Z,3;INDICATORS,C,Z,4;&zSelection=DS-429080INDICATORS,OBS_FLAG;DS-429080AGE,Y_LT1;DS-429080UNIT,YR;DS-429080SEX,T;DS-429080INDIC_DE,DEATHRATE;&rankName1=TIME_1_0_0_0&rankName2=UNIT_1_2_-1_2&rankName3=GEO_1_2_0_1&rankName4=AGE_1_2_-1_2&rankName5=INDICATORS_1_2_-1_2&rankName6=SEX_1_2_-1_2&rankName7=INDIC-DE_1_2_-1_2&sortC=ASC_-1_FIRST&rStp=&cStp=&rDCh=&cDCh=&rDM=true&cDM=true&footnes=false&empty=false&wai=false&time_mode=ROLLING&time_most_recent=false&lang=EN&cfo=%23%23%23%2C%23%23%23.%23%23%23) and [demo_r\_mlifexp](http://appsso.eurostat.ec.europa.eu/nui/show.do?query=BOOKMARK_DS-115339_QID_5026D73_UID_-3F171EB0&layout=TIME,C,X,0;GEO,L,Y,0;SEX,L,Z,0;AGE,L,Z,1;INDICATORS,C,Z,2;&zSelection=DS-115339SEX,T;DS-115339AGE,Y_LT1;DS-115339INDICATORS,OBS_FLAG;&rankName1=TIME_1_0_0_0&rankName2=GEO_1_2_0_1&rankName3=AGE_1_2_-1_2&rankName4=INDICATORS_1_2_-1_2&rankName5=SEX_1_2_-1_2&sortC=ASC_-1_FIRST&rStp=&cStp=&rDCh=&cDCh=&rDM=true&cDM=true&footnes=false&empty=false&wai=false&time_mode=ROLLING&time_most_recent=false&lang=EN&cfo=%23%23%23%2C%23%23%23.%23%23%23)
-
--   Infant mortality and infant mortality rates --- [demo_r\_minf](http://appsso.eurostat.ec.europa.eu/nui/show.do?query=BOOKMARK_DS-303121_QID_440FE389_UID_-3F171EB0&layout=TIME,C,X,0;GEO,L,Y,0;UNIT,L,Z,0;INDICATORS,C,Z,1;&zSelection=DS-303121INDICATORS,OBS_FLAG;DS-303121UNIT,NR;&rankName1=TIME_1_0_0_0&rankName2=UNIT_1_2_-1_2&rankName3=GEO_1_2_0_1&rankName4=INDICATORS_1_2_-1_2&sortC=ASC_-1_FIRST&rStp=&cStp=&rDCh=&cDCh=&rDM=true&cDM=true&footnes=false&empty=false&wai=false&time_mode=ROLLING&time_most_recent=false&lang=EN&cfo=%23%23%23%2C%23%23%23.%23%23%23) and [demo_r\_minfind](http://appsso.eurostat.ec.europa.eu/nui/show.do?query=BOOKMARK_DS-303102_QID_-B7E821A_UID_-3F171EB0&layout=TIME,C,X,0;GEO,L,Y,0;UNIT,L,Z,0;INDICATORS,C,Z,1;&zSelection=DS-303102UNIT,RT;DS-303102INDICATORS,OBS_FLAG;&rankName1=TIME_1_0_0_0&rankName2=UNIT_1_2_-1_2&rankName3=GEO_1_2_0_1&rankName4=INDICATORS_1_2_-1_2&sortC=ASC_-1_FIRST&rStp=&cStp=&rDCh=&cDCh=&rDM=true&cDM=true&footnes=false&empty=false&wai=false&time_mode=ROLLING&time_most_recent=false&lang=EN&cfo=%23%23%23%2C%23%23%23.%23%23%23)
-
-**NUTS 3 level**
-
--   Demographic balance and crude rates (population change, natural change, net migration including statistical adjustment, crude birth rate, crude death rate, crude rate of population change, crude rate of natural change, crude rate of net migration (including statistical adjustment)) --- [demo_r\_gind3](http://appsso.eurostat.ec.europa.eu/nui/show.do?query=BOOKMARK_DS-115351_QID_-17A772E2_UID_-3F171EB0&layout=TIME,C,X,0;GEO,L,Y,0;INDIC_DE,L,Z,0;INDICATORS,C,Z,1;&zSelection=DS-115351INDICATORS,OBS_FLAG;DS-115351INDIC_DE,JAN;&rankName1=TIME_1_0_0_0&rankName2=GEO_1_2_0_1&rankName3=INDICATORS_1_2_-1_2&rankName4=INDIC-DE_1_2_-1_2&sortC=ASC_-1_FIRST&rStp=&cStp=&rDCh=&cDCh=&rDM=true&cDM=true&footnes=false&empty=false&wai=false&time_mode=ROLLING&time_most_recent=false&lang=EN&cfo=%23%23%23%2C%23%23%23.%23%23%23)
-
--   Population structure indicators (shares of various population age groups, dependency ratios and median age) --- [demo_r\_pjanind3](http://appsso.eurostat.ec.europa.eu/nui/show.do?query=BOOKMARK_DS-747455_QID_-384149DE_UID_-3F171EB0&layout=TIME,C,X,0;GEO,L,Y,0;INDIC_DE,L,Z,0;UNIT,L,Z,1;INDICATORS,C,Z,2;&zSelection=DS-747455UNIT,YR;DS-747455INDIC_DE,MEDAGEPOP;DS-747455INDICATORS,OBS_FLAG;&rankName1=TIME_1_0_0_0&rankName2=UNIT_1_2_-1_2&rankName3=GEO_1_2_0_1&rankName4=INDICATORS_1_2_-1_2&rankName5=INDIC-DE_1_2_-1_2&sortC=ASC_-1_FIRST&rStp=&cStp=&rDCh=&cDCh=&rDM=true&cDM=true&footnes=false&empty=false&wai=false&time_mode=ROLLING&time_most_recent=false&lang=EN&cfo=%23%23%23%2C%23%23%23.%23%23%23)
-
--   Fertility indicators (total fertility rate, mean age of woman at childbirth and median age of woman at childbirth) --- [demo_r\_find3](http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=demo_r_find3&lang=en)
-
--   Population density --- [demo_r\_d3dens](http://appsso.eurostat.ec.europa.eu/nui/show.do?query=BOOKMARK_DS-115323_QID_-6F67C074_UID_-3F171EB0&layout=TIME,C,X,0;GEO,L,Y,0;UNIT,L,Z,0;INDICATORS,C,Z,1;&zSelection=DS-115323UNIT,HAB_KM2;DS-115323INDICATORS,OBS_FLAG;&rankName1=TIME_1_0_0_0&rankName2=UNIT_1_2_-1_2&rankName3=GEO_1_2_0_1&rankName4=INDICATORS_1_2_-1_2&sortC=ASC_-1_FIRST&rStp=&cStp=&rDCh=&cDCh=&rDM=true&cDM=true&footnes=false&empty=false&wai=false&time_mode=ROLLING&time_most_recent=false&lang=EN&cfo=%23%23%23%2C%23%23%23.%23%23%23)
-
-*Notes:*
-
-1\) All the indicators are computed for all lower NUTS regions included in the tables (e.g. data included in a table at NUTS 3 level will include also the data for NUTS 2, 1 and country levels).
-
-2\) Demographic indicators computed by NUTS 2 and 3 levels are calculated using input data that have different age breakdown.
-Therefore, minor differences can be noted between the values corresponding to the same indicator of the same region classified as NUTS 2, 1 or country level.
-
-3\) Since the reference year 2015, Eurostat has stopped collecting data on area; therefore, the table 'Area by NUTS 3 region (demo_r\_d3area)' includes data up to the year 2015 included.
-
-4\) Starting with the reference year 2016, the population density indicator is computed using the new data on area 'Area by NUTS 3 region ([reg_area3](http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=reg_area3&lang=en))'.
-The data for the year 2017 are flagged with (b) flag to indicate the change in the methodology used for producing the area data.
-
 ### Nama 10r
 
-Regional accounts are a regional specification of the national accounts and therefore based on the same concepts and definitions as national accounts (see domain nama10).
-The main specific regional issues are addressed in chapter 13 of ESA2010, but not practically specified.
-For practical rules and recommendations on sources and methods see the publication "Manual on regional accounts methods": <http://ec.europa.eu/eurostat/en/web/products-manuals-and-guidelines/-/KS-GQ-13-001> .
+Regional accounts are based on the same definitions and concepts as national accounts, this is because they are a specification of the national accounts.
 
-**Gross domestic product (GDP)** at market prices is the final result of the production activity of resident producer units.
-In regional accounts it can be calculated from:
+*Gross domestic product (GDP) is the standard measure of the value added created through the production of goods and services in a country during a certain period. As such, it also measures the income earned from that production, or the total amount spent on final goods and services (less imports). While GDP is the single most important indicator to capture economic activity, it falls short of providing a suitable measure of people's material well-being for which alternative indicators may be more appropriate.\
+*@GDPSpendingGross
 
-**1. Output approach**
+We have two ways of calculating this within regional accounts:
 
-GDP is the sum of gross value added of the various institutional sectors or the various industries plus taxes and less subsidies on products (which are not allocated to sectors and industries).
-It is also the balancing item in the total economy production account.
+**The first one is the output approach**
+
+*"GDP is the sum of gross value added of the various institutional sectors or the various industries plus taxes and less subsidies on products (which are not allocated to sectors and industries). It is also the balancing item in the total economy production account."*
 
 **2. Income approach**
 
-GDP is the sum of uses in the total economy generation of income account: compensation of employees plus gross operating surplus and mixed income plus taxes on products less subsidies plus consumption of fixed capital.
+*"GDP is the sum of uses in the total economy generation of income account: compensation of employees plus gross operating surplus and mixed income plus taxes on products less subsidies plus consumption of fixed capital.*
 
-Contrary to national accounts GDP is not compoled from the expenditure side in regional accounts due to data limitations on the inter-regional flows of goods and services.
+*Contrary to national accounts GDP is not compoled from the expenditure side in regional accounts due to data limitations on the inter-regional flows of goods and services.*
 
-The different measures for the regional GDP are absolute figures in € and Purchasing Power Standards (PPS), figures per inhabitant and relative data compared to the EU Member States average.
+*The different measures for the regional GDP are absolute figures in € and Purchasing Power Standards (PPS), figures per inhabitant and relative data compared to the EU Member States average."*
