@@ -12,9 +12,9 @@ editor: visual
 Country codes: BE - Belgium, BG - Bulgaria, HR - Croatia, IT - Italy, AT - Austria, SE - Sweden, RS - Serbia
 
 ```{r, echo=FALSE}
-summary(demo_r_pjanaggr3_custom_3565118_linear_csv[,2:3])
+summary(demo_r_pjanaggr3_custom_3579517_linear_csv_2[,2:3])
 ```
 
 ```{r, echo=FALSE}
-summary(nama_10r_3gdp_custom_3564935_linear_csv[,2:3])
+summary(nama_10r_3gdp_custom_3564935_linear_csv_2[,3:4])
 ```
