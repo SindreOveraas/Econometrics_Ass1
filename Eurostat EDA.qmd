@@ -30,8 +30,6 @@ populationdata <- Population %>%
   rename(Year = TIME_PERIOD, Population = OBS_VALUE, Region = geo)
 
 GDP_Per_Capita <- gdpdata %>%
-  #combine gdpr data with population data with
-  # the same year and country
   left_join(populationdata, by=c("Region", "Year")) %>%
   select(Region, Year, GDP, Population) %>%
   mutate(
@@ -40,5 +38,41 @@ GDP_Per_Capita <- gdpdata %>%
 ```
 
 ```{r, echo=FALSE}
-summary(GDP_Per_Capita[,3:5])
+kable(summary(GDP_Per_Capita[,3:5]))
+```
+
+```{r}
+GDP_Per_Capita$GDP_capita <- as.numeric(GDP_Per_Capita$GDP_capita)
+GDP_Per_Capita$Population <- as.numeric(GDP_Per_Capita$Population)
+```
+
+```{r}
+gini.wtd(GDP_Per_Capita$GDP_capita, weights = GDP_Per_Capita$Population)
+```
+
+```{r}
+GDP_Per_Capita <- GDP_Per_Capita %>%  
+  mutate(NUTS2 = substr(GDP_Per_Capita$Region,1,4))
+
+GDP_Per_Capita <- GDP_Per_Capita %>%  
+  mutate(NUTS = substr(GDP_Per_Capita$Region,1,2))
+
+na.omit(GDP_Per_Capita)
+
+GDP_Per_Capita  %<>% 
+  group_by(NUTS2) %>%
+  mutate(GINI_NUTS2 = gini.wtd(GDP_capita, weights = Population)) %>%
+  ungroup()
+```
+
+```{r}
+kable(summary(GDP_Per_Capita[8]))
+```
+
+```{r, echo=FALSE}
+ggplot(data = GDP_Per_Capita) + geom_density(aes(x = GINI_NUTS2), fill = "maroon", col = "maroon", alpha = 0.2) + theme_bw()
+```
+
+```{r, echo=FALSE}
+ggplot(data = GDP_Per_Capita) + geom_histogram(aes(x = GINI_NUTS2), fill = "maroon", col = "maroon", alpha = 0.2) + theme_bw()
 ```
