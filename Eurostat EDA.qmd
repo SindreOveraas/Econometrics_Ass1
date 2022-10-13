@@ -11,10 +11,34 @@ editor: visual
 
 Country codes: BE - Belgium, BG - Bulgaria, HR - Croatia, IT - Italy, AT - Austria, SE - Sweden, RS - Serbia
 
-```{r, echo=FALSE}
-summary(demo_r_pjanaggr3_custom_3579517_linear_csv_2[,2:3])
+```{r}
+library(tidyverse)
+library(vtable)
+library(dineq)
+library(dplyr)
+```
+
+```{r}
+library(readr)
+GDP <- read.csv('nama_10r_3gdp__custom_3564935_linear.csv')
+Population <- read_csv("demo_r_pjanaggr3__custom_3579517_linear.csv")
+
+gdpdata <- GDP %>%
+  rename(Year = TIME_PERIOD, GDP = OBS_VALUE, Region = geo)
+
+populationdata <- Population %>%
+  rename(Year = TIME_PERIOD, Population = OBS_VALUE, Region = geo)
+
+GDP_Per_Capita <- gdpdata %>%
+  #combine gdpr data with population data with
+  # the same year and country
+  left_join(populationdata, by=c("Region", "Year")) %>%
+  select(Region, Year, GDP, Population) %>%
+  mutate(
+    GDP_capita = (GDP * 1000000)/Population
+  )
 ```
 
 ```{r, echo=FALSE}
-summary(nama_10r_3gdp_custom_3564935_linear_csv_2[,3:4])
+summary(GDP_Per_Capita[,3:5])
 ```
