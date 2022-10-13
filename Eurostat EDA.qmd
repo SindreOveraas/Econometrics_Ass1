@@ -17,7 +17,7 @@ bibliography: references.bib
 Regional accounts are based on the same definitions and concepts as national accounts, this is because they are a specification of the national accounts.
 
 *Gross domestic product (GDP) is the standard measure of the value added created through the production of goods and services in a country during a certain period. As such, it also measures the income earned from that production, or the total amount spent on final goods and services (less imports). While GDP is the single most important indicator to capture economic activity, it falls short of providing a suitable measure of people's material well-being for which alternative indicators may be more appropriate.\
-*@GDPSpendingGross
+*\@GDPSpendingGross
 
 We have two ways of calculating this within regional accounts:
 
