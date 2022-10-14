@@ -10,6 +10,7 @@ bibliography: references.bib
 
 ### Sub-National GDP
 
+<<<<<<< HEAD
 # Meta Data Description
 
 ### Nama 10r
@@ -34,3 +35,74 @@ We have two ways of calculating this within regional accounts:
 *The different measures for the regional GDP are absolute figures in € and Purchasing Power Standards (PPS), figures per inhabitant and relative data compared to the EU Member States average."*
 
 @RegionalEconomicAccounts
+=======
+Country codes: BE - Belgium, BG - Bulgaria, HR - Croatia, IT - Italy, AT - Austria, SE - Sweden, RS - Serbia
+
+```{r, message=FALSE}
+library(tidyverse)
+library(vtable)
+library(dineq)
+library(dplyr)
+```
+
+```{r}
+library(readr)
+GDP <- read.csv('nama_10r_3gdp__custom_3564935_linear.csv')
+Population <- read_csv("demo_r_pjanaggr3__custom_3579517_linear.csv")
+
+gdpdata <- GDP %>%
+  rename(Year = TIME_PERIOD, GDP = OBS_VALUE, Region = geo)
+
+populationdata <- Population %>%
+  rename(Year = TIME_PERIOD, Population = OBS_VALUE, Region = geo)
+
+GDP_Per_Capita <- gdpdata %>%
+  left_join(populationdata, by=c("Region", "Year")) %>%
+  select(Region, Year, GDP, Population) %>%
+  mutate(
+    GDP_capita = (GDP * 1000000)/Population
+  )
+```
+
+```{r, echo=FALSE}
+summary(GDP_Per_Capita[,3:5])
+```
+
+```{r}
+GDP_Per_Capita$GDP_capita <- as.numeric(GDP_Per_Capita$GDP_capita)
+GDP_Per_Capita$Population <- as.numeric(GDP_Per_Capita$Population)
+```
+
+```{r}
+gini.wtd(GDP_Per_Capita$GDP_capita, weights = GDP_Per_Capita$Population)
+```
+
+```{r}
+GDP_Per_Capita <- GDP_Per_Capita %>%  
+  mutate(NUTS2 = substr(GDP_Per_Capita$Region,1,4))
+
+GDP_Per_Capita <- GDP_Per_Capita %>%  
+  mutate(NUTS = substr(GDP_Per_Capita$Region,1,2))
+
+GDP_Per_Capita  %<>%
+  group_by(NUTS2) %>%
+  na.exclude(GDP_Per_Capita) %>%
+  mutate(GINI_NUTS2 = gini.wtd(GDP_capita, weights = Population)) %>%
+  ungroup()
+```
+
+```{r}
+summary(GDP_Per_Capita[8])
+```
+
+```{r, echo=FALSE}
+ggplot(data = GDP_Per_Capita) + geom_density(aes(x = GINI_NUTS2), fill = "maroon", col = "maroon", alpha = 0.2) + theme_bw()
+```
+
+```{r, echo=FALSE}
+ggplot(data = GDP_Per_Capita) + geom_histogram(aes(x = GINI_NUTS2), fill = "maroon", col = "maroon", alpha = 0.2) + theme_bw()
+```
+
+Looking at the plot above there is one outlier up against 0.4 with around 100 observations.
+The same result also seem to accure in the density plot.
+>>>>>>> Sindre
