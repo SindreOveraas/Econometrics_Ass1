@@ -11,7 +11,7 @@ editor: visual
 
 Country codes: BE - Belgium, BG - Bulgaria, HR - Croatia, IT - Italy, AT - Austria, SE - Sweden, RS - Serbia
 
-```{r}
+```{r, message=FALSE}
 library(tidyverse)
 library(vtable)
 library(dineq)
@@ -38,7 +38,7 @@ GDP_Per_Capita <- gdpdata %>%
 ```
 
 ```{r, echo=FALSE}
-kable(summary(GDP_Per_Capita[,3:5]))
+summary(GDP_Per_Capita[,3:5])
 ```
 
 ```{r}
@@ -57,16 +57,15 @@ GDP_Per_Capita <- GDP_Per_Capita %>%
 GDP_Per_Capita <- GDP_Per_Capita %>%  
   mutate(NUTS = substr(GDP_Per_Capita$Region,1,2))
 
-na.omit(GDP_Per_Capita)
-
-GDP_Per_Capita  %<>% 
+GDP_Per_Capita  %<>%
   group_by(NUTS2) %>%
+  na.exclude(GDP_Per_Capita) %>%
   mutate(GINI_NUTS2 = gini.wtd(GDP_capita, weights = Population)) %>%
   ungroup()
 ```
 
 ```{r}
-kable(summary(GDP_Per_Capita[8]))
+summary(GDP_Per_Capita[8])
 ```
 
 ```{r, echo=FALSE}
