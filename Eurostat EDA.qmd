@@ -75,3 +75,6 @@ ggplot(data = GDP_Per_Capita) + geom_density(aes(x = GINI_NUTS2), fill = "maroon
 ```{r, echo=FALSE}
 ggplot(data = GDP_Per_Capita) + geom_histogram(aes(x = GINI_NUTS2), fill = "maroon", col = "maroon", alpha = 0.2) + theme_bw()
 ```
+
+Looking at the plot above there is one outlier up against 0.4 with around 100 observations.
+The same result also seem to accure in the density plot.
