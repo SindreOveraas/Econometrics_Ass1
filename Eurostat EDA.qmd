@@ -23,7 +23,7 @@ We have two ways of calculating this within regional accounts:
 
 **The first one is the output approach**
 
-*"GDP is the sum of gross value added of the various institutional sectors or the various industries plus taxes and less subsidies on products (which are not allocated to sectors and industries). It is also the balancing item in the total economy production account."*
+*Where the GDP is the sum of gross value added of the various institutional sectors or the various industries plus taxes and less subsidies on products. It is also the balancing item in the total economy production account."*
 
 **2. Income approach**
 
@@ -32,3 +32,5 @@ We have two ways of calculating this within regional accounts:
 *Contrary to national accounts GDP is not compoled from the expenditure side in regional accounts due to data limitations on the inter-regional flows of goods and services.*
 
 *The different measures for the regional GDP are absolute figures in € and Purchasing Power Standards (PPS), figures per inhabitant and relative data compared to the EU Member States average."*
+
+@RegionalEconomicAccounts
