@@ -41,6 +41,22 @@ GDP_Per_Capita <- gdpdata %>%
 summary(GDP_Per_Capita[,3:5])
 ```
 
+Looking at the GDP per capita for all country´s in the dataset, we find that the difference in population from min to max is big.
+The difference between Median and Mean is also relatively big witch can indicate that some of the biggest regions has much larger amount of population then the rest and therefore affects the mean and pulls it higher.
+The fact that the 3rd quartile is just a few thousands away from the mean amplifies our suspicion that we have some outliers with a very high population compared to the rest.
+
+Its reason to believe that high population equals high GDP based on the fact that it is more people that contributes to the GDP.
+However, this can not be applied in every circumstances.
+For example Monaco with a population in 2020 of just above 39.000 [@MonacoPopulation2022] had a GDP on 6.25 billion USD the same year versus Burundi with a GDP on 3.22 billion [@GDPConstant2015] and a population just above 11.89 million [@BurundiPopulation2022].
+The GDP per capita gives us a more accurate measure.
+in the model above we can see that its a big difference in GDP per capita in each region, ths can be caused by population or cluster with rich/poor individuals.
+
+We also had som NA values witch we chose to take out of the dataset.
+NA values may come from the fact that Population or the GDP was not measured this year or was not available when the dataset was made.
+
+```{}
+```
+
 ```{r}
 GDP_Per_Capita$GDP_capita <- as.numeric(GDP_Per_Capita$GDP_capita)
 GDP_Per_Capita$Population <- as.numeric(GDP_Per_Capita$Population)
