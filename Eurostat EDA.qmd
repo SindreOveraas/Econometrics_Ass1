@@ -111,12 +111,9 @@ The same result also seem to occur in the density plot.
 
 \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
 
-**We made a variety of diagrams to show the difference between some
-countries and regions.**
+**We made a variety of diagrams to show the difference between some countries and regions.**
 
-For this diagram we picked and divided the countries in to their respected
-sub-regions and catagorized them, before comparing.\
-
+For this diagram we picked and divided the countries in to their respected sub-regions and catagorized them, before comparing.\
 
 Central and Eastern Europe: Croatia, Serbia and Bulgaria\
 
@@ -126,32 +123,21 @@ Northern Europe: Sweden\
 
 Western Europe: Austria and Belgium\
 
-(Catagorized collected from wikipedia : @FileEuropeanSubregions
-)
+(Catagorized collected from wikipedia : @FileEuropeanSubregions )
 
-With this diagram, we can see the GDP of the different areas and their rise
-and fall from the 2000 to 2020.
+With this diagram, we can see the GDP of the different areas and their rise and fall from the 2000 to 2020.
 
 **\*\*explain what we see**\*\*\
 
------------------
+------------------------------------------------------------------------
 
-Further on we wish to highlight some of the regions within countries to see
-differences in GDP.
-There are some countries with wider gaps between them, and
-makes this a insightful visual representation.
-We dig deeper into Sweden where
-we used the regions: Stockholm, Uppsala and Gotland.
-With these we se some big
-gaps when it comes to GDP and how Stockholm alone raises the country´s
-collective GDP.
-In the diagram below we also show the GDP Per Capita in each
-region.\*\*\* The simple reason behind the difference is the location of Stockholm
-and that it is the capital of sweden, as well as being one of the major
-industrial cities in Sweden also called industrial cluster area.
+Further on we wish to highlight some of the regions within countries to see differences in GDP.
+There are some countries with wider gaps between them, and makes this a insightful visual representation.
+We dig deeper into Sweden where we used the regions: Stockholm, Uppsala and Gotland.
+With these we se some big gaps when it comes to GDP and how Stockholm alone raises the country´s collective GDP.
+In the diagram below we also show the GDP Per Capita in each region.\*\*\* The simple reason behind the difference is the location of Stockholm and that it is the capital of sweden, as well as being one of the major industrial cities in Sweden also called industrial cluster area.
 
-\*\*\*Do more calulations on differences on regional levels and give further
-explanations\*\*\*\
+\*\*\*Do more calulations on differences on regional levels and give further explanations\*\*\*\
 
 \
 
