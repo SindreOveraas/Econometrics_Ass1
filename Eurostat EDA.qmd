@@ -49,13 +49,10 @@ Its reason to believe that high population equals high GDP based on the fact tha
 However, this can not be applied in every circumstances.
 For example Monaco with a population in 2020 of just above 39.000 [@MonacoPopulation2022] had a GDP on 6.25 billion USD the same year versus Burundi with a GDP on 3.22 billion [@GDPConstant2015] and a population just above 11.89 million [@BurundiPopulation2022].
 The GDP per capita gives us a more accurate measure.
-in the model above we can see that its a big difference in GDP per capita in each region, ths can be caused by population or cluster with rich/poor individuals.
+in the model above we can see that its a big difference in GDP per capita in each region, this can be caused by a population or a cluster with rich/poor individuals.
 
-We also had som NA values witch we chose to take out of the dataset.
+We also had some NA values witch we chose to take out of the dataset.
 NA values may come from the fact that Population or the GDP was not measured this year or was not available when the dataset was made.
-
-```{}
-```
 
 ```{r}
 GDP_Per_Capita$GDP_capita <- as.numeric(GDP_Per_Capita$GDP_capita)
