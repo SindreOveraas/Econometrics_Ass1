@@ -8,6 +8,7 @@ editor: visual
 bibliography: references.bib
 ---
 
+
 ## Eurostat EDA
 
 #### Meta-data description
@@ -28,6 +29,7 @@ Country codes: BE - Belgium, BG - Bulgaria, HR - Croatia, IT - Italy, AT - Austr
 
 These are the RStudio packages we install and load to do our calculations.
 
+
 ```{r, message=FALSE}
 library(tidyverse)
 library(vtable)
@@ -35,8 +37,10 @@ library(dineq)
 library(dplyr)
 ```
 
+
 We downloaded from Eurostat our subset of countries sub-regional GDP (nama_10r_3gdp\_\_custom_3564935_linear.csv) and population (demo_r\_pjanaggr3\_\_custom_3579517_linear.csv) for the years 2000 - 2020.
 We then calculated the GDP per capita, and named the new data set "GDP_Per_Capita".
+
 
 ```{r, message=FALSE}
 library(readr)
@@ -56,8 +60,10 @@ GDP_Per_Capita <- gdpdata %>%
     GDP_capita = (GDP * 1000000)/Population)
 ```
 
+
 To report our descriptive statistics on GDP per capita, we used the summary command.
 This gave us the following descriptive statistics on the variables GDP, population and GDP capita.
+
 
 ```{r, echo=FALSE}
 summary(GDP_Per_Capita[,3:5])
@@ -68,13 +74,17 @@ GDP_Per_Capita$GDP_capita <- as.numeric(GDP_Per_Capita$GDP_capita)
 GDP_Per_Capita$Population <- as.numeric(GDP_Per_Capita$Population)
 ```
 
+
 To calculate the population watertight GDP Ginie coefficient, we used the following command.
+
 
 ```{r}
 gini.wtd(GDP_Per_Capita$GDP_capita, weights = GDP_Per_Capita$Population)
 ```
 
+
 To calculate the population watertight GDP Ginie coefficents for the European NUTS2 level, we used the following commands.
+
 
 ```{r}
 GDP_Per_Capita <- GDP_Per_Capita %>%  
@@ -90,13 +100,17 @@ GDP_Per_Capita  %<>%
   ungroup()
 ```
 
+
 To summarize the data of the Ginie coefficients, we once more used the summarize command.
+
 
 ```{r, echo=FALSE}
 summary(GDP_Per_Capita[8])
 ```
 
+
 For visualization of our data (the Ginie coefficients for the European NUTS2 level of our selected countries), we produced a density plot and histogram, by the use of the ggplot2 package.
+
 
 ```{r, echo=FALSE}
 ggplot(data = GDP_Per_Capita) + geom_density(aes(x = GINI_NUTS2), fill = "maroon", col = "maroon", alpha = 0.2) + theme_bw()
@@ -105,6 +119,7 @@ ggplot(data = GDP_Per_Capita) + geom_density(aes(x = GINI_NUTS2), fill = "maroon
 ```{r, echo=FALSE, message=FALSE}
 ggplot(data = GDP_Per_Capita) + geom_histogram(aes(x = GINI_NUTS2), fill = "maroon", col = "maroon", alpha = 0.2) + theme_bw()
 ```
+
 
 Looking at the plot above there is one outlier up against 0.4 with around 100 observations.
 The same result also seem to occur in the density plot.
@@ -156,3 +171,4 @@ explanations\*\*\*\
 \
 
 \*\*\*\* show 2 diagrams of gdp aswell as gdp per capita \*\*\*\*
+
