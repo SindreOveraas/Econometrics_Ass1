@@ -39,7 +39,7 @@ library(dineq)
 library(dplyr)
 ```
 
-```{r, echo=FALSE, warning=FALSE}
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
 library(readr)
 GDP <- read.csv('nama_10r_3gdp__custom_3564935_linear.csv')
 Population <- read_csv("demo_r_pjanaggr3__custom_3579517_linear.csv")
@@ -115,7 +115,7 @@ The same result also seem to accure in the density plot.
 
 ```{r}
 GDP_Per_Capita %>% distinct(NUTS, Year, .keep_all = TRUE) %>%
-  ggplot(aes(x = Year, y = GDP_capita, colour = NUTS)) + geom_line(lwd = .8) + labs(x = "Year", y = "GDP per capita") + theme_bw()
+  ggplot(aes(x = Year, y = GDP_capita, colour = NUTS)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
 ```
 
 ### Bulgaria GDP
@@ -127,7 +127,7 @@ GDP_Per_Capita_BG <- GDP_Per_Capita %>%
 
 GDP_Per_Capita %>%
   filter(Region %in% GDP_Per_Capita_BG$Region) %>%
-  ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .8) + labs(x = "Year", y = "GDP per capita") + theme_bw()
+  ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
 ```
 
 ```{r}
@@ -153,7 +153,7 @@ GDP_Per_Capita_BE <- GDP_Per_Capita %>%
 
 GDP_Per_Capita %>%
   filter(Region %in% GDP_Per_Capita_BE$Region) %>%
-  ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .8) + labs(x = "Year", y = "GDP per capita") + theme_bw()
+  ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
 ```
 
 ```{r}
@@ -179,7 +179,7 @@ GDP_Per_Capita_AT <- GDP_Per_Capita %>%
 
 GDP_Per_Capita %>%
   filter(Region %in% GDP_Per_Capita_AT$Region) %>%
-  ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .8) + labs(x = "Year", y = "GDP per capita") + theme_bw()
+  ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
 ```
 
 ```{r}
@@ -205,7 +205,7 @@ GDP_Per_Capita_HR <- GDP_Per_Capita %>%
 
 GDP_Per_Capita %>%
   filter(Region %in% GDP_Per_Capita_HR$Region) %>%
-  ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .8) + labs(x = "Year", y = "GDP per capita") + theme_bw()
+  ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
 ```
 
 ```{r}
@@ -231,7 +231,8 @@ GDP_Per_Capita_IT <- GDP_Per_Capita %>%
 
 GDP_Per_Capita %>%
   filter(Region %in% GDP_Per_Capita_IT$Region) %>%
-  ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .8) + labs(x = "Year", y = "GDP per capita") + theme_bw()
+  slice_max(GDP_capita, n = 500) %>%
+  ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
 ```
 
 ```{r}
@@ -257,7 +258,7 @@ GDP_Per_Capita_RS <- GDP_Per_Capita %>%
 
 GDP_Per_Capita %>%
   filter(Region %in% GDP_Per_Capita_RS$Region) %>%
-  ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .8) + labs(x = "Year", y = "GDP per capita") + theme_bw()
+  ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
 ```
 
 ```{r}
@@ -283,7 +284,7 @@ GDP_Per_Capita_SE <- GDP_Per_Capita %>%
 
 GDP_Per_Capita %>%
   filter(Region %in% GDP_Per_Capita_SE$Region) %>%
-  ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .8) + labs(x = "Year", y = "GDP per capita") + theme_bw()
+  ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
 ```
 
 ```{r}
@@ -310,7 +311,7 @@ GDP_Per_Capita_Max <- GDP_Per_Capita %>%
 
 GDP_Per_Capita %>%
   filter(Region %in% GDP_Per_Capita_Max$Region) %>%
-  ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .6) + labs(x = "Year", y = "GDP per capita") + theme_bw()
+  ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
 ```
 
 ### 10 regions with lowest GDP
@@ -323,5 +324,5 @@ GDP_Per_Capita_Min <- GDP_Per_Capita %>%
 
 GDP_Per_Capita %>%
   filter(Region %in% GDP_Per_Capita_Min$Region) %>%
-  ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .8) + labs(x = "Year", y = "GDP per capita") + theme_bw()
+  ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
 ```
