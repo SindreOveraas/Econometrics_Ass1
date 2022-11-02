@@ -219,8 +219,7 @@ kable(GDP_Per_Capita %>%
 ```
 
 AT312 (Linz-Wels), AT130 (Wien) and AT323 (Salzburg) is the Regions with the highest scoring GDP per capita in 2010.
-They have held a similar pattern and GDP per
-capita from 2000 to 2020.
+They have held a similar pattern and GDP per capita from 2000 to 2020.
 
 ```{r, echo=FALSE}
 kable(GDP_Per_Capita %>%
@@ -244,14 +243,11 @@ GDP_Per_Capita %>%
   ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
 ```
 
-The graphs for Croatia shows that the financial crises also had an impact on the GDP per capita in 2008 until 2012/2013 before the GDP per capita startet do climb again
-before it dips again around 2018.
-We can see that region HR036 and HR031 has
-GDP per capita that lays a bit higher than the other regions for the most part.
+The graphs for Croatia shows that the financial crises also had an impact on the GDP per capita in 2008 until 2012/2013 before the GDP per capita startet do climb again before it dips again around 2018.
+We can see that region HR036 and HR031 has GDP per capita that lays a bit higher than the other regions for the most part.
 
 However, region HR037 and HR032 also had some good years.
-Croatia has also
-fewer regions with available DGP data on a nuts3 level then the other countries.
+Croatia has also fewer regions with available DGP data on a nuts3 level then the other countries.
 
 ```{r, echo=FALSE}
 kable(GDP_Per_Capita %>%
@@ -263,8 +259,7 @@ kable(GDP_Per_Capita %>%
 The topvthree regions in 2010 measured by GDP per capita is HR036 (istarska županija), HR031 (Primorsko-goranska županija) and HR037 (dubrovnik-neretva).
 istarska županija is big on processing industry, tourism and trade [@Economy].
 
-Dubrovnik-Neretva is the capital of Croatias and are also big on tourism, but
-also makes a living out of hospitality industry, agriculture and maritime indisutry [@Economya].
+Dubrovnik-Neretva is the capital of Croatias and are also big on tourism, but also makes a living out of hospitality industry, agriculture and maritime indisutry [@Economya].
 
 ```{r, echo=FALSE}
 kable(GDP_Per_Capita %>%
@@ -291,7 +286,7 @@ GDP_Per_Capita %>%
 
 Italy consists of many NUTS3 Regions.
 We piced out only the 500 biggest and used them in our plot.
-Some of the regions in the plot don\'t hav GDP per capita data for the whole-time frame.
+Some of the regions in the plot don't hav GDP per capita data for the whole-time frame.
 We can see that is a big difference in the Regions at the bottom and the one on top.
 The top Region ITC4C (Milano) also stands out from the rest with a higher GDP per capita at all times between year 2000 and 2020.
 We can also see that it is some what of a dip around 2011 too.
