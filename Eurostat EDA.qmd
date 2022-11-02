@@ -118,6 +118,24 @@ GDP_Per_Capita %>% distinct(NUTS, Year, .keep_all = TRUE) %>%
   ggplot(aes(x = Year, y = GDP_capita, colour = NUTS)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
 ```
 
+In the gg plot above we have taken out the countries that belongs to our selection - Austria (AT), Belgium (BE), Bulgaria (BG), Croatia (HR), Italy (IT), Serbia (RS) and Sweden (SE) - and added them in to a time series from year 2000 - 2020 (X-axis) to compare the evolution of GDP per capita (Y-axis) over the given time period.
+The data is found and downloaded from Eurostat [@StatisticsEurostata]
+
+Seven out of eight countries we where given was available for download trough Eurostat, the country witch we are missing is Bosnia and Herzegovina.
+
+From the GG plot we can see that none of the countries have data from the whole time frame, some are missing data from the first years and others are missing from the last years.
+Serbia only have data from around 2017 to 2019.
+This might come from the fact that Serbia became an independent republic in 2006 and for that reason has not been collecting og establishing much info around GDP [@Serbia].
+
+The country´s with the highest GDP per capita is Belgium and Sweden, where both countries has experienced growth in GDP per capita over time.
+Sweden also has had the biggest growth in GDP Per capita compared to the other countries.
+
+From the graphs, the three countries with highest GDP per capita had a noticeable decline around 2008, which is related to the financial crises at this time.
+Sweden also experiences the largest dip around this time [@EconomicRecoveryEU]
+
+Four of the five countris on the bottom also has experienced growth, just not as significant as Sweden and Belgium.
+Austria had a big downfall in GDP per capita from year 2000 to 2001, but has had a stable growth since then.
+
 ### Bulgaria GDP
 
 ```{r}
