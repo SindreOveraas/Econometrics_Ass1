@@ -430,7 +430,7 @@ We can observe that the density plot above matches our summary statistics of the
 ggplot(data = GDP_Per_Capita, aes(x = NUTS, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.25) + labs(x = "Country", y = "GINI") + theme_bw()
 ```
 
-Based on the summary statistics, the density plot and the scatter plot, we can see notable outliers.
+Based on the summary statistics, the density plot and the scatter plot, we can see noteable outliers.
 This applies in particular to Bulgaria (BG), where there are some observations if the Gini coefficient above 0.2 up to 0.235.
 This is noteworthy as only Bulgaria's coefficient is at this level.
 
