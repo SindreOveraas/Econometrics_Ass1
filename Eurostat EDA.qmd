@@ -1,44 +1,45 @@
 ---
 title: "Eurostat EDA"
-author: "Sindre H. Øveraas, Alen Colakovic & Sebastian M. Fløysand"
+author: "Sindre H. Øveraas, Alen Colacovic & Sebastian M. Fløysand"
 format: 
  pdf:
   papersize: a4
 editor: visual
-bibliography: references.bib
+csl: apa-no-ampersand.csl
+bibliography: [SHO.bib]
 ---
 
 ## Eurostat EDA
 
-#### Meta-data description
+In this paper we are going to present an explanatory data analysis of different statistics of selected European countries.
+We are more specifically going to analyze the European countries Austria (AT), Belgium (BE), Bulgaria (BG), Croatia (HR), Italy (IT), Serbia (RS), and Sweden (SE).
 
-#### Nama 10r
+The paper will consist of four parts (assignments), where in the first part we will explore sub-national GDP and regional inequity in our selected countries.
+For this part we will use data collected from Eurostat.
+The data for the first part of the paper consists of GDP and population statistics for the years 2000 -- 2020, on a sub-regional level i.e., at NUTS 3 level.
+NUTS (Nomenclature of territorial units for statistics) is the geographical nomenclature subdividing the economic territory of countries in the European Union.
+These levels consist of NUTS 1, 2 and 3, with 3 representing the smallest territorial units in a country [@GlossaryNomenclatureTerritorial2021].
+The remaining parts of this paper i.e., 2, 3 and 4, will be explained continuously and gradually when we eventually get to them later in the paper.
 
-Regional accounts are based on the same definitions and concepts as national accounts, this is because they are a specification of the national accounts.
+To start our analysis of sub-national GDP and regional inequity for our selected countries we must, as mentioned, collect data from Eurostat.
+We download population by broad age group and sex, as well as gross domestic product at current markets prices, at NUTS 3 level [@StatisticsEurostat2022a] [@StatisticsEurostat2022].
+After we have added our two datasets to our RStudio project, we can calculate GDP per capita at the NUTS 3 level for the separate countries.
+This is achieved with dividing the GDP on the number of population figures, and can be presented with the following formula:\
 
-*Gross domestic product (GDP) is the standard measure of the value added created through the production of goods and services in a country during a certain period. As such, it also measures the income earned from that production, or the total amount spent on final goods and services (less imports). While GDP is the single most important indicator to capture economic activity, it falls short of providing a suitable measure of people's material well-being for which alternative indicators may be more appropriate.\
-*\@GDPSpendingGross
+$$
+y_i=GDP_i/population_i
+$$
 
-Our goal with this task is to compare the GDP´s of the different regions within nations.
-We will dig deeper into the evelution of the GDP to each of our given nations aswell as some of their most intriguing regions.
+### Sub-National GDP
 
-### Sub-national GDP
-
-Country codes: BE - Belgium, BG - Bulgaria, HR - Croatia, IT - Italy, AT - Austria, SE - Sweden, RS - Serbia
-
-These are the RStudio packages we install and load to do our calculations.
-
-```{r, message=FALSE}
+```{r, message=FALSE, echo=FALSE}
 library(tidyverse)
 library(vtable)
 library(dineq)
 library(dplyr)
 ```
 
-We downloaded from Eurostat our subset of countries sub-regional GDP (nama_10r_3gdp\_\_custom_3564935_linear.csv) and population (demo_r\_pjanaggr3\_\_custom_3579517_linear.csv) for the years 2000 - 2020.
-We then calculated the GDP per capita, and named the new data set "GDP_Per_Capita".
-
-```{r, message=FALSE}
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
 library(readr)
 GDP <- read.csv('nama_10r_3gdp__custom_3564935_linear.csv')
 Population <- read_csv("demo_r_pjanaggr3__custom_3579517_linear.csv")
@@ -53,47 +54,37 @@ GDP_Per_Capita <- gdpdata %>%
   left_join(populationdata, by=c("Region", "Year")) %>%
   select(Region, Year, GDP, Population) %>%
   mutate(
-    GDP_capita = (GDP * 1000000)/Population)
+    GDP_capita = (GDP * 1000000)/Population
+  )
 ```
-
-To report our descriptive statistics on GDP per capita, we used the summary command.
-This gave us the following descriptive statistics on the variables GDP, population and GDP capita.
 
 ```{r, echo=FALSE}
-summary(GDP_Per_Capita[,3:5])
+kable(summary(GDP_Per_Capita[,3:5]))
 ```
 
-Looking at the GDP per capita for all country´s in the dataset, we find that the difference in population from min to max is big.
-
+Looking at the GDP per capita for all countries in the dataset, we find that the difference in population from min to max is big.
 The difference between Median and Mean is also relatively big witch can indicate that some of the biggest regions has much larger amount of population then the rest and therefore affects the mean and pulls it higher.
-
 The fact that the 3rd quartile is just a few thousands away from the mean amplifies our suspicion that we have some outliers with a very high population compared to the rest.
 
 Its reason to believe that high population equals high GDP based on the fact that it is more people that contributes to the GDP.
-
 However, this can not be applied in every circumstances.
-
-For example Monaco with a population in 2020 of just above 39.000 \[\@MonacoPopulation2022\] had a GDP on 6.25 billion USD the same year versus Burundi with a GDP on 3.22 billion \[\@GDPConstant2015\] and a population just above 11.89 million \[\@BurundiPopulation2022\].
-
+For example Monaco with a population in 2020 of just above 39.000 [@MonacoPopulation2022] had a GDP on 6.25 billion USD the same year versus Burundi with a GDP on 3.22 billion [@GDPConstant2015] and a population just above 11.89 million [@BurundiPopulation2022].
 The GDP per capita gives us a more accurate measure.
-
 in the model above we can see that its a big difference in GDP per capita in each region, this can be caused by a population or a cluster with rich/poor individuals.
 
 We also had some NA values witch we chose to take out of the dataset.
-
 NA values may come from the fact that Population or the GDP was not measured this year or was not available when the dataset was made.
 
-To calculate the population watertight GDP Ginie coefficient, we used the following command.
+```{r, echo=FALSE}
+GDP_Per_Capita$GDP_capita <- as.numeric(GDP_Per_Capita$GDP_capita)
+GDP_Per_Capita$Population <- as.numeric(GDP_Per_Capita$Population)
+```
 
 ```{r, echo=FALSE}
-
-
 gini.wtd(GDP_Per_Capita$GDP_capita, weights = GDP_Per_Capita$Population)
 ```
 
-To calculate the population watertight GDP Ginie coefficents for the European NUTS2 level, we used the following commands.
-
-```{r}
+```{r, echo=FALSE}
 GDP_Per_Capita <- GDP_Per_Capita %>%  
   mutate(NUTS2 = substr(GDP_Per_Capita$Region,1,4))
 
@@ -107,57 +98,246 @@ GDP_Per_Capita  %<>%
   ungroup()
 ```
 
-To summarize the data of the Ginie coefficients, we once more used the summarize command.
-We see here the gap between minimum and maximum is more then 10 times difference from 0.03367 to 0.36569 but the mean and median is at 0.09839 and 0.11800 which implies that the majority is located in closer to the minium and middle.
-
 ```{r, echo=FALSE}
-summary(GDP_Per_Capita[8])
+kable(summary(GDP_Per_Capita[8]))
 ```
-
-For visualization of our data (the Ginie coefficients for the European NUTS2 level of our selected countries), we produced a density plot and histogram, by the use of the ggplot2 package.
 
 ```{r, echo=FALSE}
 ggplot(data = GDP_Per_Capita) + geom_density(aes(x = GINI_NUTS2), fill = "maroon", col = "maroon", alpha = 0.2) + theme_bw()
 ```
 
-```{r, echo=FALSE, message=FALSE}
+```{r, echo=FALSE}
 ggplot(data = GDP_Per_Capita) + geom_histogram(aes(x = GINI_NUTS2), fill = "maroon", col = "maroon", alpha = 0.2) + theme_bw()
 ```
 
 Looking at the plot above there is one outlier up against 0.4 with around 100 observations.
-The same result also seem to occur in the density plot.
-The majority is seen around 0.1 with a descending decline.
+The same result also seem to accure in the density plot.
 
-\-\-\-\-\-\-\-\-\--
+```{r}
+GDP_Per_Capita %>% distinct(NUTS, Year, .keep_all = TRUE) %>%
+  ggplot(aes(x = Year, y = GDP_capita, colour = NUTS)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
+```
 
-**We made a variety of diagrams to show the difference between some countries and regions.**
+### Bulgaria GDP
 
-For this diagram we picked and divided the countries in to their respected sub-regions and catagorized them, before comparing.\
+```{r}
+GDP_Per_Capita_BG <- GDP_Per_Capita %>%
+  filter(NUTS == "BG" ) %>% select(GDP_capita, Region) %>%
+  select(Region)
 
-Central and Eastern Europe: Croatia, Serbia and Bulgaria\
+GDP_Per_Capita %>%
+  filter(Region %in% GDP_Per_Capita_BG$Region) %>%
+  ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
+```
 
-South Europe: Italy\
+```{r}
+GDP_Per_Capita %>%
+  filter(NUTS == "BG", Year == 2010) %>%
+  select(Region, GDP_capita) %>%
+  slice_max(GDP_capita, n = 3)
+```
 
-Northern Europe: Sweden\
+```{r}
+GDP_Per_Capita %>%
+  filter(NUTS == "BG", Year == 2010) %>%
+  select(Region, GDP_capita) %>%
+  slice_min(GDP_capita, n = 3)
+```
 
-Western Europe: Austria and Belgium\
+### Belgium GDP
 
-(Catagorized collected from wikipedia : @FileEuropeanSubregions )
+```{r}
+GDP_Per_Capita_BE <- GDP_Per_Capita %>%
+  filter(NUTS == "BE" ) %>% select(GDP_capita, Region) %>%
+  select(Region)
 
-With this diagram, we can see the GDP of the different areas and their rise and fall from the 2000 to 2020.
+GDP_Per_Capita %>%
+  filter(Region %in% GDP_Per_Capita_BE$Region) %>%
+  ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
+```
 
-**\*\*explain what we see**\*\*\
+```{r}
+GDP_Per_Capita %>%
+  filter(NUTS == "BE", Year == 2010) %>%
+  select(Region, GDP_capita) %>%
+  slice_max(GDP_capita, n = 3)
+```
 
-------------------------------------------------------------------------
+```{r}
+GDP_Per_Capita %>%
+  filter(NUTS == "BE", Year == 2010) %>%
+  select(Region, GDP_capita) %>%
+  slice_min(GDP_capita, n = 3)
+```
 
-Further on we wish to highlight some of the regions within countries to see differences in GDP.
-There are some countries with wider gaps between them, and makes this a insightful visual representation.
-We dig deeper into Sweden where we used the regions: Stockholm, Uppsala and Gotland.
-With these we se some big gaps when it comes to GDP and how Stockholm alone raises the country´s collective GDP.
-In the diagram below we also show the GDP Per Capita in each region.\*\*\* The simple reason behind the difference is the location of Stockholm and that it is the capital of sweden, as well as being one of the major industrial cities in Sweden also called industrial cluster area.
+### Austria GDP
 
-\*\*\*Do more calulations on differences on regional levels and give further explanations\*\*\*\
+```{r}
+GDP_Per_Capita_AT <- GDP_Per_Capita %>%
+  filter(NUTS == "AT" ) %>% select(GDP_capita, Region) %>%
+  select(Region)
 
-\
+GDP_Per_Capita %>%
+  filter(Region %in% GDP_Per_Capita_AT$Region) %>%
+  ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
+```
 
-\*\*\*\* show 2 diagrams of gdp aswell as gdp per capita \*\*\*\*
+```{r}
+GDP_Per_Capita %>%
+  filter(NUTS == "AT") %>%
+  select(Region, GDP_capita) %>%
+  slice_max(GDP_capita, n = 3)
+```
+
+```{r}
+GDP_Per_Capita %>%
+  filter(NUTS == "AT") %>%
+  select(Region, GDP_capita) %>%
+  slice_min(GDP_capita, n = 3)
+```
+
+### Croatia GDP
+
+```{r}
+GDP_Per_Capita_HR <- GDP_Per_Capita %>%
+  filter(NUTS == "HR" ) %>% select(GDP_capita, Region) %>%
+  select(Region)
+
+GDP_Per_Capita %>%
+  filter(Region %in% GDP_Per_Capita_HR$Region) %>%
+  ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
+```
+
+```{r}
+GDP_Per_Capita %>%
+  filter(NUTS == "HR") %>%
+  select(Region, GDP_capita) %>%
+  slice_max(GDP_capita, n = 3)
+```
+
+```{r}
+GDP_Per_Capita %>%
+  filter(NUTS == "HR") %>%
+  select(Region, GDP_capita) %>%
+  slice_min(GDP_capita, n = 3)
+```
+
+### Italy GDP
+
+```{r}
+GDP_Per_Capita_IT <- GDP_Per_Capita %>%
+  filter(NUTS == "IT" ) %>% select(GDP_capita, Region) %>%
+  select(Region)
+
+GDP_Per_Capita %>%
+  filter(Region %in% GDP_Per_Capita_IT$Region) %>%
+  slice_max(GDP_capita, n = 500) %>%
+  ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
+```
+
+```{r}
+GDP_Per_Capita %>%
+  filter(NUTS == "IT") %>%
+  select(Region, GDP_capita) %>%
+  slice_max(GDP_capita, n = 3)
+```
+
+```{r}
+GDP_Per_Capita %>%
+  filter(NUTS == "IT") %>%
+  select(Region, GDP_capita) %>%
+  slice_min(GDP_capita, n = 3)
+```
+
+### Serbia GDP
+
+```{r}
+GDP_Per_Capita_RS <- GDP_Per_Capita %>%
+  filter(NUTS == "RS" ) %>% select(GDP_capita, Region) %>%
+  select(Region)
+
+GDP_Per_Capita %>%
+  filter(Region %in% GDP_Per_Capita_RS$Region) %>%
+  ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
+```
+
+```{r}
+GDP_Per_Capita %>%
+  filter(NUTS == "RS") %>%
+  select(Region, GDP_capita) %>%
+  slice_max(GDP_capita, n = 3)
+```
+
+```{r}
+GDP_Per_Capita %>%
+  filter(NUTS == "RS") %>%
+  select(Region, GDP_capita) %>%
+  slice_min(GDP_capita, n = 3)
+```
+
+### Sweden GDP
+
+```{r}
+GDP_Per_Capita_SE <- GDP_Per_Capita %>%
+  filter(NUTS == "SE" ) %>% select(GDP_capita, Region) %>%
+  select(Region)
+
+GDP_Per_Capita %>%
+  filter(Region %in% GDP_Per_Capita_SE$Region) %>%
+  ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
+```
+
+```{r}
+GDP_Per_Capita %>%
+  filter(NUTS == "SE") %>%
+  select(Region, GDP_capita) %>%
+  slice_max(GDP_capita, n = 3)
+```
+
+```{r}
+GDP_Per_Capita %>%
+  filter(NUTS == "SE") %>%
+  select(Region, GDP_capita) %>%
+  slice_min(GDP_capita, n = 3)
+```
+
+### 10 regions with highest GDP
+
+```{r}
+GDP_Per_Capita_Max <- GDP_Per_Capita %>%
+  filter(Year == 2010) %>% select(GDP_capita, Region) %>%
+  slice_max(GDP_capita, n = 10) %>%
+  select(Region)
+
+GDP_Per_Capita %>%
+  filter(Region %in% GDP_Per_Capita_Max$Region) %>%
+  ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
+```
+
+Comparing the regions with the highest GDP per capita between the countries, we see BE100 (Brussels) with a GDP that was rising well above 70 000 before the corona pandemic, and was slightly lower than 70 000 in 2020.
+From this dataset among the highest gdp per capita regions, it was only Brussels and Antwerp that had data available until 2020.
+AT323 which is Salzburg, more concretely Salzburg und Umgebung(@NUTSStatisticalRegions2022), had a population of 366´866 in 2019, which is a great difference compared to SE110 - Stockholm with a population of \
+2´344´124 in 2019.
+A considerable difference, showing how the GDP per capita is fairly close to eachother even though the aforementioned population difference.
+
+### 10 regions with lowest GDP
+
+```{r}
+GDP_Per_Capita_Min <- GDP_Per_Capita %>%
+  filter(Year == 2010) %>% select(GDP_capita, Region) %>%
+  slice_min(GDP_capita, n = 10) %>%
+  select(Region)
+
+GDP_Per_Capita %>%
+  filter(Region %in% GDP_Per_Capita_Min$Region) %>%
+  ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
+```
+
+The 10 regions with the lowest GDP per capita shows us they are all located in Bulgaria.
+We want to clarify that there were insufficent data when it came to Bosnia & Hercegovina, which could have been a contender for the lowest GDP per Capita in some regions.
+Eight of the lowest GDP per capita regions are located in Nuts 1 - BG3 (Northern & Eastern Bulgaria).
+BG 3 is divided into 4 Nuts 2 regions : (BG31)Northwestern, (BG32)Northern Central, (BG33) Northeastern, (BG34) Southeastern.
+BG31 has three provinces that are on our top 10list; Vidin Province(311), Montana Province(312) and Pleven Province(314).
+It is clear to see that the pattern for where the GDP per capita is low, is around the Eastern areas, Northeast, central east and southeast.
+these are also some of the areas that are furthest away from the Capital.
+The interesting part of this diagram is that around 2004, the GDP per capita of the regions were fairly aligned with eachother at 2000, before they started ascending and increasing the gap.
