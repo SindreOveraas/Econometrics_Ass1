@@ -81,10 +81,6 @@ GDP_Per_Capita$Population <- as.numeric(GDP_Per_Capita$Population)
 ```
 
 ```{r, echo=FALSE}
-gini.wtd(GDP_Per_Capita$GDP_capita, weights = GDP_Per_Capita$Population)
-```
-
-```{r, echo=FALSE}
 GDP_Per_Capita <- GDP_Per_Capita %>%  
   mutate(NUTS2 = substr(GDP_Per_Capita$Region,1,4))
 
@@ -92,28 +88,13 @@ GDP_Per_Capita <- GDP_Per_Capita %>%
   mutate(NUTS = substr(GDP_Per_Capita$Region,1,2))
 
 GDP_Per_Capita  %<>%
-  group_by(NUTS2) %>%
+  group_by(NUTS2, Year) %>%
   na.exclude(GDP_Per_Capita) %>%
   mutate(GINI_NUTS2 = gini.wtd(GDP_capita, weights = Population)) %>%
   ungroup()
 ```
 
 ```{r, echo=FALSE}
-kable(summary(GDP_Per_Capita[8]))
-```
-
-```{r, echo=FALSE}
-ggplot(data = GDP_Per_Capita) + geom_density(aes(x = GINI_NUTS2), fill = "maroon", col = "maroon", alpha = 0.2) + theme_bw()
-```
-
-```{r, echo=FALSE}
-ggplot(data = GDP_Per_Capita) + geom_histogram(aes(x = GINI_NUTS2), fill = "maroon", col = "maroon", alpha = 0.2) + theme_bw()
-```
-
-Looking at the plot above there is one outlier up against 0.4 with around 100 observations.
-The same result also seem to accure in the density plot.
-
-```{r}
 GDP_Per_Capita %>% distinct(NUTS, Year, .keep_all = TRUE) %>%
   ggplot(aes(x = Year, y = GDP_capita, colour = NUTS)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
 ```
@@ -138,7 +119,7 @@ Austria had a big downfall in GDP per capita from year 2000 to 2001, but has had
 
 ### Bulgaria GDP
 
-```{r}
+```{r, echo=FALSE}
 GDP_Per_Capita_BG <- GDP_Per_Capita %>%
   filter(NUTS == "BG" ) %>% select(GDP_capita, Region) %>%
   select(Region)
@@ -148,23 +129,23 @@ GDP_Per_Capita %>%
   ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
 ```
 
-```{r}
-GDP_Per_Capita %>%
+```{r, echo=FALSE}
+kable(GDP_Per_Capita %>%
   filter(NUTS == "BG", Year == 2010) %>%
   select(Region, GDP_capita) %>%
-  slice_max(GDP_capita, n = 3)
+  slice_max(GDP_capita, n = 3))
 ```
 
-```{r}
-GDP_Per_Capita %>%
+```{r, echo=FALSE}
+kable(GDP_Per_Capita %>%
   filter(NUTS == "BG", Year == 2010) %>%
   select(Region, GDP_capita) %>%
-  slice_min(GDP_capita, n = 3)
+  slice_min(GDP_capita, n = 3))
 ```
 
 ### Belgium GDP
 
-```{r}
+```{r, echo=FALSE}
 GDP_Per_Capita_BE <- GDP_Per_Capita %>%
   filter(NUTS == "BE" ) %>% select(GDP_capita, Region) %>%
   select(Region)
@@ -174,23 +155,23 @@ GDP_Per_Capita %>%
   ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
 ```
 
-```{r}
-GDP_Per_Capita %>%
+```{r, echo=FALSE}
+kable(GDP_Per_Capita %>%
   filter(NUTS == "BE", Year == 2010) %>%
   select(Region, GDP_capita) %>%
-  slice_max(GDP_capita, n = 3)
+  slice_max(GDP_capita, n = 3))
 ```
 
-```{r}
-GDP_Per_Capita %>%
+```{r, echo=FALSE}
+kable(GDP_Per_Capita %>%
   filter(NUTS == "BE", Year == 2010) %>%
   select(Region, GDP_capita) %>%
-  slice_min(GDP_capita, n = 3)
+  slice_min(GDP_capita, n = 3))
 ```
 
 ### Austria GDP
 
-```{r}
+```{r, echo=FALSE}
 GDP_Per_Capita_AT <- GDP_Per_Capita %>%
   filter(NUTS == "AT" ) %>% select(GDP_capita, Region) %>%
   select(Region)
@@ -200,23 +181,23 @@ GDP_Per_Capita %>%
   ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
 ```
 
-```{r}
-GDP_Per_Capita %>%
-  filter(NUTS == "AT") %>%
+```{r, echo=FALSE}
+kable(GDP_Per_Capita %>%
+  filter(NUTS == "AT", Year == 2010) %>%
   select(Region, GDP_capita) %>%
-  slice_max(GDP_capita, n = 3)
+  slice_max(GDP_capita, n = 3))
 ```
 
-```{r}
-GDP_Per_Capita %>%
-  filter(NUTS == "AT") %>%
+```{r, echo=FALSE}
+kable(GDP_Per_Capita %>%
+  filter(NUTS == "AT", Year == 2010) %>%
   select(Region, GDP_capita) %>%
-  slice_min(GDP_capita, n = 3)
+  slice_min(GDP_capita, n = 3))
 ```
 
 ### Croatia GDP
 
-```{r}
+```{r, echo=FALSE}
 GDP_Per_Capita_HR <- GDP_Per_Capita %>%
   filter(NUTS == "HR" ) %>% select(GDP_capita, Region) %>%
   select(Region)
@@ -226,23 +207,23 @@ GDP_Per_Capita %>%
   ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
 ```
 
-```{r}
-GDP_Per_Capita %>%
-  filter(NUTS == "HR") %>%
+```{r, echo=FALSE}
+kable(GDP_Per_Capita %>%
+  filter(NUTS == "HR", Year == 2010) %>%
   select(Region, GDP_capita) %>%
-  slice_max(GDP_capita, n = 3)
+  slice_max(GDP_capita, n = 3))
 ```
 
-```{r}
-GDP_Per_Capita %>%
-  filter(NUTS == "HR") %>%
+```{r, echo=FALSE}
+kable(GDP_Per_Capita %>%
+  filter(NUTS == "HR", Year == 2010) %>%
   select(Region, GDP_capita) %>%
-  slice_min(GDP_capita, n = 3)
+  slice_min(GDP_capita, n = 3))
 ```
 
 ### Italy GDP
 
-```{r}
+```{r, echo=FALSE, warning=FALSE}
 GDP_Per_Capita_IT <- GDP_Per_Capita %>%
   filter(NUTS == "IT" ) %>% select(GDP_capita, Region) %>%
   select(Region)
@@ -253,23 +234,23 @@ GDP_Per_Capita %>%
   ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
 ```
 
-```{r}
-GDP_Per_Capita %>%
-  filter(NUTS == "IT") %>%
+```{r, echo=FALSE}
+kable(GDP_Per_Capita %>%
+  filter(NUTS == "IT", Year == 2010) %>%
   select(Region, GDP_capita) %>%
-  slice_max(GDP_capita, n = 3)
+  slice_max(GDP_capita, n = 3))
 ```
 
-```{r}
-GDP_Per_Capita %>%
-  filter(NUTS == "IT") %>%
+```{r, echo=FALSE}
+kable(GDP_Per_Capita %>%
+  filter(NUTS == "IT", Year == 2010) %>%
   select(Region, GDP_capita) %>%
-  slice_min(GDP_capita, n = 3)
+  slice_min(GDP_capita, n = 3))
 ```
 
 ### Serbia GDP
 
-```{r}
+```{r, echo=FALSE, warning=FALSE}
 GDP_Per_Capita_RS <- GDP_Per_Capita %>%
   filter(NUTS == "RS" ) %>% select(GDP_capita, Region) %>%
   select(Region)
@@ -279,23 +260,23 @@ GDP_Per_Capita %>%
   ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
 ```
 
-```{r}
-GDP_Per_Capita %>%
-  filter(NUTS == "RS") %>%
+```{r, echo=FALSE}
+kable(GDP_Per_Capita %>%
+  filter(NUTS == "RS", Year == 2017) %>%
   select(Region, GDP_capita) %>%
-  slice_max(GDP_capita, n = 3)
+  slice_max(GDP_capita, n = 3))
 ```
 
-```{r}
-GDP_Per_Capita %>%
-  filter(NUTS == "RS") %>%
+```{r, echo=FALSE}
+kable(GDP_Per_Capita %>%
+  filter(NUTS == "RS", Year == 2017) %>%
   select(Region, GDP_capita) %>%
-  slice_min(GDP_capita, n = 3)
+  slice_min(GDP_capita, n = 3))
 ```
 
 ### Sweden GDP
 
-```{r}
+```{r, echo=FALSE}
 GDP_Per_Capita_SE <- GDP_Per_Capita %>%
   filter(NUTS == "SE" ) %>% select(GDP_capita, Region) %>%
   select(Region)
@@ -305,23 +286,23 @@ GDP_Per_Capita %>%
   ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
 ```
 
-```{r}
-GDP_Per_Capita %>%
-  filter(NUTS == "SE") %>%
+```{r, echo=FALSE}
+kable(GDP_Per_Capita %>%
+  filter(NUTS == "SE", Year == 2010) %>%
   select(Region, GDP_capita) %>%
-  slice_max(GDP_capita, n = 3)
+  slice_max(GDP_capita, n = 3))
 ```
 
-```{r}
-GDP_Per_Capita %>%
-  filter(NUTS == "SE") %>%
+```{r, echo=FALSE}
+kable(GDP_Per_Capita %>%
+  filter(NUTS == "SE", Year == 2010) %>%
   select(Region, GDP_capita) %>%
-  slice_min(GDP_capita, n = 3)
+  slice_min(GDP_capita, n = 3))
 ```
 
 ### 10 regions with highest GDP
 
-```{r}
+```{r, echo=FALSE}
 GDP_Per_Capita_Max <- GDP_Per_Capita %>%
   filter(Year == 2010) %>% select(GDP_capita, Region) %>%
   slice_max(GDP_capita, n = 10) %>%
@@ -334,7 +315,7 @@ GDP_Per_Capita %>%
 
 ### 10 regions with lowest GDP
 
-```{r}
+```{r, echo=FALSE}
 GDP_Per_Capita_Min <- GDP_Per_Capita %>%
   filter(Year == 2010) %>% select(GDP_capita, Region) %>%
   slice_min(GDP_capita, n = 10) %>%
@@ -343,4 +324,18 @@ GDP_Per_Capita_Min <- GDP_Per_Capita %>%
 GDP_Per_Capita %>%
   filter(Region %in% GDP_Per_Capita_Min$Region) %>%
   ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
+```
+
+## Regional inequality
+
+```{r, echo=FALSE}
+kable(summary(GDP_Per_Capita[8]))
+```
+
+```{r, echo=FALSE}
+ggplot(data = GDP_Per_Capita) + geom_density(aes(x = GINI_NUTS2), fill = "maroon", col = "maroon", alpha = 0.2) + theme_bw()
+```
+
+```{r, echo=FALSE, message=FALSE}
+ggplot(data = GDP_Per_Capita) + geom_histogram(aes(x = GINI_NUTS2), fill = "maroon", col = "maroon", alpha = 0.2) + theme_bw()
 ```
