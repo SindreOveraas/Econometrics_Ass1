@@ -352,6 +352,12 @@ kable(summary(GDP_Per_Capita %>%
   select(GINI_NUTS2)))
 ```
 
+Based on this data we see that all of the countries are collectively within adequate equality or better.
+where the min, 1st q, median and mean are all below the 0,1 point.
+The max is at 0,23524 which you can see on the graphs under, and is within the Bulgarian regions.
+Seeing how all of the top 10 regions that scored the lowest were from Bulgaria, it does not come of as a shock, that they also have the highest GINI score.
+The capital of Bulgaria, Sofia, has more than twice of the average GDP per capita of the remaining regions, and for some of the lower regions, more than 5times the amount.
+
 ```{r, echo=FALSE}
 ggplot(data = GDP_Per_Capita) + geom_density(aes(x = GINI_NUTS2), fill = "maroon", col = "maroon", alpha = 0.2) + labs(x = "GINI", y = "Density") + theme_bw()
 ```
