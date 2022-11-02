@@ -21,6 +21,8 @@ NUTS (Nomenclature of territorial units for statistics) is the geographical nome
 These levels consist of NUTS 1, 2 and 3, with 3 representing the smallest territorial units in a country [@GlossaryNomenclatureTerritorial2021].
 The remaining parts of this paper i.e., 2, 3 and 4, will be explained continuously and gradually when we eventually get to them later in the paper.
 
+### Sub-National GDP
+
 To start our analysis of sub-national GDP and regional inequity for our selected countries we must, as mentioned, collect data from Eurostat.
 We download population by broad age group and sex, as well as gross domestic product at current markets prices, at NUTS 3 level [@StatisticsEurostat2022a] [@StatisticsEurostat2022].
 After we have added our two datasets to our RStudio project, we can calculate GDP per capita at the NUTS 3 level for the separate countries.
@@ -29,8 +31,6 @@ This is achieved with dividing the GDP on the number of population figures, and 
 $$
 y_i=GDP_i/population_i
 $$
-
-### Sub-National GDP
 
 ```{r, message=FALSE, echo=FALSE}
 library(tidyverse)
@@ -53,9 +53,7 @@ populationdata <- Population %>%
 GDP_Per_Capita <- gdpdata %>%
   left_join(populationdata, by=c("Region", "Year")) %>%
   select(Region, Year, GDP, Population) %>%
-  mutate(
-    GDP_capita = (GDP * 1000000)/Population
-  )
+  mutate(GDP_capita = (GDP * 1000000)/Population)
 ```
 
 ```{r, echo=FALSE}
@@ -326,16 +324,62 @@ GDP_Per_Capita %>%
   ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
 ```
 
-## Regional inequality
+## Regional inequity
+
+Regional inequity refers to skewed distribution and the differences in quality of life, wealth and general living standards among individuals in a region.
+To determine regional inequity for our selected countries, we calculate the population-weighted GDP Gini coefficients ($GINIW_j$).
+The coefficients can have values ranging from 0 to 1.
+The value 0 corresponds to no inequity, and the higher the coefficient, the higher inequity appears in the respective country/ region.
+The value 1 corresponds to absolute inequity.
+The coefficients are calculated by the following formula:
+
+$$
+GINIW_j=\frac{1}{2 \bar{y_j}} \sum_{i}^{n_j}\sum_{l}^{n_j}\frac{p_i}{P_j} \frac{p_l}{P_j} |y_i-y_l|
+$$
 
 ```{r, echo=FALSE}
 kable(summary(GDP_Per_Capita[8]))
 ```
 
+The summary statistics above give us the descriptive figures for all our selected countries combined, throughout the whole period of 2000 - 2020.
+Based on the statistics, we can note that the lowest coefficient is equal to 0, meaning that there are some regions where inequality is absent.
+We can also observe that the highest inequality throughout the entire period is 0.235.
+The mean of the Gini coefficients are 0.071.
+
 ```{r, echo=FALSE}
-ggplot(data = GDP_Per_Capita) + geom_density(aes(x = GINI_NUTS2), fill = "maroon", col = "maroon", alpha = 0.2) + theme_bw()
+kable(summary(GDP_Per_Capita %>%
+  filter(Year == 2010) %>%
+  select(GINI_NUTS2)))
 ```
 
-```{r, echo=FALSE, message=FALSE}
-ggplot(data = GDP_Per_Capita) + geom_histogram(aes(x = GINI_NUTS2), fill = "maroon", col = "maroon", alpha = 0.2) + theme_bw()
+```{r, echo=FALSE}
+ggplot(data = GDP_Per_Capita) + geom_density(aes(x = GINI_NUTS2), fill = "maroon", col = "maroon", alpha = 0.2) + labs(x = "GINI", y = "Density") + theme_bw()
+```
+
+Density distribution of all coefficients in all selected countries.
+We can observe that the density plot above matches our summary statistics of the coefficients.
+
+```{r, echo=FALSE}
+ggplot(data = GDP_Per_Capita, aes(x = NUTS, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.25) + labs(x = "Country", y = "GINI") + theme_bw()
+```
+
+```{r, echo=FALSE}
+GDP_Per_Capita %>%
+  filter(NUTS == "SE") %>%
+  distinct(NUTS2, Year, .keep_all = TRUE) %>%
+  ggplot(aes(x = Year, y = GINI_NUTS2, fill = NUTS2, color = NUTS2)) + geom_point(lwd = 0.7) + labs(x = "Year", y = "GINI") + theme_bw()
+```
+
+```{r, echo=FALSE}
+GDP_Per_Capita %>%
+  filter(NUTS == "BE") %>%
+  distinct(NUTS2, Year, .keep_all = TRUE) %>%
+  ggplot(aes(x = Year, y = GINI_NUTS2, fill = NUTS2, color = NUTS2)) + geom_point(lwd = 0.7) + labs(x = "Year", y = "GINI") + theme_bw()
+```
+
+```{r, echo=FALSE}
+GDP_Per_Capita %>%
+  filter(NUTS == "BG") %>%
+  distinct(NUTS2, Year, .keep_all = TRUE) %>%
+  ggplot(aes(x = Year, y = GINI_NUTS2, fill = NUTS2, color = NUTS2)) + geom_point(lwd = 0.7) + labs(x = "Year", y = "GINI") + theme_bw()
 ```
