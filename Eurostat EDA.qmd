@@ -143,7 +143,7 @@ kable(GDP_Per_Capita %>%
 ```
 
 Using 2010 as a base point which is after the financial crises, we found that the three regions with highest GDP per capita is BG411 (Sofia), BG344 (Stara Zagora) and BG331 (Varna), all major cities in Bulgaria.
-These Regions also managed to maintain a good growth in GDP per capita through the years till 2019
+These Regions also managed to maintain a good growth in GDP per capita through the years till 2019 [@StatisticalRegionsEuropean]
 
 ```{r, echo=FALSE}
 kable(GDP_Per_Capita %>%
@@ -153,7 +153,7 @@ kable(GDP_Per_Capita %>%
 ```
 
 The three regions with lowest GDP Per capita is BG325 (Silistra), BG311 (Vidin) and BG342 (Silven) where BG325 and BG311 both are cities located north in Bulgaria.
-BG342 is a larger city located more in the middle of Bulgaria a bit southeast.
+BG342 is a larger city located more in the middle of Bulgaria a bit southeast [@StatisticalRegionsEuropean]
 
 ### Belgium GDP
 
@@ -171,7 +171,7 @@ In Belgium the table shows that it is more variance in GDP per capita from regio
 Most regions have had somewhat of a similar growth trough year 2000 until 2018 before a dip from 2018 to 2020.
 The dip could be explained by the government formation that started to take place in 2018.
 We can see that BE100 has a noticeable higher GDP per capita then the closest region.
-Region BE100 includes the capital city of Belgium, Brussel [@brzozowskiBelgiumBreaks16month2020].
+Region BE100 includes the capital city of Belgium, Brussel [@brzozowskiBelgiumBreaks16month2020] [@StatisticalRegionsEuropean].
 
 ```{r, echo=FALSE}
 kable(GDP_Per_Capita %>%
@@ -180,10 +180,7 @@ kable(GDP_Per_Capita %>%
   slice_max(GDP_capita, n = 3))
 ```
 
-The three regions with the largest GDP in Belgium in 2010, after the financial crises, is BE100 (Brussel), BE211 (Antwerpen) and BE241 (Halle-Vilvoorde).
-Brussel being the capital and Halle-Vilvoorde being a region located around Brussel indicates that it is generally lower unemployment and more business in this area.
-Antwerpwen is located more north in Belgium is a major city when it comes to seaports.
-Its also well known for its diamond industry [@AntwerpHistoryDiamonds]
+The three regions with the largest GDP in Belgium in 2010, after the financial crises, is BE100 (Brussel), BE211 (Antwerpen) and BE241 (Halle-Vilvoorde) [@StatisticalRegionsEuropean] . Brussel being the capital and Halle-Vilvoorde being a region located around Brussel indicates that it is generally lower unemployment and more business in this area. Antwerpwen is located more north in Belgium is a major city when it comes to seaports. Its also well known for its diamond industry \[@AntwerpHistoryDiamonds\]
 
 ```{r, echo=FALSE}
 kable(GDP_Per_Capita %>%
@@ -192,7 +189,7 @@ kable(GDP_Per_Capita %>%
   slice_min(GDP_capita, n = 3))
 ```
 
-The three regions with the smallest GDP per capita in Belgum by 2010 was BE334 (Waremme), BE353 (Philippeville) and BE345 (Virton).
+The three regions with the smallest GDP per capita in Belgum by 2010 was BE334 (Waremme), BE353 (Philippeville) and BE345 (Virton) [@StatisticalRegionsEuropean] .
 Philippeville and Virton is both located north and border to France.
 Waremme is located more mid-east
 
@@ -221,7 +218,7 @@ kable(GDP_Per_Capita %>%
 ```
 
 AT312 (Linz-Wels), AT130 (Wien) and AT323 (Salzburg) is the Regions with the highest scoring GDP per capita in 2010.
-They have held a similar pattern and GDP per capita from 2000 to 2020.
+They have held a similar pattern and GDP per capita from 2000 to 2020 [@StatisticalRegionsEuropean]
 
 ```{r, echo=FALSE}
 kable(GDP_Per_Capita %>%
@@ -231,7 +228,7 @@ kable(GDP_Per_Capita %>%
 ```
 
 The three lowest scoring regions are AT125 (Weinviertel), AT111 (Mittelburgenland) and AT313 (Mühlviertel) witch all is more greener areas.
-Both Weinviertel and Mühlviertel are located north and boarders to the Czech Republic while Mittelburgenland southeast and boarders to Hungary.
+Both Weinviertel and Mühlviertel are located north and boarders to the Czech Republic while Mittelburgenland southeast and boarders to Hungary [@StatisticalRegionsEuropean] .
 
 ### Croatia GDP
 
@@ -258,7 +255,7 @@ kable(GDP_Per_Capita %>%
   slice_max(GDP_capita, n = 3))
 ```
 
-The topvthree regions in 2010 measured by GDP per capita is HR036 (istarska županija), HR031 (Primorsko-goranska županija) and HR037 (dubrovnik-neretva).
+The topvthree regions in 2010 measured by GDP per capita is HR036 (istarska županija), HR031 (Primorsko-goranska županija) and HR037 (dubrovnik-neretva) [@StatisticalRegionsEuropean].
 istarska županija is big on processing industry, tourism and trade [@Economy].
 
 Dubrovnik-Neretva is the capital of Croatias and are also big on tourism, but also makes a living out of hospitality industry, agriculture and maritime indisutry [@Economya].
@@ -271,7 +268,7 @@ kable(GDP_Per_Capita %>%
 ```
 
 On the other side, the three regions with lowest GDP per capita by 2010 is HR034 (Šibensko-kninska županija), HR032 (Ličko-senjska županija) and HR035 (Splitsko-dalmatinska županija).
-All are located south in Croatia by the coast and boarders to Bosnia-Hercegovina.
+All are located south in Croatia by the coast and boarders to Bosnia-Hercegovina [@StatisticalRegionsEuropean] .
 
 ### Italy GDP
 
@@ -290,7 +287,7 @@ Italy consists of many NUTS3 Regions.
 We piced out only the 500 biggest and used them in our plot.
 Some of the regions in the plot don't hav GDP per capita data for the whole-time frame.
 We can see that is a big difference in the Regions at the bottom and the one on top.
-The top Region ITC4C (Milano) also stands out from the rest with a higher GDP per capita at all times between year 2000 and 2020.
+The top Region ITC4C (Milano) also stands out from the rest with a higher GDP per capita at all times between year 2000 and 2020 [@StatisticalRegionsEuropean] .
 We can also see that it is some what of a dip around 2011 too.
 This could come from Sovereign Debt [@romano2011CrisisItaly2021] and later on tension between Russia and Ukraine witch impacted exports [@ewingItalyFallsBack2014].
 
@@ -301,7 +298,7 @@ kable(GDP_Per_Capita %>%
   slice_max(GDP_capita, n = 3))
 ```
 
-TC4C (Milano), ITH10 (Bolzano-Bozen) and ITI43 (Rome) are the three regions in Italy with the highest GDP per capita by 2010.
+TC4C (Milano), ITH10 (Bolzano-Bozen) and ITI43 (Rome) are the three regions in Italy with the highest GDP per capita by 2010 [@StatisticalRegionsEuropean] .
 Milano are one of the biggest fashion cites in the world, and arranges "Fashion-week" every year witch draws visitors from all over the world [@MilanHistoryPopulation].
 Bolzano-Bozen is a rich city and focus on quality agriculture, producing wine, fruit and dairy products.
 Tourism is also a source of income for the city [@BolzanoBozenTrentinoAlto].
@@ -315,7 +312,7 @@ kable(GDP_Per_Capita %>%
   slice_min(GDP_capita, n = 3))
 ```
 
-Out of the 500 Regions we picked out, ITG4 (Agrigento), ITF48 (Barletta-Andria-Trani) and ITF64 (Catanzaro) had the lowest GDP per capita in 2010.
+Out of the 500 Regions we picked out, ITG4 (Agrigento), ITF48 (Barletta-Andria-Trani) and ITF64 (Catanzaro) had the lowest GDP per capita in 2010 [@StatisticalRegionsEuropean] .
 All three regions are located South in Italy.
 Agrigento´s economic is focused around Sulfur and potash mining, tourism and agriculture [@AgrigentoItalyBritannica].
 Barletta-Andria-Trani have cities such as Barletta where the economy comes from producing cement and other similar products [@WhereBarlettaBarlettaAndriaTrani].
@@ -343,7 +340,7 @@ kable(GDP_Per_Capita %>%
   slice_max(GDP_capita, n = 3))
 ```
 
-The three regions with the highest GDP per capita in Serbia, here measured for year 2017 was RS221 (Borska oblast), RS214 (Moravička oblast) and RS226 (Pirotska oblast)
+The three regions with the highest GDP per capita in Serbia, here measured for year 2017 was RS221 (Borska oblast), RS214 (Moravička oblast) and RS226 (Pirotska oblast) [@StatisticalRegionsEuropean].
 
 ```{r, echo=FALSE}
 kable(GDP_Per_Capita %>%
@@ -352,7 +349,7 @@ kable(GDP_Per_Capita %>%
   slice_min(GDP_capita, n = 3))
 ```
 
-The thre lowest scoring regions in Serbia in 2017 was RS228 (Pčinjska oblast), RS227 (Pirotska oblast) and RS224 (Jablanička oblast)
+The thre lowest scoring regions in Serbia in 2017 was RS228 (Pčinjska oblast), RS227 (Pirotska oblast) and RS224 (Jablanička oblast) [@StatisticalRegionsEuropean]
 
 ### Sweden GDP
 
@@ -374,7 +371,7 @@ We belive this has a connection to the employment rates and there would be a big
 Another interesting bit about the swedish GDP per capita is that their smallest region by population (2019) is Gotland (SE214) with 59 249, comparing Gotland to Stockholm there is almost 40x more people in Stockholm (2 344 124).
 The GDP is 2050,4 against 151 284,4 which is aprox a 74x difference in favor Stockholm.
 This makes the GDP per capita 34 603 against\
-Stockholm´s 64 537, less then a 2x difference.
+Stockholm´s 64 537, less then a 2x difference [@StatisticalRegionsEuropean].
 
 ```{r, echo=FALSE}
 kable(GDP_Per_Capita %>%
@@ -409,7 +406,7 @@ GDP_Per_Capita %>%
 ```
 
 Comparing the regions with the highest GDP per capita between the countries, we see BE100 (Brussels) with a GDP that was rising well above 70 000 before the corona pandemic, and was slightly lower than 70 000 in 2020.From this dataset among the highest gdp per capita regions, it was only Brussels and Antwerp that had data available until 2020.
-AT323 which is Salzburg, more concretely Salzburg und Umgebung (\@NUTSStatisticalRegions2022), had a population of 366´866 in 2019, which is a great difference compared to SE110 - Stockholm with a population of 2´344´124 in 2019.
+AT323 which is Salzburg, more concretely Salzburg und Umgebung \[\@NUTSStatisticalRegions2022\], had a population of 366´866 in 2019, which is a great difference compared to SE110 - Stockholm with a population of 2´344´124 in 2019.
 A considerable difference, showing how the GDP per capita is fairly close to eachother even though the aforementioned population difference.
 
 ### 10 regions with lowest GDP
@@ -515,6 +512,12 @@ GDP_Per_Capita %>%
 The Bulgarian GINI plot which is the one with the biggest spread between our three plots, where the range is from 0,04 to 0,235. 
 This visualization shows us how the plot excelled during the years and created a bigger gap with the years.
 The overall mean also increased with the years implying they are moving further away from perfect equality.
+
+### Conclusion
+
+In conclusion our regions do have some differences as well as similarities, some of the patterns we noticed were the capitals of the respected countries, were usually on top of the GDP per capita compared to their regions.
+This for several reasons as we mentioned earlier, how the industrial clusters usually are located there and attract more workers.
+Further on when we went deeper into detail, we saw the GINI coefficients of the countries and their regions, we can concluded that they were all within the limit of adequate equality, while some were close and even on perfect equality.
 
 ### References
 
