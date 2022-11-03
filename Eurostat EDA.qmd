@@ -180,7 +180,10 @@ kable(GDP_Per_Capita %>%
   slice_max(GDP_capita, n = 3))
 ```
 
-The three regions with the largest GDP in Belgium in 2010, after the financial crises, is BE100 (Brussel), BE211 (Antwerpen) and BE241 (Halle-Vilvoorde) [@StatisticalRegionsEuropean] . Brussel being the capital and Halle-Vilvoorde being a region located around Brussel indicates that it is generally lower unemployment and more business in this area. Antwerpwen is located more north in Belgium is a major city when it comes to seaports. Its also well known for its diamond industry \[@AntwerpHistoryDiamonds\]
+The three regions with the largest GDP in Belgium in 2010, after the financial crises, is BE100 (Brussel), BE211 (Antwerpen) and BE241 (Halle-Vilvoorde) [@StatisticalRegionsEuropean] .
+Brussel being the capital and Halle-Vilvoorde being a region located around Brussel indicates that it is generally lower unemployment and more business in this area.
+Antwerpwen is located more north in Belgium is a major city when it comes to seaports.
+Its also well known for its diamond industry [@AntwerpHistoryDiamonds]
 
 ```{r, echo=FALSE}
 kable(GDP_Per_Capita %>%
@@ -509,7 +512,7 @@ GDP_Per_Capita %>%
   ggplot(aes(x = Year, y = GINI_NUTS2, fill = NUTS2, color = NUTS2)) + geom_point(lwd = 0.7) + labs(x = "Year", y = "GINI") + theme_bw()
 ```
 
-The Bulgarian GINI plot which is the one with the biggest spread between our three plots, where the range is from 0,04 to 0,235. 
+The Bulgarian GINI plot which is the one with the biggest spread between our three plots, where the range is from 0,04 to 0,235.
 This visualization shows us how the plot excelled during the years and created a bigger gap with the years.
 The overall mean also increased with the years implying they are moving further away from perfect equality.
 
@@ -518,6 +521,35 @@ The overall mean also increased with the years implying they are moving further 
 In conclusion our regions do have some differences as well as similarities, some of the patterns we noticed were the capitals of the respected countries, were usually on top of the GDP per capita compared to their regions.
 This for several reasons as we mentioned earlier, how the industrial clusters usually are located there and attract more workers.
 Further on when we went deeper into detail, we saw the GINI coefficients of the countries and their regions, we can concluded that they were all within the limit of adequate equality, while some were close and even on perfect equality.
+
+## Growth and inequity
+
+```{r}
+ggplot(data = GDP_Per_Capita, aes(x = GDP_capita, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.25) + labs(x = "GDP per Capita", y = "GINI") + theme_bw()
+```
+
+```{r, echo=FALSE}
+GDP_Per_Capita %>%
+  filter(Year == 2010) %>%
+  distinct(NUTS2, GDP_capita, .keep_all = TRUE) %>%
+  ggplot(aes(x = GDP_capita, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + labs(x = "GDP per Capita", y = "GINI") + theme_bw()
+```
+
+```{r, echo=FALSE}
+lm(GINI_NUTS2 ~ GDP_capita, data = GDP_Per_Capita, subset = Year == 2010)
+```
+
+```{r, echo=FALSE}
+lm_GDP_on_GINI <- lm(GINI_NUTS2 ~ GDP_capita, data = GDP_Per_Capita, subset = Year == 2010)
+
+b0_GDP_on_GINI <- lm_GDP_on_GINI$coefficients[1]
+b1_GDP_on_GINI <- lm_GDP_on_GINI$coefficients[2]
+
+GDP_Per_Capita %>%
+  filter(Year == 2010) %>%
+  distinct(NUTS2, GDP_capita, .keep_all = TRUE) %>%
+  ggplot(aes(x = GDP_capita, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + geom_abline(intercept = b0_GDP_on_GINI, slope = b1_GDP_on_GINI, color = "blue", alpha = 0.5) + labs(x = "GDP per Capita", y = "GINI") + theme_bw()
+```
 
 ### References
 
