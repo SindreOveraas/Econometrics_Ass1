@@ -299,12 +299,25 @@ kable(GDP_Per_Capita %>%
   slice_max(GDP_capita, n = 3))
 ```
 
+ITC4C (Milano), ITH10 (Bolzano-Bozen) and ITI43 (Rome) are the three regions in Italy with the highest GDP per capita by 2010.
+Milano are one of the biggest fashion cites in the world, and arranges "Fashion-week" every year witch draws visitors from all over the world [@MilanHistoryPopulation].
+Bolzano-Bozen is a rich city and focus on quality agriculture, producing wine, fruit and dairy products.
+Tourism is also a source of income for the city [@BolzanoBozenTrentinoAlto].
+Rome is a powerful economic force in Italy and are the center for politics.
+The main industry in Rome are service [@EconomyItaly].
+
 ```{r, echo=FALSE}
 kable(GDP_Per_Capita %>%
   filter(NUTS == "IT", Year == 2010) %>%
   select(Region, GDP_capita) %>%
   slice_min(GDP_capita, n = 3))
 ```
+
+Out of the 500 Regions we picked out, ITG4 (Agrigento), ITF48 (Barletta-Andria-Trani) and ITF64 (Catanzaro) had the lowest GDP per capita in 2010.
+All three regions are located South in Italy.
+Agrigento´s economic is focused around Sulfur and potash mining, tourism and agriculture [@AgrigentoItalyBritannica].
+Barletta-Andria-Trani have cities such as Barletta where the economy comes from producing cement and other similar products [@WhereBarlettaBarlettaAndriaTrani].
+The lowest scoring region, Catanzaro, have farming as one of their main industries [@CalabriaRegionItaly].
 
 ### Serbia GDP
 
@@ -317,6 +330,9 @@ GDP_Per_Capita %>%
   filter(Region %in% GDP_Per_Capita_RS$Region) %>%
   ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
 ```
+
+As mentioned earlier, Serbia only provides us GDP data from 2017-2019.
+Looking at the graphs, 2018 seems to be a breaking point for the GDP per capita where some regions experiences growth, while other experiences a decline in GDP Per capita.
 
 ```{r, echo=FALSE}
 kable(GDP_Per_Capita %>%
