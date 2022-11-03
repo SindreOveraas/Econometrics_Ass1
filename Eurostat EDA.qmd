@@ -284,6 +284,16 @@ GDP_Per_Capita %>%
   ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
 ```
 
+The Swedish statistics show Stockholm as superior to the other regions both in GDP, GDP per capita and population.
+As expected from the capital of Sweden.
+This is where the main industrial clusters are located, which draws population and GDP higher.
+What is noteable her is that the neighbour region SE122 (Sódermanland) which borders Stockholm, is second to last at the bottom with half the GDP per Capita compared to Stockholm.
+We belive this has a connection to the employment rates and there would be a bigger atraction for workers to employ in stockholm.
+Another interesting bit about the swedish GDP per capita is that their smallest region by population (2019) is Gotland (SE214) with 59 249, comparing Gotland to Stockholm there is almost 40x more people in Stockholm (2 344 124).
+The GDP is 2050,4 against 151 284,4 which is aprox a 74x difference in favor Stockholm.
+This makes the GDP per capita 34 603 against \
+Stockholm´s 64 537, less then a 2x difference.
+
 ```{r, echo=FALSE}
 kable(GDP_Per_Capita %>%
   filter(NUTS == "SE", Year == 2010) %>%
@@ -311,6 +321,10 @@ GDP_Per_Capita %>%
   ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
 ```
 
+Comparing the regions with the highest GDP per capita between the countries, we see BE100 (Brussels) with a GDP that was rising well above 70 000 before the corona pandemic, and was slightly lower than 70 000 in 2020.From this dataset among the highest gdp per capita regions, it was only Brussels and Antwerp that had data available until 2020.
+AT323 which is Salzburg, more concretely Salzburg und Umgebung (\@NUTSStatisticalRegions2022), had a population of 366´866 in 2019, which is a great difference compared to SE110 - Stockholm with a population of 2´344´124 in 2019.
+A considerable difference, showing how the GDP per capita is fairly close to eachother even though the aforementioned population difference.
+
 ### 10 regions with lowest GDP
 
 ```{r, echo=FALSE}
@@ -323,6 +337,17 @@ GDP_Per_Capita %>%
   filter(Region %in% GDP_Per_Capita_Min$Region) %>%
   ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
 ```
+
+We want to clarify that there was insufficent data when it came to Bosnia & Hercegovina, which could have been a contender for the lowest GDP per Capita in some regions.
+Same goes for Serbia, where we chose to withold them from this top 10 list because a lack of information pre- 2017.
+\
+\
+The 10 regions with the lowest GDP per capita shows us they are *all* located in Bulgaria**.** Eight of the lowest GDP per capita regions are located in Nuts 1 - BG3 (Northern & Eastern Bulgaria).
+BG 3 is divided into 4 Nuts 2 regions : (BG31)Northwestern, (BG32)Northern Central, (BG33) Northeastern, (BG34) Southeastern.
+BG31 has three provinces that are on our top 10list; Vidin Province(311), Montana Province(312) and Pleven Province(314).
+It is clear to see that the pattern for where the GDP per capita is low, is around the Eastern areas, Northeast, central east and southeast.
+These are also some of the areas that are furthest away from the Capital.
+The interesting part of this diagram is that around 2004, the GDP per capita of the regions were fairly aligned with eachother at 2000, before they started ascending and increasing the gap.
 
 ## Regional inequity
 
@@ -381,7 +406,7 @@ GDP_Per_Capita %>%
   ggplot(aes(x = Year, y = GINI_NUTS2, fill = NUTS2, color = NUTS2)) + geom_point(lwd = 0.7) + labs(x = "Year", y = "GINI") + theme_bw()
 ```
 
-A closer look at Sweden and we see their regions and how their GINI index has been through out the years.
+A closer look at Sweden and we see their regions and how their GINI index has been throughout the years.
 
 ```{r, echo=FALSE}
 GDP_Per_Capita %>%
