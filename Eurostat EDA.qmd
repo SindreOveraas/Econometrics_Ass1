@@ -301,12 +301,17 @@ kable(GDP_Per_Capita %>%
   slice_max(GDP_capita, n = 3))
 ```
 
+As previously we chosed 2010 as point, where the recovery from the financial crisis was in route.
+Stockholm had a GDP per capita of 56036,50 at that time while Norrbottens came in second with 43768,31 and Vastra Gotaland at third with 38740,05.
+
 ```{r, echo=FALSE}
 kable(GDP_Per_Capita %>%
   filter(NUTS == "SE", Year == 2010) %>%
   select(Region, GDP_capita) %>%
   slice_min(GDP_capita, n = 3))
 ```
+
+The regions with the lowest GDP per capita in 2010 were fairly close, and little that differed them from eachoter aswell as some other regions.
 
 ### 10 regions with highest GDP
 
@@ -414,6 +419,9 @@ GDP_Per_Capita %>%
   distinct(NUTS2, Year, .keep_all = TRUE) %>%
   ggplot(aes(x = Year, y = GINI_NUTS2, fill = NUTS2, color = NUTS2)) + geom_point(lwd = 0.7) + labs(x = "Year", y = "GINI") + theme_bw()
 ```
+
+Comparing this plot to the one above you see there is a bigger diversity and inequality compared to Sweden.
+This is still well within limits of adequate equality, and only one region that crosses the 0,1 line.
 
 ```{r, echo=FALSE}
 GDP_Per_Capita %>%
