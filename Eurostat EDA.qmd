@@ -291,7 +291,7 @@ What is noteable her is that the neighbour region SE122 (Sódermanland) which bo
 We belive this has a connection to the employment rates and there would be a bigger atraction for workers to employ in stockholm.
 Another interesting bit about the swedish GDP per capita is that their smallest region by population (2019) is Gotland (SE214) with 59 249, comparing Gotland to Stockholm there is almost 40x more people in Stockholm (2 344 124).
 The GDP is 2050,4 against 151 284,4 which is aprox a 74x difference in favor Stockholm.
-This makes the GDP per capita 34 603 against \
+This makes the GDP per capita 34 603 against\
 Stockholm´s 64 537, less then a 2x difference.
 
 ```{r, echo=FALSE}
@@ -339,8 +339,8 @@ GDP_Per_Capita %>%
 ```
 
 We want to clarify that there was insufficent data when it came to Bosnia & Hercegovina, which could have been a contender for the lowest GDP per Capita in some regions.
-Same goes for Serbia, where we chose to withold them from this top 10 list because a lack of information pre- 2017.
-\
+Same goes for Serbia, where we chose to withold them from this top 10 list because a lack of information pre- 2017.\
+
 \
 The 10 regions with the lowest GDP per capita shows us they are *all* located in Bulgaria**.** Eight of the lowest GDP per capita regions are located in Nuts 1 - BG3 (Northern & Eastern Bulgaria).
 BG 3 is divided into 4 Nuts 2 regions : (BG31)Northwestern, (BG32)Northern Central, (BG33) Northeastern, (BG34) Southeastern.
