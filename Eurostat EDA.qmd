@@ -6,7 +6,7 @@ format:
   papersize: a4
 editor: visual
 csl: apa-no-ampersand.csl
-bibliography: [SHO.bib]
+bibliography: [SHO.bib, mena.bib]
 ---
 
 ## Eurostat EDA
@@ -512,7 +512,6 @@ GDP_Per_Capita %>%
   ggplot(aes(x = Year, y = GINI_NUTS2, fill = NUTS2, color = NUTS2)) + geom_point(lwd = 0.7) + labs(x = "Year", y = "GINI") + theme_bw()
 ```
 
-The Bulgarian GINI plot which is the one with the biggest spread between our three plots,
-where the range is from 0,04 to 0,235. 
+The Bulgarian GINI plot which is the one with the biggest spread between our three plots, where the range is from 0,04 to 0,235. 
 This visualization shows us how the plot excelled during the years and created a bigger gap with the years.
 The overall mean also increased with the years implying they are moving further away from perfect equality.
