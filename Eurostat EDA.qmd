@@ -341,12 +341,16 @@ kable(GDP_Per_Capita %>%
   slice_max(GDP_capita, n = 3))
 ```
 
+The three regions with the highest GDP per capita in Serbia, here measured for year 2017 was RS221 (Borska oblast), RS214 (Moravička oblast) and RS226 (Pirotska oblast)
+
 ```{r, echo=FALSE}
 kable(GDP_Per_Capita %>%
   filter(NUTS == "RS", Year == 2017) %>%
   select(Region, GDP_capita) %>%
   slice_min(GDP_capita, n = 3))
 ```
+
+The thre lowest scoring regions in Serbia in 2017 was RS228 (Pčinjska oblast), RS227 (Pirotska oblast) and RS224 (Jablanička oblast)
 
 ### Sweden GDP
 
