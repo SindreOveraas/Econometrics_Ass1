@@ -127,6 +127,16 @@ GDP_Per_Capita %>%
   ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
 ```
 
+The table shows the GDP per capita on a NUTS3 level for Bulgaria alone.
+One Region sticks out from the rest (BG411) with a higher GDP per capita and a higher growth from 2000 to 2020, almost reaching a GDP per capita on 20 000.
+BG411 is a Region in Sofia,
+capital city of Bulgaria.
+The reason for this might be because of a better work situation in Sofia with less unemployed people and more business going around [@StatisticalRegionsEuropean].
+
+From year 2000 to around 2005 the other regions had around the same GDP per capita with a similar growth.
+The following years after 2005 some of the regions have split a bit
+from others and had a faster growth which laded them to surpass a GDP per capita over 5000 in 2019, some reaching a GDP per capita over 7500 by year 2019.
+
 ```{r, echo=FALSE}
 kable(GDP_Per_Capita %>%
   filter(NUTS == "BG", Year == 2010) %>%
@@ -134,12 +144,20 @@ kable(GDP_Per_Capita %>%
   slice_max(GDP_capita, n = 3))
 ```
 
+Using 2010 as a base point which is after the financial crises, we found that the three regions with highest GDP per capita is BG411 (Sofia), BG344 (Stara Zagora) and BG331
+(Varna), all major cities in Bulgaria.
+These Regions also managed to maintain a good growth in GDP per capita through the years till 2019
+
 ```{r, echo=FALSE}
 kable(GDP_Per_Capita %>%
   filter(NUTS == "BG", Year == 2010) %>%
   select(Region, GDP_capita) %>%
   slice_min(GDP_capita, n = 3))
 ```
+
+The three regions with lowest GDP Per capita is BG325 (Silistra), BG311 (Vidin) and BG342 (Silven) where BG325 and BG311 both are cities located north in Bulgaria.
+BG342 is a
+larger city located more in the middle of Bulgaria a bit southeast.
 
 ### Belgium GDP
 
@@ -153,12 +171,25 @@ GDP_Per_Capita %>%
   ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
 ```
 
+In Belgium the table shows that it is more variance in GDP per capita from region to region.
+Most regions have had somewhat of a similar growth trough year 2000 until 2018 before a dip from 2018 to 2020.
+The dip could be explained by the government formation that started to take place in 2018.
+We can see that BE100 has a noticeable higher GDP per capita then the closest region.
+Region BE100 includes the capital city
+of Belgium, Brussel [@brzozowskiBelgiumBreaks16month2020].
+
 ```{r, echo=FALSE}
 kable(GDP_Per_Capita %>%
   filter(NUTS == "BE", Year == 2010) %>%
   select(Region, GDP_capita) %>%
   slice_max(GDP_capita, n = 3))
 ```
+
+The three regions with the largest GDP in Belgium in 2010, after the financial crises, is BE100 (Brussel), BE211 (Antwerpen) and BE241 (Halle-Vilvoorde).
+Brussel being the capital and Halle-Vilvoorde being a region located around Brussel indicates that it is
+generally lower unemployment and more business in this area.
+Antwerpwen is located more north in Belgium is a major city when it comes to seaports.
+Its also well known for its diamond industry [@AntwerpHistoryDiamonds]
 
 ```{r, echo=FALSE}
 kable(GDP_Per_Capita %>%
@@ -167,7 +198,12 @@ kable(GDP_Per_Capita %>%
   slice_min(GDP_capita, n = 3))
 ```
 
-### Austria GDP
+The three regions with the smallest GDP per capita in Belgum by 2010 was BE334 (Waremme), BE353 (Philippeville) and BE345 (Virton).
+Philippeville and Virton is both located north and border to France.
+Waremme is located more mid-east
+
+### 
+Austria GDP
 
 ```{r, echo=FALSE}
 GDP_Per_Capita_AT <- GDP_Per_Capita %>%
@@ -179,6 +215,10 @@ GDP_Per_Capita %>%
   ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
 ```
 
+Austria has a more aggregated graphs, even though it is a gap between highest and lowest, the GDP per capita development is more equal.
+We can see that some regions has
+experience a bit more ups and downs trough the years and most regions has a dip around the financial crises in 2008.
+
 ```{r, echo=FALSE}
 kable(GDP_Per_Capita %>%
   filter(NUTS == "AT", Year == 2010) %>%
@@ -186,12 +226,18 @@ kable(GDP_Per_Capita %>%
   slice_max(GDP_capita, n = 3))
 ```
 
+AT312 (Linz-Wels), AT130 (Wien) and AT323 (Salzburg) is the Regions with the highest scoring GDP per capita in 2010.
+They have held a similar pattern and GDP per capita from 2000 to 2020.
+
 ```{r, echo=FALSE}
 kable(GDP_Per_Capita %>%
   filter(NUTS == "AT", Year == 2010) %>%
   select(Region, GDP_capita) %>%
   slice_min(GDP_capita, n = 3))
 ```
+
+The three lowest scoring regions are AT125 (Weinviertel), AT111 (Mittelburgenland) and AT313 (Mühlviertel) witch all is more greener areas.
+Both Weinviertel and Mühlviertel are located north and boarders to the Czech Republic while Mittelburgenland southeast and boarders to Hungary.
 
 ### Croatia GDP
 
@@ -205,6 +251,13 @@ GDP_Per_Capita %>%
   ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
 ```
 
+The graphs for Croatia shows that the financial crises also had an impact on the GDP per capita in 2008 until 2012/2013 before the GDP per capita startet do climb again before it
+dips again around 2018.
+We can see that region HR036 and HR031 has GDP per capita that lays a bit higher than the other regions for the most part.
+
+However, region HR037 and HR032 also had some good years.
+Croatia has also fewer regions with available DGP data on a nuts3 level then the other countries.
+
 ```{r, echo=FALSE}
 kable(GDP_Per_Capita %>%
   filter(NUTS == "HR", Year == 2010) %>%
@@ -212,12 +265,21 @@ kable(GDP_Per_Capita %>%
   slice_max(GDP_capita, n = 3))
 ```
 
+The topvthree regions in 2010 measured by GDP per capita is HR036 (istarska županija), HR031 (Primorsko-goranska županija) and HR037 (dubrovnik-neretva).
+istarska županija
+is big on processing industry, tourism and trade [@Economy].
+
+Dubrovnik-Neretva is the capital of Croatias and are also big on tourism, but also makes a living out of hospitality industry, agriculture and maritime indisutry [@Economya].
+
 ```{r, echo=FALSE}
 kable(GDP_Per_Capita %>%
   filter(NUTS == "HR", Year == 2010) %>%
   select(Region, GDP_capita) %>%
   slice_min(GDP_capita, n = 3))
 ```
+
+On the other side, the three regions with lowest GDP per capita by 2010 is HR034 (Šibensko-kninska županija), HR032 (Ličko-senjska županija) and HR035 (Splitsko-dalmatinska županija).
+All are located south in Croatia by the coast and boarders to Bosnia-Hercegovina.
 
 ### Italy GDP
 
@@ -232,6 +294,14 @@ GDP_Per_Capita %>%
   ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
 ```
 
+Italy consists of many NUTS3 Regions.
+We piced out only the 500 biggest and used them in our plot.
+Some of the regions in the plot don't hav GDP per capita data for the whole-time frame.
+We can see that is a big difference in the Regions at the bottom and the one on top.
+The top Region ITC4C (Milano) also stands out from the rest with a higher GDP per capita at all times between year 2000 and 2020.
+We can also see that it is some what of a dip around 2011 too.
+This could come from Sovereign Debt [@romano2011CrisisItaly2021] and later on tension between Russia and Ukraine witch impacted exports [@ewingItalyFallsBack2014].
+
 ```{r, echo=FALSE}
 kable(GDP_Per_Capita %>%
   filter(NUTS == "IT", Year == 2010) %>%
@@ -239,12 +309,26 @@ kable(GDP_Per_Capita %>%
   slice_max(GDP_capita, n = 3))
 ```
 
+TC4C (Milano), ITH10 (Bolzano-Bozen) and ITI43 (Rome) are the three regions in Italy with the highest GDP per capita by 2010.
+Milano are one of the biggest fashion cites in the world, and arranges "Fashion-week" every year witch draws visitors from all over the world [@MilanHistoryPopulation].
+Bolzano-Bozen is a rich city and focus on quality agriculture, producing wine, fruit and dairy products.
+Tourism is also a source of income for the city [@BolzanoBozenTrentinoAlto].
+Rome is a powerful economic force in Italy and are the center for politics.
+The main industry in Rome are service [@EconomyItaly].
+
 ```{r, echo=FALSE}
 kable(GDP_Per_Capita %>%
   filter(NUTS == "IT", Year == 2010) %>%
   select(Region, GDP_capita) %>%
   slice_min(GDP_capita, n = 3))
 ```
+
+Out of the 500 Regions we picked out, ITG4 (Agrigento), ITF48 (Barletta-Andria-Trani) and ITF64 (Catanzaro) had the lowest GDP per capita in 2010.
+All three regions are
+located South in Italy.
+Agrigento´s economic is focused around Sulfur and potash mining, tourism and agriculture [@AgrigentoItalyBritannica].
+Barletta-Andria-Trani have cities such as Barletta where the economy comes from producing cement and other similar products [@WhereBarlettaBarlettaAndriaTrani].
+The lowest scoring region, Catanzaro, have farming as one of their main industries [@CalabriaRegionItaly].
 
 ### Serbia GDP
 
@@ -258,6 +342,9 @@ GDP_Per_Capita %>%
   ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
 ```
 
+As mentioned earlier, Serbia only provides us GDP data from 2017-2019.
+Looking at the graphs, 2018 seems to be a breaking point for the GDP per capita where some regions experiences growth, while other experiences a decline in GDP Per capita.
+
 ```{r, echo=FALSE}
 kable(GDP_Per_Capita %>%
   filter(NUTS == "RS", Year == 2017) %>%
@@ -265,12 +352,16 @@ kable(GDP_Per_Capita %>%
   slice_max(GDP_capita, n = 3))
 ```
 
+The three regions with the highest GDP per capita in Serbia, here measured for year 2017 was RS221 (Borska oblast), RS214 (Moravička oblast) and RS226 (Pirotska oblast)
+
 ```{r, echo=FALSE}
 kable(GDP_Per_Capita %>%
   filter(NUTS == "RS", Year == 2017) %>%
   select(Region, GDP_capita) %>%
   slice_min(GDP_capita, n = 3))
 ```
+
+The thre lowest scoring regions in Serbia in 2017 was RS228 (Pčinjska oblast), RS227 (Pirotska oblast) and RS224 (Jablanička oblast)
 
 ### Sweden GDP
 
