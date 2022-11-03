@@ -524,31 +524,41 @@ Further on when we went deeper into detail, we saw the GINI coefficients of the 
 
 ## Growth and inequity
 
-```{r}
-ggplot(data = GDP_Per_Capita, aes(x = GDP_capita, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.25) + labs(x = "GDP per Capita", y = "GINI") + theme_bw()
+```{r, echo=FALSE}
+GDP_Per_Capita_NUTS2 <- GDP_Per_Capita %>%
+  select(Year, Population, GDP, NUTS2, GINI_NUTS2) %>%
+  group_by(NUTS2, Year) %>%
+  mutate(GDP_NUTS2 = sum(GDP), Population_NUTS2 = sum(Population)) %>%
+  ungroup() %>%
+  distinct(NUTS2, Year, GDP_NUTS2, Population_NUTS2, GINI_NUTS2) %>%
+  mutate(GDP_capita_NUTS2 = (GDP_NUTS2 * 1000000)/Population_NUTS2)
 ```
 
 ```{r, echo=FALSE}
-GDP_Per_Capita %>%
+ggplot(data = GDP_Per_Capita_NUTS2, aes(x = GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.4) + labs(x = "GDP per Capita", y = "GINI") + theme_bw()
+```
+
+```{r, echo=FALSE}
+GDP_Per_Capita_NUTS2 %>%
   filter(Year == 2010) %>%
-  distinct(NUTS2, GDP_capita, .keep_all = TRUE) %>%
-  ggplot(aes(x = GDP_capita, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + labs(x = "GDP per Capita", y = "GINI") + theme_bw()
+  distinct(NUTS2, GDP_capita_NUTS2, .keep_all = TRUE) %>%
+  ggplot(aes(x = GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + labs(x = "GDP per Capita", y = "GINI") + theme_bw()
 ```
 
 ```{r, echo=FALSE}
-lm(GINI_NUTS2 ~ GDP_capita, data = GDP_Per_Capita, subset = Year == 2010)
+lm(GINI_NUTS2 ~ GDP_capita_NUTS2, data = GDP_Per_Capita_NUTS2, subset = Year == 2010)
 ```
 
 ```{r, echo=FALSE}
-lm_GDP_on_GINI <- lm(GINI_NUTS2 ~ GDP_capita, data = GDP_Per_Capita, subset = Year == 2010)
+lm_GDP_on_GINI <- lm(GINI_NUTS2 ~ GDP_capita_NUTS2, data = GDP_Per_Capita_NUTS2, subset = Year == 2010)
 
 b0_GDP_on_GINI <- lm_GDP_on_GINI$coefficients[1]
 b1_GDP_on_GINI <- lm_GDP_on_GINI$coefficients[2]
 
-GDP_Per_Capita %>%
+GDP_Per_Capita_NUTS2 %>%
   filter(Year == 2010) %>%
-  distinct(NUTS2, GDP_capita, .keep_all = TRUE) %>%
-  ggplot(aes(x = GDP_capita, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + geom_abline(intercept = b0_GDP_on_GINI, slope = b1_GDP_on_GINI, color = "blue", alpha = 0.5) + labs(x = "GDP per Capita", y = "GINI") + theme_bw()
+  distinct(NUTS2, GDP_capita_NUTS2, .keep_all = TRUE) %>%
+  ggplot(aes(x = GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + geom_abline(intercept = b0_GDP_on_GINI, slope = b1_GDP_on_GINI, color = "blue", alpha = 0.5) + labs(x = "GDP per Capita", y = "GINI") + theme_bw()
 ```
 
 ### References
