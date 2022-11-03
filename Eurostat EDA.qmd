@@ -515,3 +515,8 @@ GDP_Per_Capita %>%
 The Bulgarian GINI plot which is the one with the biggest spread between our three plots, where the range is from 0,04 to 0,235. 
 This visualization shows us how the plot excelled during the years and created a bigger gap with the years.
 The overall mean also increased with the years implying they are moving further away from perfect equality.
+
+### References
+
+::: {#refs}
+:::
