@@ -129,13 +129,11 @@ GDP_Per_Capita %>%
 
 The table shows the GDP per capita on a NUTS3 level for Bulgaria alone.
 One Region sticks out from the rest (BG411) with a higher GDP per capita and a higher growth from 2000 to 2020, almost reaching a GDP per capita on 20 000.
-BG411 is a Region in Sofia,
-capital city of Bulgaria.
+BG411 is a Region in Sofia, capital city of Bulgaria.
 The reason for this might be because of a better work situation in Sofia with less unemployed people and more business going around [@StatisticalRegionsEuropean].
 
 From year 2000 to around 2005 the other regions had around the same GDP per capita with a similar growth.
-The following years after 2005 some of the regions have split a bit
-from others and had a faster growth which laded them to surpass a GDP per capita over 5000 in 2019, some reaching a GDP per capita over 7500 by year 2019.
+The following years after 2005 some of the regions have split a bit from others and had a faster growth which laded them to surpass a GDP per capita over 5000 in 2019, some reaching a GDP per capita over 7500 by year 2019.
 
 ```{r, echo=FALSE}
 kable(GDP_Per_Capita %>%
@@ -144,8 +142,7 @@ kable(GDP_Per_Capita %>%
   slice_max(GDP_capita, n = 3))
 ```
 
-Using 2010 as a base point which is after the financial crises, we found that the three regions with highest GDP per capita is BG411 (Sofia), BG344 (Stara Zagora) and BG331
-(Varna), all major cities in Bulgaria.
+Using 2010 as a base point which is after the financial crises, we found that the three regions with highest GDP per capita is BG411 (Sofia), BG344 (Stara Zagora) and BG331 (Varna), all major cities in Bulgaria.
 These Regions also managed to maintain a good growth in GDP per capita through the years till 2019
 
 ```{r, echo=FALSE}
@@ -156,8 +153,7 @@ kable(GDP_Per_Capita %>%
 ```
 
 The three regions with lowest GDP Per capita is BG325 (Silistra), BG311 (Vidin) and BG342 (Silven) where BG325 and BG311 both are cities located north in Bulgaria.
-BG342 is a
-larger city located more in the middle of Bulgaria a bit southeast.
+BG342 is a larger city located more in the middle of Bulgaria a bit southeast.
 
 ### Belgium GDP
 
@@ -175,8 +171,7 @@ In Belgium the table shows that it is more variance in GDP per capita from regio
 Most regions have had somewhat of a similar growth trough year 2000 until 2018 before a dip from 2018 to 2020.
 The dip could be explained by the government formation that started to take place in 2018.
 We can see that BE100 has a noticeable higher GDP per capita then the closest region.
-Region BE100 includes the capital city
-of Belgium, Brussel [@brzozowskiBelgiumBreaks16month2020].
+Region BE100 includes the capital city of Belgium, Brussel [@brzozowskiBelgiumBreaks16month2020].
 
 ```{r, echo=FALSE}
 kable(GDP_Per_Capita %>%
@@ -186,8 +181,7 @@ kable(GDP_Per_Capita %>%
 ```
 
 The three regions with the largest GDP in Belgium in 2010, after the financial crises, is BE100 (Brussel), BE211 (Antwerpen) and BE241 (Halle-Vilvoorde).
-Brussel being the capital and Halle-Vilvoorde being a region located around Brussel indicates that it is
-generally lower unemployment and more business in this area.
+Brussel being the capital and Halle-Vilvoorde being a region located around Brussel indicates that it is generally lower unemployment and more business in this area.
 Antwerpwen is located more north in Belgium is a major city when it comes to seaports.
 Its also well known for its diamond industry [@AntwerpHistoryDiamonds]
 
@@ -203,6 +197,7 @@ Philippeville and Virton is both located north and border to France.
 Waremme is located more mid-east
 
 ### 
+
 Austria GDP
 
 ```{r, echo=FALSE}
@@ -216,8 +211,7 @@ GDP_Per_Capita %>%
 ```
 
 Austria has a more aggregated graphs, even though it is a gap between highest and lowest, the GDP per capita development is more equal.
-We can see that some regions has
-experience a bit more ups and downs trough the years and most regions has a dip around the financial crises in 2008.
+We can see that some regions has experience a bit more ups and downs trough the years and most regions has a dip around the financial crises in 2008.
 
 ```{r, echo=FALSE}
 kable(GDP_Per_Capita %>%
@@ -251,8 +245,7 @@ GDP_Per_Capita %>%
   ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
 ```
 
-The graphs for Croatia shows that the financial crises also had an impact on the GDP per capita in 2008 until 2012/2013 before the GDP per capita startet do climb again before it
-dips again around 2018.
+The graphs for Croatia shows that the financial crises also had an impact on the GDP per capita in 2008 until 2012/2013 before the GDP per capita startet do climb again before it dips again around 2018.
 We can see that region HR036 and HR031 has GDP per capita that lays a bit higher than the other regions for the most part.
 
 However, region HR037 and HR032 also had some good years.
@@ -266,8 +259,7 @@ kable(GDP_Per_Capita %>%
 ```
 
 The topvthree regions in 2010 measured by GDP per capita is HR036 (istarska županija), HR031 (Primorsko-goranska županija) and HR037 (dubrovnik-neretva).
-istarska županija
-is big on processing industry, tourism and trade [@Economy].
+istarska županija is big on processing industry, tourism and trade [@Economy].
 
 Dubrovnik-Neretva is the capital of Croatias and are also big on tourism, but also makes a living out of hospitality industry, agriculture and maritime indisutry [@Economya].
 
@@ -324,8 +316,7 @@ kable(GDP_Per_Capita %>%
 ```
 
 Out of the 500 Regions we picked out, ITG4 (Agrigento), ITF48 (Barletta-Andria-Trani) and ITF64 (Catanzaro) had the lowest GDP per capita in 2010.
-All three regions are
-located South in Italy.
+All three regions are located South in Italy.
 Agrigento´s economic is focused around Sulfur and potash mining, tourism and agriculture [@AgrigentoItalyBritannica].
 Barletta-Andria-Trani have cities such as Barletta where the economy comes from producing cement and other similar products [@WhereBarlettaBarlettaAndriaTrani].
 The lowest scoring region, Catanzaro, have farming as one of their main industries [@CalabriaRegionItaly].
@@ -520,3 +511,8 @@ GDP_Per_Capita %>%
   distinct(NUTS2, Year, .keep_all = TRUE) %>%
   ggplot(aes(x = Year, y = GINI_NUTS2, fill = NUTS2, color = NUTS2)) + geom_point(lwd = 0.7) + labs(x = "Year", y = "GINI") + theme_bw()
 ```
+
+The Bulgarian GINI plot which is the one with the biggest spread between our three plots,
+where the range is from 0,04 to 0,235. 
+This visualization shows us how the plot excelled during the years and created a bigger gap with the years.
+The overall mean also increased with the years implying they are moving further away from perfect equality.
