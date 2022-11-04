@@ -561,6 +561,25 @@ GDP_Per_Capita_NUTS2 %>%
   ggplot(aes(x = GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + geom_abline(intercept = b0_GDP_on_GINI, slope = b1_GDP_on_GINI, color = "blue", alpha = 0.5) + labs(x = "GDP per Capita", y = "GINI") + theme_bw()
 ```
 
+## Other determinants of inequity
+
+```{r, echo=FALSE}
+Demographics_NUTS2 <- read.csv('demo_r_pjangroup__custom_3760964_linear.csv') %>%
+  select(geo, TIME_PERIOD, OBS_VALUE) %>%
+  mutate(Population = OBS_VALUE, Year = TIME_PERIOD, NUTS2 = geo) %>%
+  select(NUTS2, Year, Population)
+
+Trans_infrastructure_NUTS2 <- read.csv('tran_r_net__custom_3761027_linear.csv') %>%
+  select(geo, TIME_PERIOD, OBS_VALUE, tra_infr) %>%
+  mutate(Number_of_MWAY_and_RL = OBS_VALUE, Year = TIME_PERIOD, NUTS2 = geo, MWAY_or_RL = tra_infr) %>%
+  select(NUTS2, Year, MWAY_or_RL, Number_of_MWAY_and_RL)
+
+Education_NUTS2 <- read.csv('edat_lfse_16__custom_3760985_linear.csv') %>%
+  select(geo, TIME_PERIOD, OBS_VALUE) %>%
+  mutate(Early_leavers = OBS_VALUE, Year = TIME_PERIOD, NUTS2 = geo) %>%
+  select(NUTS2, Year, Early_leavers)
+```
+
 ### References
 
 ::: {#refs}
