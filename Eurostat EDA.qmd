@@ -564,20 +564,33 @@ GDP_Per_Capita_NUTS2 %>%
 ## Other determinants of inequity
 
 ```{r, echo=FALSE}
-Demographics_NUTS2 <- read.csv('demo_r_pjangroup__custom_3760964_linear.csv') %>%
+Demographics_NUTS2 <- read.csv('demo_r_mlifexp__custom_3767848_linear.csv') %>%
   select(geo, TIME_PERIOD, OBS_VALUE) %>%
-  mutate(Population = OBS_VALUE, Year = TIME_PERIOD, NUTS2 = geo) %>%
-  select(NUTS2, Year, Population)
+  mutate(Life_expectency = OBS_VALUE, Year = TIME_PERIOD, NUTS2 = geo) %>%
+  select(NUTS2, Year, Life_expectency)
 
 Trans_infrastructure_NUTS2 <- read.csv('tran_r_net__custom_3761027_linear.csv') %>%
   select(geo, TIME_PERIOD, OBS_VALUE, tra_infr) %>%
   mutate(Number_of_MWAY_and_RL = OBS_VALUE, Year = TIME_PERIOD, NUTS2 = geo, MWAY_or_RL = tra_infr) %>%
   select(NUTS2, Year, MWAY_or_RL, Number_of_MWAY_and_RL)
 
-Education_NUTS2 <- read.csv('edat_lfse_16__custom_3760985_linear.csv') %>%
+Education_NUTS2 <- read.csv('edat_lfse_04__custom_3767870_linear.csv') %>%
+  filter(age == "Y25-64") %>%
   select(geo, TIME_PERIOD, OBS_VALUE) %>%
-  mutate(Early_leavers = OBS_VALUE, Year = TIME_PERIOD, NUTS2 = geo) %>%
-  select(NUTS2, Year, Early_leavers)
+  mutate(Tertiary_educ = OBS_VALUE, Year = TIME_PERIOD, NUTS2 = geo) %>%
+  select(NUTS2, Year, Tertiary_educ)
+```
+
+```{r}
+Inequity_Data <- GDP_Per_Capita_NUTS2 %>%
+  left_join(Education_NUTS2, by = c("Year", "NUTS2")) %>%
+  left_join(Demographics_NUTS2, by = c("Year", "NUTS2")) %>%
+  left_join(Trans_infrastructure_NUTS2, by = c("Year", "NUTS2"))
+```
+
+```{r}
+MRM_NUTS2 <- lm(GINI_NUTS2 ~ Life_expectency + Tertiary_educ + Number_of_MWAY_and_RL, data = Inequity_Data)
+summary(MRM_NUTS2)
 ```
 
 ### References
