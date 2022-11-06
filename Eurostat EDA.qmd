@@ -37,6 +37,7 @@ library(tidyverse)
 library(vtable)
 library(dineq)
 library(dplyr)
+library(huxtable)
 ```
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
@@ -526,42 +527,14 @@ Further on when we went deeper into detail, we saw the GINI coefficients of the 
 
 ```{r, echo=FALSE}
 GDP_Per_Capita_NUTS2 <- GDP_Per_Capita %>%
-  select(Year, Population, GDP, NUTS2, GINI_NUTS2) %>%
+  filter(Year == 2010) %>%
+  select(Year, Population, GDP, NUTS2, GINI_NUTS2, NUTS) %>%
   group_by(NUTS2, Year) %>%
   mutate(GDP_NUTS2 = sum(GDP), Population_NUTS2 = sum(Population)) %>%
   ungroup() %>%
-  distinct(NUTS2, Year, GDP_NUTS2, Population_NUTS2, GINI_NUTS2) %>%
+  distinct(NUTS, NUTS2, Year, GDP_NUTS2, Population_NUTS2, GINI_NUTS2) %>%
   mutate(GDP_capita_NUTS2 = (GDP_NUTS2 * 1000000)/Population_NUTS2)
 ```
-
-```{r, echo=FALSE}
-ggplot(data = GDP_Per_Capita_NUTS2, aes(x = GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.4) + labs(x = "GDP per Capita", y = "GINI") + theme_bw()
-```
-
-```{r, echo=FALSE}
-GDP_Per_Capita_NUTS2 %>%
-  filter(Year == 2010) %>%
-  distinct(NUTS2, GDP_capita_NUTS2, .keep_all = TRUE) %>%
-  ggplot(aes(x = GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + labs(x = "GDP per Capita", y = "GINI") + theme_bw()
-```
-
-```{r, echo=FALSE}
-lm(GINI_NUTS2 ~ GDP_capita_NUTS2, data = GDP_Per_Capita_NUTS2, subset = Year == 2010)
-```
-
-```{r, echo=FALSE}
-lm_GDP_on_GINI <- lm(GINI_NUTS2 ~ GDP_capita_NUTS2, data = GDP_Per_Capita_NUTS2, subset = Year == 2010)
-
-b0_GDP_on_GINI <- lm_GDP_on_GINI$coefficients[1]
-b1_GDP_on_GINI <- lm_GDP_on_GINI$coefficients[2]
-
-GDP_Per_Capita_NUTS2 %>%
-  filter(Year == 2010) %>%
-  distinct(NUTS2, GDP_capita_NUTS2, .keep_all = TRUE) %>%
-  ggplot(aes(x = GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + geom_abline(intercept = b0_GDP_on_GINI, slope = b1_GDP_on_GINI, color = "blue", alpha = 0.5) + labs(x = "GDP per Capita", y = "GINI") + theme_bw()
-```
-
-## Other determinants of inequity
 
 ```{r, echo=FALSE}
 Demographics_NUTS2 <- read.csv('demo_r_mlifexp__custom_3767848_linear.csv') %>%
@@ -581,11 +554,74 @@ Education_NUTS2 <- read.csv('edat_lfse_04__custom_3767870_linear.csv') %>%
   select(NUTS2, Year, Tertiary_educ)
 ```
 
-```{r}
+```{r, echo=FALSE}
 Inequity_Data <- GDP_Per_Capita_NUTS2 %>%
   left_join(Education_NUTS2, by = c("Year", "NUTS2")) %>%
   left_join(Demographics_NUTS2, by = c("Year", "NUTS2")) %>%
-  left_join(Trans_infrastructure_NUTS2, by = c("Year", "NUTS2"))
+  left_join(Trans_infrastructure_NUTS2, by = c("Year", "NUTS2")) %>%
+  mutate(log_GDP_capita_NUTS2 = log(GDP_capita_NUTS2)) %>%
+  filter(Year == 2010)
+
+AT2010 <- Inequity_Data %>%
+  filter(NUTS == "AT")
+BE2010 <- Inequity_Data %>%
+  filter(NUTS == "BE")
+BG2010 <- Inequity_Data %>%
+  filter(NUTS == "BG")
+HR2010 <- Inequity_Data %>%
+  filter(NUTS == "HR")
+IT2010 <- Inequity_Data %>%
+  filter(NUTS == "IT")
+RS2010 <- Inequity_Data %>%
+  filter(NUTS == "RS")
+SE2010 <- Inequity_Data %>%
+  filter(NUTS == "SE")
+```
+
+```{r}
+lm1 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = AT2010)
+lm2 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = BE2010)
+lm3 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = BG2010)
+lm4 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = HR2010)
+lm5 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = IT2010)
+lm6 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = SE2010)
+lm7 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = Inequity_Data)
+```
+
+```{r, echo=FALSE, warning=FALSE}
+huxreg(list("Model 1" = lm1, "Model 2" = lm2, "Model 3" = lm3, "Model 4" = lm4, "Model 5" = lm5, "Model 6" = lm6, "Model 7" = lm7), statistics = c(N = "Nobs", R2 = "R.Squared"), coefs = c(log_GDP_capita_NUTS2 = "log_GDP_capita_NUTS2", const. = "(Intercept)"), note = "Note: {stars} T statistics in brackets.")
+```
+
+```{r, echo=FALSE}
+Inequity_Data %>%
+  distinct(NUTS2, log_GDP_capita_NUTS2, .keep_all = TRUE) %>%
+  ggplot(aes(x = log_GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + labs(x = "log - GDP per Capita", y = "GINI") + theme_bw()
+```
+
+```{r, echo=FALSE}
+lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = Inequity_Data)
+```
+
+```{r, echo=FALSE}
+lm_GDP_on_GINI <- lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = Inequity_Data)
+
+b0_GDP_on_GINI <- lm_GDP_on_GINI$coefficients[1]
+b1_GDP_on_GINI <- lm_GDP_on_GINI$coefficients[2]
+
+Inequity_Data %>%
+  distinct(NUTS2, log_GDP_capita_NUTS2, .keep_all = TRUE) %>%
+  ggplot(aes(x = log_GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + geom_abline(intercept = b0_GDP_on_GINI, slope = b1_GDP_on_GINI, color = "blue", alpha = 0.5) + labs(x = "log - GDP per Capita", y = "GINI") + theme_bw()
+```
+
+## Other determinants of inequity
+
+To explore further options to understand what variables that might effect regional inequity in our subset of countries, we have chosen 3 other datasets from Eurostat that we wish to explore further.
+These are concerning transport infrastructure, education and demographics.
+More specifically, we will in this part of the paper explore the effect of the number of motor- and railways, percentage of the population with higher education as well as life expectancy on regional inequity in the subset of countries.
+The analysis will be delimited by the fact we are only exploring the year of 2010.
+
+```{r}
+
 ```
 
 ```{r}
