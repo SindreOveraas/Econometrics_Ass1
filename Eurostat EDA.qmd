@@ -631,10 +631,18 @@ The last model of the table Countries Combined (CC), is generated from the combi
 The negative slope coefficients of the regression analysis show us that there is a tendency for less regional inequality in Austria, Belgium and Sweden when regional economic development increases.
 Using Austria as an example, with the slope coefficient of -0.122, the dependent variable of regional inequality ($Y_i$) will decrease with 0.122%, when the independent variable of regional economic development ($X_i$) increases by 1%.
 In contrast, the simple regression analysis show that Bulgaria and Italy have a positive slope coefficients, telling us that inequality actually increases when economic regional development increases.
+For all the countries combined, we observe a negative slope coefficient of -0.031, implying once again that increase in economic development reduces inequality.
 
 ### Goodness of fit for estimated regression model
 
-To determine the goodness of fit for the estimated simple regression models in the table above
+To determine the goodness of fit for the estimated simple regression models in the table above we look at the coefficient of determination $R^2$.
+The coefficient of determination tells us how close the data are to the fitted regression line, and represents the quantity of the variance for the dependent variable that is explained by the independent variable.
+The $R^2$ can have values ranging from 0 to 1.
+Should the coefficient as an example be 0.7, this means around 70% of the dependent variable can be explained by the independent variable.
+
+In our case there is one coefficient of determination of our regression analysis in particular, that differs from the others.
+Looking at the table, it appears that the data of the regions in Bulgaria has an explanatory power of 0.973, meaning that the independent variable of economic regional growth explain the dependent variable of regional inequality to a greater extent and it may seem like there is a strong correlation between these variables.
+This can be presented in a scatter plot with a fitted line, for the sake of visualization, as shown below.
 
 ```{r}
 lm_GDP_on_GINI_BG <- lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = BG2010)
