@@ -602,12 +602,50 @@ lm6 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = SE2010)
 lm7 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = Inequity_Data)
 ```
 
+### The effect of regional economic development on regional inequality
+
+As mentioned in the introduction of this part of the paper, we will carry out a simple regression model and explore the effect of regional economic development $y_j$ on regional inequality $GINIW_j$.
+We will do this in order to gain an understanding of the connection between economic growth indicators such as GDP per capita and inequality might have.
+We will explore if higher GDP per capita may lead to less or greater inequality, and also gain an understanding to what extent these variables are related.
+
+The simple regression model for this part is structured in the following way:
+
+$$
+Y_i = β_1 + β_2X_i + ε_i
+$$
+
+-   $Y_i$ as the dependent/ explained variable
+-   $X_i$ as the independent/ explanatory variable
+-   $β_1$ as the intercept/ constant
+-   $β_2$ as the slope coefficient
+-   $ε_i$ as the error/ disturbance term
+
 ```{r, echo=FALSE, warning=FALSE}
-huxreg(list("Model 1" = lm1, "Model 2" = lm2,  "Model 3" = lm3, "Model 4" = lm4, "Model 5" = lm5, "Model 6" = lm6, "Model 7" = lm7), statistics = c(N = "Nobs", R2 = "R.Squared"), coefs = c(log_GDP_capita_NUTS2 = "log_GDP_capita_NUTS2", const. = "(Intercept)"), note = "Note: {stars} T statistics in brackets.")
+huxreg(list("AT" = lm1, "BE" = lm2,  "BG" = lm3, "HR" = lm4, "IT" = lm5, "SE" = lm6, "CC" = lm7), statistics = c(N = "nobs", R2 = "r.squared"), coefs = c(log_GDP_capita_NUTS2 = "log_GDP_capita_NUTS2", const. = "(Intercept)"), note = "Note: {stars} T statistics in brackets.")
 ```
 
-As shown in the regression table above, we have the intercepts and slope coefficient of all separate regions of regional economic development (X) on regional inequity (Y) (excluding Serbia (RS) because of insufficient data).
-The last model in the table (Model 7) is generated from the combined data from all regions regardless of country.
+As shown in the regression table above, we have the intercepts and slope coefficient of all separate regions of regional economic development ($X_i$) on regional inequality ($Y_i$) (excluding Serbia (RS) because of insufficient data).
+In alphabetical order of country codes, the table shows the intercept, slope, number of observations and the coefficient of determination ($R^2$) for the different NUTS2 country regions.
+The last model of the table Countries Combined (CC), is generated from the combined data from all regions regardless of country.
+
+The negative slope coefficients of the regression analysis show us that there is a tendency for less regional inequality in Austria, Belgium and Sweden when regional economic development increases.
+Using Austria as an example, with the slope coefficient of -0.122, the dependent variable of regional inequality ($Y_i$) will decrease with 0.122%, when the independent variable of regional economic development ($X_i$) increases by 1%.
+In contrast, the simple regression analysis show that Bulgaria and Italy have a positive slope coefficients, telling us that inequality actually increases when economic regional development increases.
+
+### Goodness of fit for estimated regression model
+
+To determine the goodness of fit for the estimated simple regression models in the table above
+
+```{r}
+lm_GDP_on_GINI_BG <- lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = BG2010)
+
+b0_GDP_on_GINI_BG <- lm_GDP_on_GINI_BG$coefficients[1]
+b1_GDP_on_GINI_BG <- lm_GDP_on_GINI_BG$coefficients[2]
+
+BG2010 %>%
+  distinct(NUTS2, log_GDP_capita_NUTS2, .keep_all = TRUE) %>%
+  ggplot(aes(x = log_GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + geom_abline(intercept = b0_GDP_on_GINI_BG, slope = b1_GDP_on_GINI_BG, color = "blue", alpha = 0.5) + labs(x = "log - GDP per Capita BG", y = "GINI BG") + theme_bw()
+```
 
 ```{r, echo=FALSE}
 Inequity_Data %>%
@@ -630,10 +668,14 @@ Inequity_Data %>%
   ggplot(aes(x = log_GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + geom_abline(intercept = b0_GDP_on_GINI, slope = b1_GDP_on_GINI, color = "blue", alpha = 0.5) + labs(x = "log - GDP per Capita", y = "GINI") + theme_bw()
 ```
 
+```{r}
+
+```
+
 ## Other determinants of inequity
 
 According to the United Nations Statistics Division there are limitations to measuring regional inequity with GDP per capita as an indicator.
-GDP per capita does not account for or measure the social and environmental costs of production, among other things [@unitednationsstatisticsdivisionGROSSDOMESTICPRODUCT2007].
+GDP per capita does not account for or measure the social and environmental costs of production, and other social issues such as politics and culture [@unitednationsstatisticsdivisionGROSSDOMESTICPRODUCT2007].
 It may be limited when measuring the level of overall well being in the population.
 It is therefore appropriate to look at other variables that can may have an impact and connection on regional inequity.
 
@@ -643,11 +685,7 @@ More specifically, we will in this part of the paper explore the effect of the n
 The analysis will be delimited by the fact we are only exploring the year of 2010, as mentioned previously.
 
 ```{r}
-
-```
-
-```{r}
-MRM_NUTS2 <- lm(GINI_NUTS2 ~ Life_expectency + Tertiary_educ + Number_of_MWAY_and_RL, data = Inequity_Data)
+MRM_NUTS2 <- lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2 + Life_expectency + Tertiary_educ + Number_of_MWAY_and_RL, data = Inequity_Data)
 summary(MRM_NUTS2)
 ```
 
