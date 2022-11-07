@@ -640,11 +640,11 @@ The coefficient of determination tells us how close the data are to the fitted r
 The $R^2$ can have values ranging from 0 to 1.
 Should the coefficient as an example be 0.7, this means around 70% of the dependent variable can be explained by the independent variable.
 
-In our case there is one coefficient of determination of our regression analysis in particular, that differs from the others.
+In our case there is one coefficient of determination in our regression analysis in particular, that differs from the others.
 Looking at the table, it appears that the data of the regions in Bulgaria has an explanatory power of 0.973, meaning that the independent variable of economic regional growth explain the dependent variable of regional inequality to a greater extent and it may seem like there is a strong correlation between these variables.
 This can be presented in a scatter plot with a fitted line, for the sake of visualization, as shown below.
 
-```{r}
+```{r, echo=FALSE}
 lm_GDP_on_GINI_BG <- lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = BG2010)
 
 b0_GDP_on_GINI_BG <- lm_GDP_on_GINI_BG$coefficients[1]
@@ -655,14 +655,13 @@ BG2010 %>%
   ggplot(aes(x = log_GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + geom_abline(intercept = b0_GDP_on_GINI_BG, slope = b1_GDP_on_GINI_BG, color = "blue", alpha = 0.5) + labs(x = "log - GDP per Capita BG", y = "GINI BG") + theme_bw()
 ```
 
+For all the countries combined (CC) we have the coefficient of determination of 0.157, i.e. that the independent variable of economic regional growth, explains around 15% of the variance in the dependent variable regional inequality.
+This can also be visualized with scatter plots as shown below.
+
 ```{r, echo=FALSE}
 Inequity_Data %>%
   distinct(NUTS2, log_GDP_capita_NUTS2, .keep_all = TRUE) %>%
   ggplot(aes(x = log_GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + labs(x = "log - GDP per Capita", y = "GINI") + theme_bw()
-```
-
-```{r, echo=FALSE}
-lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = Inequity_Data)
 ```
 
 ```{r, echo=FALSE}
@@ -676,9 +675,22 @@ Inequity_Data %>%
   ggplot(aes(x = log_GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + geom_abline(intercept = b0_GDP_on_GINI, slope = b1_GDP_on_GINI, color = "blue", alpha = 0.5) + labs(x = "log - GDP per Capita", y = "GINI") + theme_bw()
 ```
 
-```{r}
-
+```{r, echo=FALSE}
+Inequity_Data$Predicted <- predict(lm_GDP_on_GINI)
+Inequity_Data$Residuals <- residuals(lm_GDP_on_GINI)
 ```
+
+```{r, echo=FALSE}
+Inequity_Data %>%
+  distinct(NUTS2, log_GDP_capita_NUTS2, .keep_all = TRUE) %>%
+  ggplot(aes(x = log_GDP_capita_NUTS2, y = GINI_NUTS2)) +
+  geom_point(color = "maroon", alpha = 0.7) +
+  geom_segment(aes(x = log_GDP_capita_NUTS2, xend = log_GDP_capita_NUTS2, y = GINI_NUTS2, yend = Predicted), color = "red", alpha = 0.4) +
+                 geom_abline(intercept = b0_GDP_on_GINI, slope = b1_GDP_on_GINI, color = "blue", alpha = 0.5) +
+                 labs(x = "log - GDP per Capita", y = "GINI") + theme_bw()
+```
+
+### Classic assumptions OLS
 
 ## Other determinants of inequity
 
@@ -692,7 +704,7 @@ These are concerning transport infrastructure, education and demographics.
 More specifically, we will in this part of the paper explore the effect of the number of motor- and railways, percentage of the population with higher education as well as life expectancy on regional inequity in the subset of countries.
 The analysis will be delimited by the fact we are only exploring the year of 2010, as mentioned previously.
 
-```{r}
+```{r, echo=FALSE}
 MRM_NUTS2 <- lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2 + Life_expectency + Tertiary_educ + Number_of_MWAY_and_RL, data = Inequity_Data)
 summary(MRM_NUTS2)
 ```
