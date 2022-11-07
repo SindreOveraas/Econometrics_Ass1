@@ -525,6 +525,20 @@ Further on when we went deeper into detail, we saw the GINI coefficients of the 
 
 ## Growth and inequity
 
+For the second part of this paper we will explore growth and inequity for our subset of selected countries.
+This part will mainly consist of regression analyses, where we will start with an analysis of the effect of regional development $y_j$ on the regional inequality $GINIW_j$.
+Later in this part we will estimate a multiple linear regression model with other variables that might determine inequity, which we will explain in more detail later.
+For the sake of simplicity, we will only concentrate on one year in these analyses, the year 2010.
+
+One can argue that regional development has a significant connection to regional economic growth.
+GDP per capita is widely used by economists to gauge the health of an economy.
+According to the United Nations Statistics Division the purpose of the GDP per capita indicator is to "...measure the level of total economic output relative to the population of a country" [@unitednationsstatisticsdivisionGROSSDOMESTICPRODUCT2007].
+It is further explained that GDP per capita can be used as an indicator to measure the allocation of how total production of a country/ region can be shared among the population.
+GDP per capita is thus a powerful simple indicator of economic growth, and it can be argued that it can also be used as an indicator for development in inequality.
+
+According to Lessmann and Seidel, the level of economic development is measured by the logarithm of GDP per capita [@lessmannRegionalInequalityConvergence2017].
+We will therefore use the log of GDP per capita in our further calculations.
+
 ```{r, echo=FALSE}
 GDP_Per_Capita_NUTS2 <- GDP_Per_Capita %>%
   filter(Year == 2010) %>%
@@ -578,7 +592,7 @@ SE2010 <- Inequity_Data %>%
   filter(NUTS == "SE")
 ```
 
-```{r}
+```{r, echo=FALSE}
 lm1 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = AT2010)
 lm2 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = BE2010)
 lm3 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = BG2010)
@@ -589,8 +603,11 @@ lm7 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = Inequity_Data)
 ```
 
 ```{r, echo=FALSE, warning=FALSE}
-huxreg(list("Model 1" = lm1, "Model 2" = lm2, "Model 3" = lm3, "Model 4" = lm4, "Model 5" = lm5, "Model 6" = lm6, "Model 7" = lm7), statistics = c(N = "Nobs", R2 = "R.Squared"), coefs = c(log_GDP_capita_NUTS2 = "log_GDP_capita_NUTS2", const. = "(Intercept)"), note = "Note: {stars} T statistics in brackets.")
+huxreg(list("Model 1" = lm1, "Model 2" = lm2,  "Model 3" = lm3, "Model 4" = lm4, "Model 5" = lm5, "Model 6" = lm6, "Model 7" = lm7), statistics = c(N = "Nobs", R2 = "R.Squared"), coefs = c(log_GDP_capita_NUTS2 = "log_GDP_capita_NUTS2", const. = "(Intercept)"), note = "Note: {stars} T statistics in brackets.")
 ```
+
+As shown in the regression table above, we have the intercepts and slope coefficient of all separate regions of regional economic development (X) on regional inequity (Y) (excluding Serbia (RS) because of insufficient data).
+The last model in the table (Model 7) is generated from the combined data from all regions regardless of country.
 
 ```{r, echo=FALSE}
 Inequity_Data %>%
@@ -615,10 +632,15 @@ Inequity_Data %>%
 
 ## Other determinants of inequity
 
+According to the United Nations Statistics Division there are limitations to measuring regional inequity with GDP per capita as an indicator.
+GDP per capita does not account for or measure the social and environmental costs of production, among other things [@unitednationsstatisticsdivisionGROSSDOMESTICPRODUCT2007].
+It may be limited when measuring the level of overall well being in the population.
+It is therefore appropriate to look at other variables that can may have an impact and connection on regional inequity.
+
 To explore further options to understand what variables that might effect regional inequity in our subset of countries, we have chosen 3 other datasets from Eurostat that we wish to explore further.
 These are concerning transport infrastructure, education and demographics.
 More specifically, we will in this part of the paper explore the effect of the number of motor- and railways, percentage of the population with higher education as well as life expectancy on regional inequity in the subset of countries.
-The analysis will be delimited by the fact we are only exploring the year of 2010.
+The analysis will be delimited by the fact we are only exploring the year of 2010, as mentioned previously.
 
 ```{r}
 
