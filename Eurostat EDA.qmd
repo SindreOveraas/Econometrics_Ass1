@@ -574,7 +574,7 @@ Inequity_Data <- GDP_Per_Capita_NUTS2 %>%
   left_join(Demographics_NUTS2, by = c("Year", "NUTS2")) %>%
   left_join(Trans_infrastructure_NUTS2, by = c("Year", "NUTS2")) %>%
   mutate(log_GDP_capita_NUTS2 = log(GDP_capita_NUTS2)) %>%
-  filter(Year == 2010)
+  filter(Year == 2010 & GINI_NUTS2 > 0)
 
 AT2010 <- Inequity_Data %>%
   filter(NUTS == "AT")
@@ -624,14 +624,15 @@ $$
 huxreg(list("AT" = lm1, "BE" = lm2,  "BG" = lm3, "HR" = lm4, "IT" = lm5, "SE" = lm6, "CC" = lm7), statistics = c(N = "nobs", R2 = "r.squared"), coefs = c(log_GDP_capita_NUTS2 = "log_GDP_capita_NUTS2", const. = "(Intercept)"), note = "Note: {stars} T statistics in brackets.")
 ```
 
-As shown in the regression table above, we have the intercepts and slope coefficient of all separate regions of regional economic development ($X_i$) on regional inequality ($Y_i$) (excluding Serbia (RS) because of insufficient data).
+As shown in the regression table, we have the intercepts and slope coefficient of all separate regions of regional economic development ($X_i$) on regional inequality ($Y_i$) (excluding Serbia (RS) because of insufficient data).
 In alphabetical order of country codes, the table shows the intercept, slope, number of observations and the coefficient of determination ($R^2$) for the different NUTS2 country regions.
 The last model of the table Countries Combined (CC), is generated from the combined data from all regions regardless of country.
+We have chosen to ignore observations where GINI = 0, as we believe these values are due to missing data.
 
-The negative slope coefficients of the regression analysis show us that there is a tendency for less regional inequality in Austria, Belgium and Sweden when regional economic development increases.
-Using Austria as an example, with the slope coefficient of -0.122, the dependent variable of regional inequality ($Y_i$) will decrease with 0.122%, when the independent variable of regional economic development ($X_i$) increases by 1%.
+The negative slope coefficients of the regression analysis show us that there is a tendency for less regional inequality in Austria and Belgium when regional economic development increases.
+Using Austria as an example, with the slope coefficient of -0.043, the dependent variable of regional inequality ($Y_i$) will decrease with 0.043%, when the independent variable of regional economic development ($X_i$) increases by 1%.
 In contrast, the simple regression analysis show that Bulgaria and Italy have a positive slope coefficients, telling us that inequality actually increases when economic regional development increases.
-For all the countries combined, we observe a negative slope coefficient of -0.031, implying once again that increase in economic development reduces inequality.
+For all the countries combined, we observe a negative slope coefficient of -0.023, implying once again that increase in economic development reduces inequality overall for our subset of countries.
 
 ### Goodness of fit for estimated regression model
 
@@ -643,6 +644,7 @@ Should the coefficient as an example be 0.7, this means around 70% of the depend
 In our case there is one coefficient of determination in our regression analysis in particular, that differs from the others.
 Looking at the table, it appears that the data of the regions in Bulgaria has an explanatory power of 0.973, meaning that the independent variable of economic regional growth explain the dependent variable of regional inequality to a greater extent and it may seem like there is a strong correlation between these variables.
 This can be presented in a scatter plot with a fitted line, for the sake of visualization, as shown below.
+We also observe that the p-value for the slope coefficient p \> 0.001, which suggests we can reject the null hypothesis that there is no correlation concerning the dependent and independent variable for the regression analysis of Bulgaria.
 
 ```{r, echo=FALSE}
 lm_GDP_on_GINI_BG <- lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = BG2010)
@@ -651,16 +653,14 @@ b0_GDP_on_GINI_BG <- lm_GDP_on_GINI_BG$coefficients[1]
 b1_GDP_on_GINI_BG <- lm_GDP_on_GINI_BG$coefficients[2]
 
 BG2010 %>%
-  distinct(NUTS2, log_GDP_capita_NUTS2, .keep_all = TRUE) %>%
   ggplot(aes(x = log_GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + geom_abline(intercept = b0_GDP_on_GINI_BG, slope = b1_GDP_on_GINI_BG, color = "blue", alpha = 0.5) + labs(x = "log - GDP per Capita BG", y = "GINI BG") + theme_bw()
 ```
 
-For all the countries combined (CC) we have the coefficient of determination of 0.157, i.e. that the independent variable of economic regional growth, explains around 15% of the variance in the dependent variable regional inequality.
+For all the countries combined (CC) we have the coefficient of determination of 0.090, i.e. that the independent variable of economic regional growth, explains around 9% of the variance in the dependent variable regional inequality.
 This can also be visualized with scatter plots as shown below.
 
 ```{r, echo=FALSE}
 Inequity_Data %>%
-  distinct(NUTS2, log_GDP_capita_NUTS2, .keep_all = TRUE) %>%
   ggplot(aes(x = log_GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + labs(x = "log - GDP per Capita", y = "GINI") + theme_bw()
 ```
 
@@ -671,9 +671,13 @@ b0_GDP_on_GINI <- lm_GDP_on_GINI$coefficients[1]
 b1_GDP_on_GINI <- lm_GDP_on_GINI$coefficients[2]
 
 Inequity_Data %>%
-  distinct(NUTS2, log_GDP_capita_NUTS2, .keep_all = TRUE) %>%
   ggplot(aes(x = log_GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + geom_abline(intercept = b0_GDP_on_GINI, slope = b1_GDP_on_GINI, color = "blue", alpha = 0.5) + labs(x = "log - GDP per Capita", y = "GINI") + theme_bw()
 ```
+
+### Residuals of the model
+
+Further, we want to graphically present the residuals of our model concerning the combined country data (CC).
+The residuals of the model is the difference between the observed value and mean value (slope coefficient) that the model predicts for that observation [@frostResiduals2022].
 
 ```{r, echo=FALSE}
 Inequity_Data$Predicted <- predict(lm_GDP_on_GINI)
@@ -690,12 +694,27 @@ Inequity_Data %>%
                  labs(x = "log - GDP per Capita", y = "GINI") + theme_bw()
 ```
 
-### Classic assumptions OLS
+Above we have plotted the residuals for our simple regression model in the scatter plot.
+
+### Classical assumptions OLS
+
+Statistical analyses such as ordinary least squares regression (OLS) has underlying assumptions.
+It is when these classical assumptions are true, that OLS produces the best estimates.
+There are six classical assumptions for OLS regression.
+If the first four are fulfilled, our models are unbiased.
+All six assumptions are listed below:
+
+1.  Linearity: There must be a linear relationship between the dependent ($Y_i$) and independent ($X_i$) variables. As shown on our scatter plots with the fitted line, we see that the fitted line represents all plots as good as possible
+2.  Sample variation: There is variation in the independent variable ($X_i$).
+3.  Random sampling: There is a random sample from the population of interest. Our data is collected from Eurostat, which is a reliable source in terms of random sampling.
+4.  Exogeneity: The explanatory variable ($X_i$) is exogenous, i.e., it is not influenced by any other variables in the explanatory model.
+5.  Homoskedasticity: The error term ($ε_i$) has the same variance for each value of the independent variable ($X_i$).
+6.  Normality: The population error term ($ε_i$) is normally distributed.
 
 ## Other determinants of inequity
 
 According to the United Nations Statistics Division there are limitations to measuring regional inequity with GDP per capita as an indicator.
-GDP per capita does not account for or measure the social and environmental costs of production, and other social issues such as politics and culture [@unitednationsstatisticsdivisionGROSSDOMESTICPRODUCT2007].
+GDP per capita does not account for or measure the social and environmental costs of production, and other social issues such as politics, education, health care and culture etc [@unitednationsstatisticsdivisionGROSSDOMESTICPRODUCT2007].
 It may be limited when measuring the level of overall well being in the population.
 It is therefore appropriate to look at other variables that can may have an impact and connection on regional inequity.
 
@@ -705,9 +724,45 @@ More specifically, we will in this part of the paper explore the effect of the n
 The analysis will be delimited by the fact we are only exploring the year of 2010, as mentioned previously.
 
 ```{r, echo=FALSE}
-MRM_NUTS2 <- lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2 + Life_expectency + Tertiary_educ + Number_of_MWAY_and_RL, data = Inequity_Data)
-summary(MRM_NUTS2)
+MRM_NUTS2 <- function(mlrdata){
+  lm8 = lm(GINI_NUTS2 ~ Tertiary_educ, mlrdata)
+  lm9 = lm(GINI_NUTS2 ~ Number_of_MWAY_and_RL, mlrdata)
+  lm10 = lm(GINI_NUTS2 ~ Tertiary_educ + Number_of_MWAY_and_RL, mlrdata)
+  lm11 = lm(GINI_NUTS2 ~ Life_expectency, mlrdata)
+  lm12 = lm(GINI_NUTS2 ~ Tertiary_educ + Life_expectency, mlrdata)
+  
+  huxreg(
+    list("Model 1" = lm8, "Model 2" = lm9, "Model 3" = lm10, "Model 4" = lm11, "Model 5" = lm12), statistics = c(N = "nobs", R2 = "r.squared"), coefs = c(Higher.educ = "Tertiary_educ","Number_of_MWAY_and_RL", Life.expec = "Life_expectency", const. = "(Intercept)"), note = "Note: {stars} T statistics in brackets."
+  )
+}
 ```
+
+### Multiple regression model Austria
+
+```{r, echo=FALSE}
+#| tbl-cap: MRM AT
+MRM_NUTS2(AT2010)
+```
+
+In this table we have two multiple regression models and three simple regression models.
+Model 3 and 5 are the multiple regression models, whereas 1, 2 and 4 are simple regression models.
+
+The multiple regression models for Austria show a coefficient of determination $R^2$ of 0.792 for Model 3 and 0.639 for Model 5, respectively.
+Model 3 concerns a multiple regression of percentage of the population with higher education and the number of railways and motorways as the independent variables, and the GINI coefficient as the dependent variable.
+Model 5 also has the percentage of the population with higher education as an independent variable, but has life expectancy as the second independent variable.
+Both models show significant correlation as the coefficient of determination $R^2$ \> 0.35.
+
+### Multiple regression model Belgium
+
+```{r, echo=FALSE}
+#| tbl-cap: MRM BE
+MRM_NUTS2(BE2010)
+```
+
+Furthermore, we want to look at how the multiple regression models for Belgium.
+In this table we see a much lower degree of explanation for the models, than that of Austria.
+It therefore suggests that the correlation between the independent and dependent variables is not as significant in comparison.
+A desired condition for correlation in regression models is that the coefficient of determination $R^2$ is equal to or higher than 0.35, which in these instances they are not.
 
 ### References
 
