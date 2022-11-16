@@ -536,9 +536,6 @@ According to the United Nations Statistics Division the purpose of the GDP per c
 It is further explained that GDP per capita can be used as an indicator to measure the allocation of how total production of a country/ region can be shared among the population.
 GDP per capita is thus a powerful simple indicator of economic growth, and it can be argued that it can also be used as an indicator for development in inequality.
 
-According to Lessmann and Seidel, the level of economic development is measured by the logarithm of GDP per capita [@lessmannRegionalInequalityConvergence2017].
-We will therefore use the log of GDP per capita in our further calculations.
-
 ```{r, echo=FALSE}
 GDP_Per_Capita_NUTS2 <- GDP_Per_Capita %>%
   filter(Year == 2010) %>%
@@ -593,13 +590,13 @@ SE2010 <- Inequity_Data %>%
 ```
 
 ```{r, echo=FALSE}
-lm1 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = AT2010)
-lm2 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = BE2010)
-lm3 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = BG2010)
-lm4 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = HR2010)
-lm5 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = IT2010)
-lm6 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = SE2010)
-lm7 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = Inequity_Data)
+lm1 = lm(GINI_NUTS2 ~ GDP_capita_NUTS2, data = AT2010)
+lm2 = lm(GINI_NUTS2 ~ GDP_capita_NUTS2, data = BE2010)
+lm3 = lm(GINI_NUTS2 ~ GDP_capita_NUTS2, data = BG2010)
+lm4 = lm(GINI_NUTS2 ~ GDP_capita_NUTS2, data = HR2010)
+lm5 = lm(GINI_NUTS2 ~ GDP_capita_NUTS2, data = IT2010)
+lm6 = lm(GINI_NUTS2 ~ GDP_capita_NUTS2, data = SE2010)
+lm7 = lm(GINI_NUTS2 ~ GDP_capita_NUTS2, data = Inequity_Data)
 ```
 
 ### The effect of regional economic development on regional inequality
@@ -621,7 +618,7 @@ $$
 -   $ε_i$ as the error/ disturbance term
 
 ```{r, echo=FALSE, warning=FALSE}
-huxreg(list("AT" = lm1, "BE" = lm2,  "BG" = lm3, "HR" = lm4, "IT" = lm5, "SE" = lm6, "CC" = lm7), statistics = c(N = "nobs", R2 = "r.squared"), coefs = c(log_GDP_capita_NUTS2 = "log_GDP_capita_NUTS2", const. = "(Intercept)"), note = "Note: {stars} T statistics in brackets.")
+huxreg(list("AT" = lm1, "BE" = lm2,  "BG" = lm3, "HR" = lm4, "IT" = lm5, "SE" = lm6, "CC" = lm7), statistics = c(N = "nobs", R2 = "r.squared"), coefs = c(GDP_capita_NUTS2 = "GDP_capita_NUTS2", const. = "(Intercept)"), note = "Note: {stars} T statistics in brackets.")
 ```
 
 As shown in the regression table, we have the intercepts and slope coefficient of all separate regions of regional economic development ($X_i$) on regional inequality ($Y_i$) (excluding Serbia (RS) because of insufficient data).
@@ -647,13 +644,13 @@ This can be presented in a scatter plot with a fitted line, for the sake of visu
 We also observe that the p-value for the slope coefficient p \> 0.001, which suggests we can reject the null hypothesis that there is no correlation concerning the dependent and independent variable for the regression analysis of Bulgaria.
 
 ```{r, echo=FALSE}
-lm_GDP_on_GINI_BG <- lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = BG2010)
+lm_GDP_on_GINI_BG <- lm(GINI_NUTS2 ~ GDP_capita_NUTS2, data = BG2010)
 
 b0_GDP_on_GINI_BG <- lm_GDP_on_GINI_BG$coefficients[1]
 b1_GDP_on_GINI_BG <- lm_GDP_on_GINI_BG$coefficients[2]
 
 BG2010 %>%
-  ggplot(aes(x = log_GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + geom_abline(intercept = b0_GDP_on_GINI_BG, slope = b1_GDP_on_GINI_BG, color = "blue", alpha = 0.5) + labs(x = "log - GDP per Capita BG", y = "GINI BG") + theme_bw()
+  ggplot(aes(x = GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + geom_abline(intercept = b0_GDP_on_GINI_BG, slope = b1_GDP_on_GINI_BG, color = "blue", alpha = 0.5) + labs(x = "GDP per Capita BG", y = "GINI BG") + theme_bw()
 ```
 
 For all the countries combined (CC) we have the coefficient of determination of 0.090, i.e. that the independent variable of economic regional growth, explains around 9% of the variance in the dependent variable regional inequality.
@@ -661,17 +658,17 @@ This can also be visualized with scatter plots as shown below.
 
 ```{r, echo=FALSE}
 Inequity_Data %>%
-  ggplot(aes(x = log_GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + labs(x = "log - GDP per Capita", y = "GINI") + theme_bw()
+  ggplot(aes(x = GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + labs(x = "GDP per Capita", y = "GINI") + theme_bw()
 ```
 
 ```{r, echo=FALSE}
-lm_GDP_on_GINI <- lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = Inequity_Data)
+lm_GDP_on_GINI <- lm(GINI_NUTS2 ~ GDP_capita_NUTS2, data = Inequity_Data)
 
 b0_GDP_on_GINI <- lm_GDP_on_GINI$coefficients[1]
 b1_GDP_on_GINI <- lm_GDP_on_GINI$coefficients[2]
 
 Inequity_Data %>%
-  ggplot(aes(x = log_GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + geom_abline(intercept = b0_GDP_on_GINI, slope = b1_GDP_on_GINI, color = "blue", alpha = 0.5) + labs(x = "log - GDP per Capita", y = "GINI") + theme_bw()
+  ggplot(aes(x = GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + geom_abline(intercept = b0_GDP_on_GINI, slope = b1_GDP_on_GINI, color = "blue", alpha = 0.5) + labs(x = "GDP per Capita", y = "GINI") + theme_bw()
 ```
 
 ### Residuals of the model
@@ -686,12 +683,12 @@ Inequity_Data$Residuals <- residuals(lm_GDP_on_GINI)
 
 ```{r, echo=FALSE}
 Inequity_Data %>%
-  distinct(NUTS2, log_GDP_capita_NUTS2, .keep_all = TRUE) %>%
-  ggplot(aes(x = log_GDP_capita_NUTS2, y = GINI_NUTS2)) +
+  distinct(NUTS2, GDP_capita_NUTS2, .keep_all = TRUE) %>%
+  ggplot(aes(x = GDP_capita_NUTS2, y = GINI_NUTS2)) +
   geom_point(color = "maroon", alpha = 0.7) +
-  geom_segment(aes(x = log_GDP_capita_NUTS2, xend = log_GDP_capita_NUTS2, y = GINI_NUTS2, yend = Predicted), color = "red", alpha = 0.4) +
+  geom_segment(aes(x = GDP_capita_NUTS2, xend = GDP_capita_NUTS2, y = GINI_NUTS2, yend = Predicted), color = "red", alpha = 0.4) +
                  geom_abline(intercept = b0_GDP_on_GINI, slope = b1_GDP_on_GINI, color = "blue", alpha = 0.5) +
-                 labs(x = "log - GDP per Capita", y = "GINI") + theme_bw()
+                 labs(x = "GDP per Capita", y = "GINI") + theme_bw()
 ```
 
 Above we have plotted the residuals for our simple regression model in the scatter plot.
@@ -764,7 +761,40 @@ In this table we see a much lower degree of explanation for the models, than tha
 It therefore suggests that the correlation between the independent and dependent variables is not as significant in comparison.
 A desired condition for correlation in regression models is that the coefficient of determination $R^2$ is equal to or higher than 0.35, which in these instances they are not.
 
-### References
+## Alternative functional forms
+
+### Effect of development for different subsets
+
+### Alternative functional forms
+
+For this sub-task we will explore alternative functional forms of our previous estimates in the relationship between regional development $y_j$ on regional inequality $GINIW_j$.
+More specifically we will estimate the log of GDP per capita in a linear regression model, and assign this variable as the new determinant of effect on regional economic development $y_j$.
+According to Lessmann and Seidel, the level of economic development can be measured by the logarithm of GDP per capita [@lessmannRegionalInequalityConvergence2017].
+That is therefore the reason we will use the log of GDP per capita in our new estimates in the linear regression model, and see if this fits our model better.
+
+```{r, echo=FALSE, warning=FALSE}
+lm13 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = AT2010)
+lm14 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = BE2010)
+lm15 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = BG2010)
+lm16 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = HR2010)
+lm17 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = IT2010)
+lm18 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = SE2010)
+lm19 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = Inequity_Data)
+
+huxreg(list("AT" = lm13, "BE" = lm14,  "BG" = lm15, "HR" = lm16, "IT" = lm17, "SE" = lm18, "CC" = lm19), statistics = c(N = "nobs", R2 = "r.squared"), coefs = c(log_GDP_capita_NUTS2 = "log_GDP_capita_NUTS2", const. = "(Intercept)"), note = "Note: {stars} T statistics in brackets.")
+```
+
+```{r}
+lm_log_GDP_on_GINI <- lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = Inequity_Data)
+
+b0_log_GDP_on_GINI <- lm_log_GDP_on_GINI$coefficients[1]
+b1_log_GDP_on_GINI <- lm_log_GDP_on_GINI$coefficients[2]
+
+Inequity_Data %>%
+  ggplot(aes(x = log_GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + geom_abline(intercept = b0_log_GDP_on_GINI, slope = b1_log_GDP_on_GINI, color = "blue", alpha = 0.5) + labs(x = "log GDP per Capita", y = "GINI") + theme_bw()
+```
+
+## References
 
 ::: {#refs}
 :::
