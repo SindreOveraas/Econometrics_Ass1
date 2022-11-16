@@ -644,13 +644,13 @@ This can be presented in a scatter plot with a fitted line, for the sake of visu
 We also observe that the p-value for the slope coefficient p \> 0.001, which suggests we can reject the null hypothesis that there is no correlation concerning the dependent and independent variable for the regression analysis of Bulgaria.
 
 ```{r, echo=FALSE}
-lm_GDP_on_GINI_BG <- lm(GINI_NUTS2 ~ GDP_capita_NUTS2, data = BG2010)
+lm_GDP_on_GINI_BE <- lm(GINI_NUTS2 ~ GDP_capita_NUTS2, data = BE2010)
 
-b0_GDP_on_GINI_BG <- lm_GDP_on_GINI_BG$coefficients[1]
-b1_GDP_on_GINI_BG <- lm_GDP_on_GINI_BG$coefficients[2]
+b0_GDP_on_GINI_BE <- lm_GDP_on_GINI_BE$coefficients[1]
+b1_GDP_on_GINI_BE <- lm_GDP_on_GINI_BE$coefficients[2]
 
-BG2010 %>%
-  ggplot(aes(x = GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + geom_abline(intercept = b0_GDP_on_GINI_BG, slope = b1_GDP_on_GINI_BG, color = "blue", alpha = 0.5) + labs(x = "GDP per Capita BG", y = "GINI BG") + theme_bw()
+BE2010 %>%
+  ggplot(aes(x = GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + geom_abline(intercept = b0_GDP_on_GINI_BE, slope = b1_GDP_on_GINI_BE, color = "blue", alpha = 0.5) + labs(x = "GDP per Capita BE", y = "GINI BE") + theme_bw()
 ```
 
 For all the countries combined (CC) we have the coefficient of determination of 0.090, i.e. that the independent variable of economic regional growth, explains around 9% of the variance in the dependent variable regional inequality.
@@ -784,7 +784,7 @@ lm19 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = Inequity_Data)
 huxreg(list("AT" = lm13, "BE" = lm14,  "BG" = lm15, "HR" = lm16, "IT" = lm17, "SE" = lm18, "CC" = lm19), statistics = c(N = "nobs", R2 = "r.squared"), coefs = c(log_GDP_capita_NUTS2 = "log_GDP_capita_NUTS2", const. = "(Intercept)"), note = "Note: {stars} T statistics in brackets.")
 ```
 
-```{r}
+```{r, echo=FALSE}
 lm_log_GDP_on_GINI <- lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = Inequity_Data)
 
 b0_log_GDP_on_GINI <- lm_log_GDP_on_GINI$coefficients[1]
@@ -792,6 +792,18 @@ b1_log_GDP_on_GINI <- lm_log_GDP_on_GINI$coefficients[2]
 
 Inequity_Data %>%
   ggplot(aes(x = log_GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + geom_abline(intercept = b0_log_GDP_on_GINI, slope = b1_log_GDP_on_GINI, color = "blue", alpha = 0.5) + labs(x = "log GDP per Capita", y = "GINI") + theme_bw()
+```
+
+Furthermore, we would like to present a polynomial regression analysis to determine if this will fit and explain our data better.
+
+```{r, echo=FALSE}
+lm_poly_GDP_on_GINI <- lm(GINI_NUTS2 ~ poly(GDP_capita_NUTS2, 5), data = Inequity_Data)
+summary(lm_poly_GDP_on_GINI)
+```
+
+```{r, echo=FALSE}
+Inequity_Data %>%
+  ggplot(aes(x = GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + stat_smooth(method = "lm", formula = y ~ poly(x, 5), se = TRUE, color = "blue", alpha = 0.2) + labs(x = "GDP per Capita", y = "GINI") + theme_bw()
 ```
 
 ## References
