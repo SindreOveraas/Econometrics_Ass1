@@ -6,7 +6,7 @@ format:
   papersize: a4
 editor: visual
 csl: apa-no-ampersand.csl
-bibliography: [SHO.bib, mena.bib, ac.bib]
+bibliography: [SHO.bib, mena.bib]
 ---
 
 ## Eurostat EDA
