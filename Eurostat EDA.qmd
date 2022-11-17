@@ -90,7 +90,8 @@ GDP_Per_Capita  %<>%
   group_by(NUTS2, Year) %>%
   na.exclude(GDP_Per_Capita) %>%
   mutate(GINI_NUTS2 = gini.wtd(GDP_capita, weights = Population)) %>%
-  ungroup()
+  ungroup() %>%
+  filter(GINI_NUTS2 > 0)
 ```
 
 ```{r, echo=FALSE}
@@ -450,8 +451,9 @@ $$
 GINIW_j=\frac{1}{2 \bar{y_j}} \sum_{i}^{n_j}\sum_{l}^{n_j}\frac{p_i}{P_j} \frac{p_l}{P_j} |y_i-y_l|
 $$
 
-```{r, echo=FALSE}
-kable(summary(GDP_Per_Capita[8]))
+```{r}
+kable(summary(GDP_Per_Capita %>%
+  select(GINI_NUTS2)))
 ```
 
 The summary statistics above give us the descriptive figures for all our selected countries combined, throughout the whole period of 2000 - 2020.
@@ -729,9 +731,8 @@ MRM_NUTS2 <- function(mlrdata){
   lm12 = lm(GINI_NUTS2 ~ Tertiary_educ + Life_expectency, mlrdata)
   
   huxreg(
-    list("Model 1" = lm8, "Model 2" = lm9, "Model 3" = lm10, "Model 4" = lm11, "Model 5" = lm12), statistics = c(N = "nobs", R2 = "r.squared"), coefs = c(Higher.educ = "Tertiary_educ","Number_of_MWAY_and_RL", Life.expec = "Life_expectency", const. = "(Intercept)"), note = "Note: {stars} T statistics in brackets."
-  )
-}
+    list("Model 1" = lm8, "Model 2" = lm9, "Model 3" = lm10, "Model 4" = lm11, "Model 5" = lm12), statistics = c(N = "nobs", R2 = "r.squared"), coefs = c(Higher.educ = "Tertiary_educ","Number_of_MWAY_and_RL", Life.expec = "Life_expectency", const. = "(Intercept)"),note = "Note: {stars} T statistics in brackets.")
+  }
 ```
 
 ### Multiple regression model Austria
@@ -788,6 +789,11 @@ lm19 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = Inequity_Data)
 huxreg(list("AT" = lm13, "BE" = lm14,  "BG" = lm15, "HR" = lm16, "IT" = lm17, "SE" = lm18, "CC" = lm19), statistics = c(N = "nobs", R2 = "r.squared", FStat = "statistic", PValue = "p.value"), coefs = c(log_GDP_capita_NUTS2 = "log_GDP_capita_NUTS2", const. = "(Intercept)"), note = "Note: {stars} T statistics in brackets.")
 ```
 
+As we can tell from the descriptive statistics of the regression models where the logarithm of GDP per capita has been assigned as the explanatory variable as compared to our previous simple regression models in part 2, with GDP per capita as the explanatory variable, the coefficients of determination has a slight tendency to be at a lower level.
+This applies more specifically to the regressions of Austria, Belgium, Italy and Sweden.
+The regression analysis of all the Countries Combined (CC) however has a slightly better $R^2$, with the coefficient of 0.09, compared to 0.064 of the previous model.
+The scatterplot for the regression of the CC with the log of GDP per capita data is shown below.
+
 ```{r, echo=FALSE}
 lm_log_GDP_on_GINI <- lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = Inequity_Data)
 
@@ -799,26 +805,26 @@ Inequity_Data %>%
 ```
 
 Furthermore, we would like to present a polynomial regression analysis of our data.
-In these regressions we will still keep the logarithm of GDP per capita ($X_i$) as our explanatory variables.
-The analysis consists of a 2^nd^ and 3^rd^ degree polynomial regressions.
+In these regressions we will still keep the logarithm of GDP per capita ($X_i$) as our explanatory variable.
+The analysis consists of 2^nd^ and 3^rd^ degree polynomial regressions.
 
 ```{r, echo=FALSE}
 lm20 <- lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = Inequity_Data)
 lm21 <- lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2 + I(log_GDP_capita_NUTS2^2), data = Inequity_Data)
 lm22 <- lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2 + I(log_GDP_capita_NUTS2^2) + I(log_GDP_capita_NUTS2^3), data = Inequity_Data)
 
-huxreg(list("OLS" = lm20,  "2nd degree polynomial" = lm21, "3rd degree polynomial" = lm22),
-       statistics = c(N = "nobs", R2 = "r.squared"), 
+huxreg(list("Simple linear reg" = lm20,  "2nd degree polynomial" = lm21, "3rd degree polynomial" = lm22),
+       statistics = c(N = "nobs", R2 = "r.squared", FStat = "statistic", PValue = "p.value"), 
        coefs = c("log GDP per capita NUTS2" = "log_GDP_capita_NUTS2","log GDP per capita NUTS2 ^2" = "I(log_GDP_capita_NUTS2^2)","log GDP capita NUTS2 ^3" = "I(log_GDP_capita_NUTS2^3)", const. = "(Intercept)"),
        note = "Note: {stars} T statistics in brackets.")
 ```
 
-```{r, echo=FALSE}
-lm_poly_log_GDP_on_GINI <- lm(GINI_NUTS2 ~ poly(log_GDP_capita_NUTS2, 3), data = Inequity_Data)
-summary(lm_poly_log_GDP_on_GINI)
-```
+Comparing the simple linear regression with the polynomial regressions of 2^nd^ and 3^rd^ degree, we observe that the coefficient of determination increases.
+We can observe in particular that the 3^rd^ degree polynomial regression show a significantly greater degree of explanation with an $R^2$ of 0.204, compared to 0.09 of the previous estimated model.
+Polynomial regression is however sensitive to outliers, which is the case for our estimates.
+As visualized below
 
-```{r}
+```{r, echo=FALSE}
 Inequity_Data %>%
   ggplot(aes(x = log_GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + stat_smooth(method = "lm", formula = y ~ poly(x, 2), se = FALSE, color = "blue", alpha = 0.2) + labs(x = "log GDP per Capita", y = "GINI") + theme_bw()
 ```
