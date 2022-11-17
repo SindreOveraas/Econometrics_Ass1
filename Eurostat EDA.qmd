@@ -830,7 +830,10 @@ Inequity_Data %>%
   stat_smooth(method = "lm", formula = y ~ poly(x, 3), se = FALSE, color = "blue", alpha = 0.2) + labs(x = "log GDP per Capita", y = "GINI") + theme_bw()
 ```
 
-### Breusch Pagan Test (Heteroskedasticity)
+### Breusch Pagan Test (Heteroscedasticity)
+
+We will be using the Breush-Pagan test, to test for heteroskedasticity in linear regression models.
+When doing this test, the goal is to assert wether there is heteroscedasticity or homoscedasticity, which then will tell us wether the results of the regression are reliable or not.
 
 ## References
 
