@@ -644,13 +644,13 @@ This can be presented in a scatter plot with a fitted line, for the sake of visu
 We also observe that the p-value for the slope coefficient p \> 0.001, which suggests we can reject the null hypothesis that there is no correlation concerning the dependent and independent variable for the regression analysis of Bulgaria.
 
 ```{r, echo=FALSE}
-lm_GDP_on_GINI_BE <- lm(GINI_NUTS2 ~ GDP_capita_NUTS2, data = BE2010)
+lm_GDP_on_GINI_IT <- lm(GINI_NUTS2 ~ GDP_capita_NUTS2, data = IT2010)
 
-b0_GDP_on_GINI_BE <- lm_GDP_on_GINI_BE$coefficients[1]
-b1_GDP_on_GINI_BE <- lm_GDP_on_GINI_BE$coefficients[2]
+b0_GDP_on_GINI_IT <- lm_GDP_on_GINI_IT$coefficients[1]
+b1_GDP_on_GINI_IT <- lm_GDP_on_GINI_IT$coefficients[2]
 
-BE2010 %>%
-  ggplot(aes(x = GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + geom_abline(intercept = b0_GDP_on_GINI_BE, slope = b1_GDP_on_GINI_BE, color = "blue", alpha = 0.5) + labs(x = "GDP per Capita BE", y = "GINI BE") + theme_bw()
+IT2010 %>%
+  ggplot(aes(x = GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + geom_abline(intercept = b0_GDP_on_GINI_IT, slope = b1_GDP_on_GINI_IT, color = "blue", alpha = 0.5) + labs(x = "GDP per Capita IT", y = "GINI IT") + theme_bw()
 ```
 
 For all the countries combined (CC) we have the coefficient of determination of 0.090, i.e. that the independent variable of economic regional growth, explains around 9% of the variance in the dependent variable regional inequality.
@@ -763,6 +763,10 @@ A desired condition for correlation in regression models is that the coefficient
 
 ## Alternative functional forms
 
+The third part of this explanatory data analysis paper mainly revolves around alternative functional forms which might fit our data of GDP per capita and Inequity better.
+This part will also mainly consist of regression analysis, but shall more specifically examine how our data fits when calculating the log of the independent variable $X_i$ (GDP per capita) and further if polynomial regression reinforces this connection.
+This part, like the previous one, will deal with regions of NUTS2 level in our subset of countries.
+
 ### Effect of development for different subsets
 
 ### Alternative functional forms
@@ -770,7 +774,7 @@ A desired condition for correlation in regression models is that the coefficient
 For this sub-task we will explore alternative functional forms of our previous estimates in the relationship between regional development $y_j$ on regional inequality $GINIW_j$.
 More specifically we will estimate the log of GDP per capita in a linear regression model, and assign this variable as the new determinant of effect on regional economic development $y_j$.
 According to Lessmann and Seidel, the level of economic development can be measured by the logarithm of GDP per capita [@lessmannRegionalInequalityConvergence2017].
-That is therefore the reason we will use the log of GDP per capita in our new estimates in the linear regression model, and see if this fits our model better.
+That is therefore the reason we will use the log of GDP per capita in our new estimates in the linear regression model, and we will determine if this fits our model better.
 
 ```{r, echo=FALSE, warning=FALSE}
 lm13 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = AT2010)
@@ -781,7 +785,7 @@ lm17 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = IT2010)
 lm18 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = SE2010)
 lm19 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = Inequity_Data)
 
-huxreg(list("AT" = lm13, "BE" = lm14,  "BG" = lm15, "HR" = lm16, "IT" = lm17, "SE" = lm18, "CC" = lm19), statistics = c(N = "nobs", R2 = "r.squared"), coefs = c(log_GDP_capita_NUTS2 = "log_GDP_capita_NUTS2", const. = "(Intercept)"), note = "Note: {stars} T statistics in brackets.")
+huxreg(list("AT" = lm13, "BE" = lm14,  "BG" = lm15, "HR" = lm16, "IT" = lm17, "SE" = lm18, "CC" = lm19), statistics = c(N = "nobs", R2 = "r.squared", FStat = "statistic", PValue = "p.value"), coefs = c(log_GDP_capita_NUTS2 = "log_GDP_capita_NUTS2", const. = "(Intercept)"), note = "Note: {stars} T statistics in brackets.")
 ```
 
 ```{r, echo=FALSE}
@@ -794,17 +798,39 @@ Inequity_Data %>%
   ggplot(aes(x = log_GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + geom_abline(intercept = b0_log_GDP_on_GINI, slope = b1_log_GDP_on_GINI, color = "blue", alpha = 0.5) + labs(x = "log GDP per Capita", y = "GINI") + theme_bw()
 ```
 
-Furthermore, we would like to present a polynomial regression analysis to determine if this will fit and explain our data better.
+Furthermore, we would like to present a polynomial regression analysis of our data.
+In these regressions we will still keep the logarithm of GDP per capita ($X_i$) as our explanatory variables.
+The analysis consists of a 2^nd^ and 3^rd^ degree polynomial regressions.
 
 ```{r, echo=FALSE}
-lm_poly_GDP_on_GINI <- lm(GINI_NUTS2 ~ poly(GDP_capita_NUTS2, 5), data = Inequity_Data)
-summary(lm_poly_GDP_on_GINI)
+lm20 <- lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = Inequity_Data)
+lm21 <- lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2 + I(log_GDP_capita_NUTS2^2), data = Inequity_Data)
+lm22 <- lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2 + I(log_GDP_capita_NUTS2^2) + I(log_GDP_capita_NUTS2^3), data = Inequity_Data)
+
+huxreg(list("OLS" = lm20,  "2nd degree polynomial" = lm21, "3rd degree polynomial" = lm22),
+       statistics = c(N = "nobs", R2 = "r.squared"), 
+       coefs = c("log GDP per capita NUTS2" = "log_GDP_capita_NUTS2","log GDP per capita NUTS2 ^2" = "I(log_GDP_capita_NUTS2^2)","log GDP capita NUTS2 ^3" = "I(log_GDP_capita_NUTS2^3)", const. = "(Intercept)"),
+       note = "Note: {stars} T statistics in brackets.")
+```
+
+```{r, echo=FALSE}
+lm_poly_log_GDP_on_GINI <- lm(GINI_NUTS2 ~ poly(log_GDP_capita_NUTS2, 3), data = Inequity_Data)
+summary(lm_poly_log_GDP_on_GINI)
+```
+
+```{r}
+Inequity_Data %>%
+  ggplot(aes(x = log_GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + stat_smooth(method = "lm", formula = y ~ poly(x, 2), se = FALSE, color = "blue", alpha = 0.2) + labs(x = "log GDP per Capita", y = "GINI") + theme_bw()
 ```
 
 ```{r, echo=FALSE}
 Inequity_Data %>%
-  ggplot(aes(x = GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + stat_smooth(method = "lm", formula = y ~ poly(x, 5), se = TRUE, color = "blue", alpha = 0.2) + labs(x = "GDP per Capita", y = "GINI") + theme_bw()
+  ggplot(aes(x = log_GDP_capita_NUTS2, y = GINI_NUTS2)) + 
+  geom_point(color = "maroon", alpha = 0.7) + 
+  stat_smooth(method = "lm", formula = y ~ poly(x, 3), se = FALSE, color = "blue", alpha = 0.2) + labs(x = "log GDP per Capita", y = "GINI") + theme_bw()
 ```
+
+### Breusch Pagan Test (Heteroskedasticity)
 
 ## References
 
