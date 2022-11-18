@@ -6,7 +6,7 @@ format:
   papersize: a4
 editor: visual
 csl: apa-no-ampersand.csl
-bibliography: [SHO.bib, mena.bib, ac.bib]
+bibliography: [SHO.bib, mena.bib]
 ---
 
 ## Eurostat EDA
@@ -867,28 +867,28 @@ Inequity_Data %>%
 We will be using the Breush-Pagan test, to test for heteroskedasticity in linear regression models.
 When doing this test, the goal is to assert wether there is heteroscedasticity or homoscedasticity, which then will tell us wether the results of the regression are reliable or not.
 
-```{r}
+```{r, echo=FALSE}
 bptest(lm20)$p.value
 ```
 
 Reading this output shows u a p-value(0.9137) that is above alpha (0.05), stating it is not significant.
 This gives us the conclusion that the we can keep the null-hypothesis and reject the A-hypothesis, further assuming the residuals of lm20 are *homoscedastic.*
 
-```{r}
+```{r, echo=FALSE}
 bptest(lm21)$p.value
 ```
 
 This output from the second degree polynomial regression shows us similiar data as far as keeping the null-hypothesis and assuming *homoscedasticity* for the residuals.
 With a p-value(0.9303) higher than 0.05.
 
-```{r}
+```{r, echo=FALSE}
 bptest(lm22)$p.value
 ```
 
 The third BP-test is a third degree polynomial regression showing us a lower p-value (0.1250937), but still within limits, and implying the same outcome as our previous bp-tests.
 Null-hypothesis stays, and further assuming that the residuals are *homoscedatistic.*
 
-```{r}
+```{r, echo=FALSE}
 bptest(lm_GDP_on_GINI)$p.value
 ```
 
@@ -925,6 +925,34 @@ Another factor that is also important towards perfect equality, is the minimum w
 Minimum wages in some countries are considered high wages in others, where as this comes down to mostly the countries economic state and in most cases is not comparable as easily.
 What one should compare, is countries minimum wage *against* normal/living wages.
 Reducing the gap between minimum wage, and the average for wage for normal/comfortable living will aid in reducing the population of the lower class and rise them up to middle class.
+
+### Causality
+
+Causality appears when it is a velar cause-effect relationship between two variables.
+There is causation when A causes outcome B.
+a common mistake is to infer causality when correlation is present, but correlation is only a relationship.
+
+The difference between Correlation and Causality is that when it is a correlation, we don\'t know which way the relationship goes.
+It can also be a third variable that effects the correlation.
+In Causality variable A can predict variable B.
+We know the direction of the relationship.
+Its not possible to search for causality with the regression, it can only be used if a casual relationship is assumed.
+
+To establish causality, two predictions need to be fufilled:
+
+1.There needs to be a significant relationship, significant correlation.
+
+2.a It needs to be a temporal sequence of the variables, variable A took place before variable B.
+
+2.b Or if it is a theoretical justified and plausible theory which direction the causal relationship goes
+
+From our models we find that the correlation between log GDP per Capita and GINI is not significant in total for all countries in the dataset.
+This means that we cannot for fill the first point to Causality.
+Furthermore, if the correlation where to be significant, we would argue that A (GDP per Capita) could not predict B (GINI/Inequality).
+Taking a starting point in that GINI is measured out from different regions, this means that it based on location and if GDP per Capita where to stay the same, the population of the regions could still move around resulting in changes in Inequality.
+
+For example; if the population in the regions split equally around to make all regions have the same GDP per capita, the inequality between the regions would end up becoming lower.
+So there could be a correlation between X and Y, but Z could be the explanation for Y.
 
 ## References
 
