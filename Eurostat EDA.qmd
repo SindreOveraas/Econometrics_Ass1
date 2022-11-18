@@ -38,6 +38,7 @@ library(vtable)
 library(dineq)
 library(dplyr)
 library(huxtable)
+library(lmtest)
 ```
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
@@ -766,9 +767,34 @@ A desired condition for correlation in regression models is that the coefficient
 
 The third part of this explanatory data analysis paper mainly revolves around alternative functional forms which might fit our data of GDP per capita and Inequity better.
 This part will also mainly consist of regression analysis, but shall more specifically examine how our data fits when calculating the log of the independent variable $X_i$ (GDP per capita) and further if polynomial regression reinforces this connection.
-This part, like the previous one, will deal with regions of NUTS2 level in our subset of countries.
+Like the second, this third part will deal with regions of NUTS2 level in our subset of countries.
 
 ### Effect of development for different subsets
+
+The first thing we will explore in this third part of the paper is to determine if the effect of development is significantly different for different subset of countries in our data set.
+To determine this we will create a dummy variable.
+A dummy variable is a variable used to explain qualitative values in a regression model.
+Dummy variables usually take binary values, i.e. 0 or 1.
+We have chosen to use the data of Italy as the dummy variable, considering this is the country with most observations of 2010, and it is therefore the appropriate variable to compare with the rest of the data from all the other countries.
+We choose to multiply our dependent variable of the GINI coefficient by 10,000, so we get a better visualization of the slope coefficient.
+
+```{r, echo=FALSE}
+Inequity_Data$Italy <- ifelse(Inequity_Data$NUTS == "IT", 1,0)
+Inequity_Data$Other <- ifelse(Inequity_Data$NUTS == "IT", 0,1)
+
+Inequity_Data <- Inequity_Data
+lm23 = lm(GINI_NUTS2*10000 ~ GDP_capita_NUTS2, filter(Inequity_Data, Italy == 1))
+lm24 = lm(GINI_NUTS2*10000 ~ GDP_capita_NUTS2, filter( Inequity_Data, Italy == 0))
+
+huxreg(list("Italy" = lm23, "All other countries" = lm24), statistics = c(N = "nobs", R2 = "r.squared", FStat = "statistic", PValue = "p.value"), note = "Note: {stars} T statistics in brackets.")
+```
+
+As seen from our table we have an appropriate distribution of observations, with Italy having 34 observations and the other countries combined having 37.
+We also see that the correlation between the dependent and the independent variable for the two regression models, that is the effect of regional economic development ($X_i$) on regional inequality ($Y_i$), are very similar.
+For Italy only we have a coefficient of determination of 0.33, compared to the other combined countries of 0.316.
+Based on this it suggests that the effect of regional economic development is not significantly different for different subsets of countries in our data set.
+The slope coefficient does however tell us that the effect is negative for Italy, and positive for the other combined countries, i.e. that higher regional development in Italy has the tendency to lead to greater inequality.
+For the other countries combined this trend is the opposite, that higher regional development decreases inequality.
 
 ### Alternative functional forms
 
@@ -821,8 +847,7 @@ huxreg(list("Simple linear reg" = lm20,  "2nd degree polynomial" = lm21, "3rd de
 
 Comparing the simple linear regression with the polynomial regressions of 2^nd^ and 3^rd^ degree, we observe that the coefficient of determination increases.
 We can observe in particular that the 3^rd^ degree polynomial regression show a significantly greater degree of explanation with an $R^2$ of 0.204, compared to 0.09 of the previous estimated model.
-Polynomial regression is however sensitive to outliers, which is the case for our estimates.
-As visualized below
+Polynomial regression is however sensitive to outliers, which seems to be the case for our estimates.
 
 ```{r, echo=FALSE}
 Inequity_Data %>%
