@@ -888,6 +888,20 @@ That the greater amount of the income percentage in the area is earned by a fewe
 This over time will result in higher inequality gap even tho the general gdp per capita is rising.
 We will then see a reduction of middle class, where those who once were there, would either enter the upper class or the lower class, usually they will fall in to the latter catagory and the gap will expand.
 
+There are several ways to reduce the income inequality within a country, and we see some of these implementations active in several countries today.
+The most common ones are government aid and policies in form of tax reliefs, income transfers( such as welfare programs, free health care, child support, housing support etc.).
+Considering the difference between the mentioned countries Sweden and Bulgaria, it is safe to assume that the priorities of the government in each of their respective countries are not aligned.
+Sweden, as the rest of Scandinavia, are well known for their governments strong priorities on social welfare, and benefiting all classes of society.
+Where in the scandinavian countries one might be jobless and still make a living through their welfare system also known as ´trygd´.
+Where the individual for either medical or health reasons cannot contribute to society, you will still be granted enough to make a living.
+Social welfare is by all means, also in Bulgaria, but to a different degree, which we also believe could be on of the reasons for why the number of people who have left bulgaria to work and live in other countries has doubled since they got rights to move freely in the EU.
+@networkHowManyBulgarians
+
+Another factor that is also important towards perfect equality, is the minimum wages in the respective countries.
+Minimum wages in some countries are considered high wages in others, where as this comes down to mostly the countries economic state and in most cases is not comparable as easily.
+What one should compare, is countries minimum wage *against* normal/living wages.
+Reducing the gap between minimum wage, and the average for wage for normal/comfortable living will aid in reducing the population of the lower class and rise them up to middle class.
+
 ## References
 
 ::: {#refs}
