@@ -6,7 +6,7 @@ format:
   papersize: a4
 editor: visual
 csl: apa-no-ampersand.csl
-bibliography: [SHO.bib, mena.bib]
+bibliography: [SHO.bib, mena.bib, ac.bib]
 ---
 
 ## Eurostat EDA
@@ -756,6 +756,7 @@ Both models show significant correlation as the coefficient of determination $R^
 ```{r, echo=FALSE}
 #| tbl-cap: MRM BE
 MRM_NUTS2(BE2010)
+
 ```
 
 Furthermore, we want to look at how the multiple regression models for Belgium.
@@ -865,6 +866,65 @@ Inequity_Data %>%
 
 We will be using the Breush-Pagan test, to test for heteroskedasticity in linear regression models.
 When doing this test, the goal is to assert wether there is heteroscedasticity or homoscedasticity, which then will tell us wether the results of the regression are reliable or not.
+
+```{r}
+bptest(lm20)$p.value
+```
+
+Reading this output shows u a p-value(0.9137) that is above alpha (0.05), stating it is not significant.
+This gives us the conclusion that the we can keep the null-hypothesis and reject the A-hypothesis, further assuming the residuals of lm20 are *homoscedastic.*
+
+```{r}
+bptest(lm21)$p.value
+```
+
+This output from the second degree polynomial regression shows us similiar data as far as keeping the null-hypothesis and assuming *homoscedasticity* for the residuals.
+With a p-value(0.9303) higher than 0.05.
+
+```{r}
+bptest(lm22)$p.value
+```
+
+The third BP-test is a third degree polynomial regression showing us a lower p-value (0.1250937), but still within limits, and implying the same outcome as our previous bp-tests.
+Null-hypothesis stays, and further assuming that the residuals are *homoscedatistic.*
+
+```{r}
+bptest(lm_GDP_on_GINI)$p.value
+```
+
+Our fourth, and second simple regression going through the Breusch Pagan Test, shows us a p-value(0.8762755) above our alpha(0.05) again, implying the residuals are *homoscedastistic* and our null-hypothisis stays.
+
+We followed through with our given reccomendations for how to solve this task of looking for heteroscedasticity, giving us the results as seen above.
+But we would like to add a note to the test of the lm21 and lm22 which are not linear regressions.
+According to Dr. Nisha Arora, *the Breusch Pagan Test assumes heteroscedasticity is a linear function of the independent variables.* Where if one would fail to find heteroscedisticity with the Breuch Pagan test, it would not necesserily mean that there is not a nonlinear relation between the error variance and the independent variables.
+Further it seems to be reccomended to use the *White Test,* where as this test gives us a more flexible functional form that is suited for recognizing a greater amount of patterns for heteroscedasticity.
+The *White Test* also lets the independent variables to have a interactive and nonlinear effect on the error variance.
+@aroraAnswerWhatCriterion2016
+
+Hence why we can not conclude that there is certain homoscedasticity in our tests of lm21 & lm22.
+
+## Potential remedies for eventual problems
+
+Throughout this whole task we chose to target the most visible problem; economic inequality.
+Some countries and regions have a more visible gaps then other such as Sweden with the lowest inequality against Bulgaria with the highest.
+First of explaining what this means, in short, high gini coefficients values implies that the income is spread uneven.
+That the greater amount of the income percentage in the area is earned by a fewer population.
+This over time will result in higher inequality gap even tho the general gdp per capita is rising.
+We will then see a reduction of middle class, where those who once were there, would either enter the upper class or the lower class, usually they will fall in to the latter catagory and the gap will expand.
+
+There are several ways to reduce the income inequality within a country, and we see some of these implementations active in several countries today.
+The most common ones are government aid and policies in form of tax reliefs, income transfers( such as welfare programs, free health care, child support, housing support etc.).
+Considering the difference between the mentioned countries Sweden and Bulgaria, it is safe to assume that the priorities of the government in each of their respective countries are not aligned.
+Sweden, as the rest of Scandinavia, are well known for their governments strong priorities on social welfare, and benefiting all classes of society.
+Where in the scandinavian countries one might be jobless and still make a living through their welfare system also known as ´trygd´.
+Where the individual for either medical or health reasons cannot contribute to society, you will still be granted enough to make a living.
+Social welfare is by all means, also in Bulgaria, but to a different degree, which we also believe could be on of the reasons for why the number of people who have left bulgaria to work and live in other countries has doubled since they got rights to move freely in the EU.
+@networkHowManyBulgarians
+
+Another factor that is also important towards perfect equality, is the minimum wages in the respective countries.
+Minimum wages in some countries are considered high wages in others, where as this comes down to mostly the countries economic state and in most cases is not comparable as easily.
+What one should compare, is countries minimum wage *against* normal/living wages.
+Reducing the gap between minimum wage, and the average for wage for normal/comfortable living will aid in reducing the population of the lower class and rise them up to middle class.
 
 ## References
 
