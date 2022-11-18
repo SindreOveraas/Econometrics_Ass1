@@ -6,7 +6,7 @@ format:
   papersize: a4
 editor: visual
 csl: apa-no-ampersand.csl
-bibliography: [SHO.bib, mena.bib]
+bibliography: [SHO.bib, mena.bib, ac.bib]
 ---
 
 ## Eurostat EDA
@@ -38,6 +38,7 @@ library(vtable)
 library(dineq)
 library(dplyr)
 library(huxtable)
+library(lmtest)
 ```
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
@@ -755,6 +756,7 @@ Both models show significant correlation as the coefficient of determination $R^
 ```{r, echo=FALSE}
 #| tbl-cap: MRM BE
 MRM_NUTS2(BE2010)
+
 ```
 
 Furthermore, we want to look at how the multiple regression models for Belgium.
@@ -840,6 +842,36 @@ Inequity_Data %>%
 
 We will be using the Breush-Pagan test, to test for heteroskedasticity in linear regression models.
 When doing this test, the goal is to assert wether there is heteroscedasticity or homoscedasticity, which then will tell us wether the results of the regression are reliable or not.
+
+```{r}
+bptest(lm20)$p.value
+```
+
+Reading this output shows u a p-value(0.9137) that is above alpha (0.05), stating it is not significant.
+This gives us the conclusion that the we can keep the null-hypothesis and reject the A-hypothesis, further assuming the residuals of lm20 are *homoscedastic.*
+
+```{r}
+bptest(lm21)$p.value
+```
+
+This output from the second degree polynomial regression shows us similiar data as far as keeping the null-hypothesis and assuming *homoscedasticity* for the residuals.
+With a p-value(0.9303) higher than 0.05.
+
+```{r}
+bptest(lm22)$p.value
+```
+
+The third BP-test is a third degree polynomial regression showing us a lower p-value (0.1250937), but still within limits, and implying the same outcome as our previous bp-tests.
+Null-hypothesis stays, and further assuming that the residuals are *homoscedatistic.*
+
+We follow through with our given reccomendations for how to solve this task of looking for heteroscedasticity, giving us the results as seen above.
+But we would like to add a note to the test of the lm21 and lm22 which are not linear regressions.
+According to Dr. Nisha Arora, *the Breusch Pagan Test assumes heteroscedasticity is a linear function of the independent variables.* Where if one would fail to find heteroscedisticity with the Breuch Pagan test, it would not necesserily mean that there is not a nonlinear relation between the error variance and the independent variables.
+Further it seems to be reccomended to use the *White Test,* where as this test gives us a more flexible functional form that is suited for recognizing a greater amount of patterns for heteroscedasticity.
+The *White Test* also lets the independent variables to have a interactive and nonlinear effect on the error variance.
+@aroraAnswerWhatCriterion2016
+
+Hence why we can not conclude that there is certain homoscedasticity in our tests of lm21 & lm22.
 
 ## References
 
