@@ -864,7 +864,13 @@ bptest(lm22)$p.value
 The third BP-test is a third degree polynomial regression showing us a lower p-value (0.1250937), but still within limits, and implying the same outcome as our previous bp-tests.
 Null-hypothesis stays, and further assuming that the residuals are *homoscedatistic.*
 
-We follow through with our given reccomendations for how to solve this task of looking for heteroscedasticity, giving us the results as seen above.
+```{r}
+bptest(lm_GDP_on_GINI)$p.value
+```
+
+Our fourth, and second simple regression going through the Breusch Pagan Test, shows us a p-value(0.8762755) above our alpha(0.05) again, implying the residuals are *homoscedastistic* and our null-hypothisis stays.
+
+We followed through with our given reccomendations for how to solve this task of looking for heteroscedasticity, giving us the results as seen above.
 But we would like to add a note to the test of the lm21 and lm22 which are not linear regressions.
 According to Dr. Nisha Arora, *the Breusch Pagan Test assumes heteroscedasticity is a linear function of the independent variables.* Where if one would fail to find heteroscedisticity with the Breuch Pagan test, it would not necesserily mean that there is not a nonlinear relation between the error variance and the independent variables.
 Further it seems to be reccomended to use the *White Test,* where as this test gives us a more flexible functional form that is suited for recognizing a greater amount of patterns for heteroscedasticity.
@@ -872,6 +878,15 @@ The *White Test* also lets the independent variables to have a interactive and n
 @aroraAnswerWhatCriterion2016
 
 Hence why we can not conclude that there is certain homoscedasticity in our tests of lm21 & lm22.
+
+## Potential remedies for eventual problems
+
+Throughout this whole task we chose to target the most visible problem; economic inequality.
+Some countries and regions have a more visible gaps then other such as Sweden with the lowest inequality against Bulgaria with the highest.
+First of explaining what this means, in short, high gini coefficients values implies that the income is spread uneven.
+That the greater amount of the income percentage in the area is earned by a fewer population.
+This over time will result in higher inequality gap even tho the general gdp per capita is rising.
+We will then see a reduction of middle class, where those who once were there, would either enter the upper class or the lower class, usually they will fall in to the latter catagory and the gap will expand.
 
 ## References
 
