@@ -6,11 +6,7 @@ format:
   papersize: a4
 editor: visual
 csl: apa-no-ampersand.csl
-<<<<<<< HEAD
 bibliography: [SHO.bib, mena.bib, AC.bib]
-=======
-bibliography: [SHO.bib, mena.bib]
->>>>>>> 3681a30e7a97635a069d5ca906a935a481e7e3c4
 ---
 
 ## Eurostat EDA
@@ -63,12 +59,10 @@ GDP_Per_Capita <- gdpdata %>%
 ```
 
 ```{r, echo=FALSE}
-#| label: tableGDP
-#| fig-cap: GDP all countries
 kable(summary(GDP_Per_Capita[,3:5]))
 ```
 
-Looking at the GDP per capita table for all countries in the dataset, we find that the difference in population from min to max is big.
+Looking at the GDP per capita for all countries in the dataset, we find that the difference in population from min to max is big.
 The difference between Median and Mean is also relatively big witch can indicate that some of the biggest regions has much larger amount of population then the rest and therefore affects the mean and pulls it higher.
 The fact that the 3rd quartile is just a few thousands away from the mean amplifies our suspicion that we have some outliers with a very high population compared to the rest.
 
@@ -76,9 +70,9 @@ Its reason to believe that high population equals high GDP based on the fact tha
 However, this can not be applied in every circumstances.
 For example Monaco with a population in 2020 of just above 39.000 [@MonacoPopulation2022] had a GDP on 6.25 billion USD the same year versus Burundi with a GDP on 3.22 billion [@GDPConstant2015] and a population just above 11.89 million [@BurundiPopulation2022].
 The GDP per capita gives us a more accurate measure.
-In the model above we can see that its a big difference in GDP per capita in each region, this can be caused by a population or a cluster with rich/poor individuals.
+in the model above we can see that its a big difference in GDP per capita in each region, this can be caused by a population or a cluster with rich/poor individuals.
 
-We also had some NA (Not Available) values witch we chose to ignore for the dataset.
+We also had some NA values witch we chose to take out of the dataset.
 NA values may come from the fact that Population or the GDP was not measured this year or was not available when the dataset was made.
 
 ```{r, echo=FALSE}
@@ -106,16 +100,17 @@ GDP_Per_Capita %>% distinct(NUTS, Year, .keep_all = TRUE) %>%
   ggplot(aes(x = Year, y = GDP_capita, colour = NUTS)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
 ```
 
-In the plot above we have taken out the countries that belongs to our selection - Austria (AT), Belgium (BE), Bulgaria (BG), Croatia (HR), Italy (IT), Serbia (RS) and Sweden (SE) - and added them in to a time series from year 2000 - 2020 (X-axis) to compare the evolution of GDP per capita (Y-axis) over the given time period.
+In the gg plot above we have taken out the countries that belongs to our selection - Austria (AT), Belgium (BE), Bulgaria (BG), Croatia (HR), Italy (IT), Serbia (RS) and Sweden (SE) - and added them in to a time series from year 2000 - 2020 (X-axis) to compare the evolution of GDP per capita (Y-axis) over the given time period.
+The data is found and downloaded from Eurostat [@StatisticsEurostata]
 
 Seven out of eight countries we where given was available for download trough Eurostat, the country witch we are missing is Bosnia and Herzegovina.
 
-From the plot we can see that none of the countries have data from the whole time frame, some are missing data from the first years and others are missing from the last years.
+From the GG plot we can see that none of the countries have data from the whole time frame, some are missing data from the first years and others are missing from the last years.
 Serbia only have data from around 2017 to 2019.
-This might come from the fact that Serbia became an independent republic in 2006 and for that reason there has not been collected and established much info concerning GDP [@Serbia].
+This might come from the fact that Serbia became an independent republic in 2006 and for that reason has not been collecting og establishing much info around GDP [@Serbia].
 
 The country´s with the highest GDP per capita is Belgium and Sweden, where both countries has experienced growth in GDP per capita over time.
-Sweden also has had the biggest growth in GDP per capita compared to the other countries.
+Sweden also has had the biggest growth in GDP Per capita compared to the other countries.
 
 From the graphs, the three countries with highest GDP per capita had a noticeable decline around 2008, which is related to the financial crises at this time.
 Sweden also experiences the largest dip around this time [@EconomicRecoveryEU]
@@ -870,7 +865,7 @@ Inequity_Data %>%
 ### Breusch Pagan Test (Heteroscedasticity)
 
 We will be using the Breush-Pagan test, to test for heteroskedasticity in linear regression models.
-When doing this test, the goal is to assert whether there is heteroscedasticity or homoscedasticity, which then will tell us whether the results of the regression are reliable or not.
+When doing this test, the goal is to assert wether there is heteroscedasticity or homoscedasticity, which then will tell us wether the results of the regression are reliable or not.
 
 ```{r, echo=FALSE}
 bptest(lm20)$p.value
@@ -883,7 +878,7 @@ This gives us the conclusion that the we can keep the null-hypothesis and reject
 bptest(lm21)$p.value
 ```
 
-This output from the second degree polynomial regression shows us similar data as far as keeping the null-hypothesis and assuming *homoscedasticity* for the residuals.
+This output from the second degree polynomial regression shows us similiar data as far as keeping the null-hypothesis and assuming *homoscedasticity* for the residuals.
 With a p-value(0.9303) higher than 0.05.
 
 ```{r, echo=FALSE}
@@ -899,18 +894,11 @@ bptest(lm_GDP_on_GINI)$p.value
 
 Our fourth, and second simple regression going through the Breusch Pagan Test, shows us a p-value(0.8762755) above our alpha(0.05) again, implying the residuals are *homoscedastistic* and our null-hypothisis stays.
 
-<<<<<<< HEAD
 We followed through with our given reccomendations for how to solve this task of looking for heteroscedasticity, giving us the results as seen above.
 But we would like to add a note; According to Dr. Nisha Arora, *the Breusch Pagan Test assumes heteroscedasticity is a linear function of the independent variables.* Where if one would fail to find heteroscedisticity with the Breuch Pagan test, it would not necesserily mean that there is not a nonlinear relation between the error variance and the independent variables.
 Further it seems to be reccomended to use the *White Test,* where as this test gives us a more flexible functional form that is suited for recognizing a greater amount of patterns for heteroscedasticity.
-=======
-We followed through with our given recommendations for how to solve this task of looking for heteroscedasticity, giving us the results as seen above.
-But we would like to add a note to the test of the lm21 and lm22 which are not linear regressions.
-According to Dr. Nisha Arora, *the Breusch Pagan Test assumes heteroscedasticity is a linear function of the independent variables.* Where if one would fail to find heteroscedisticity with the Breuch Pagan test, it would not necessarily mean that there is not a nonlinear relation between the error variance and the independent variables.
-Further it seems to be recommended to use the *White Test,* where as this test gives us a more flexible functional form that is suited for recognizing a greater amount of patterns for heteroscedasticity.
->>>>>>> 3681a30e7a97635a069d5ca906a935a481e7e3c4
 The *White Test* also lets the independent variables to have a interactive and nonlinear effect on the error variance.
-@aroraAnswerWhatCriterion2016 \
+@aroraAnswerWhatCriterion2016\
 
 After feedback on our statement, we have removed the claim that lm21 and lm22 are not linear regressions.
 Further we add in that the *White test* can be used as a safety measure.
@@ -950,7 +938,7 @@ In Causality variable A can predict variable B.
 We know the direction of the relationship.
 Its not possible to search for causality with the regression, it can only be used if a casual relationship is assumed.
 
-To establish causality, two predictions need to be fulfilled:
+To establish causality, two predictions need to be fufilled:
 
 1.There needs to be a significant relationship, significant correlation.
 
@@ -966,14 +954,7 @@ Taking a starting point in that GINI is measured out from different regions, thi
 For example; if the population in the regions split equally around to make all regions have the same GDP per capita, the inequality between the regions would end up becoming lower.
 So there could be a correlation between X and Y, but Z could be the explanation for Y.
 
-## Penal Estimates
-
-In the fourth and final part of the paper we will estimate the effect of regional development $y_j$ on regional inequality $GINIW_j$ in a penal setup.
-We will more specifically estimate the following fixed effects separately and jointly on country fixed effects, year fixed effects and NUTS 2 fixed effects.
-
 ## References
 
 ::: {#refs}
 :::
-
-## Appendix
