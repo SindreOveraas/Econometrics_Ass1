@@ -59,9 +59,9 @@ GDP_Per_Capita <- gdpdata %>%
   mutate(GDP_capita = (GDP * 1000000)/Population)
 ```
 
-Looking at the GDP per capita for all countries in the dataset in @tbl-1, we find that the difference in population from min to max is big.
-The difference between Median and Mean is also relatively big which can indicate that some of the biggest regions has much larger amount of population then the rest and therefore affects the mean and pulls it higher.
-The fact that the third quartile is just a few thousands away from the mean amplifies our suspicion that we have some outliers with a very high population compared to the rest.
+Looking at the GDP per capita for all countries in the dataset in @tbl-1, we find that the difference in population from min to max is large.
+The difference between Median and Mean is also relatively large which can indicate that some of the biggest regions has much larger amount of population then the rest and therefore affects the mean and pulls it higher.
+The fact that the third quartile is just a few thousand away from the mean amplifies our suspicion that we have some outliers with a very high population compared to the rest.
 
 Its reason to believe that high population equals high GDP based on the fact that it is more people that contributes to the GDP.
 However, this can not be applied in every circumstances.
@@ -93,27 +93,22 @@ GDP_Per_Capita  %<>%
 
 In the plot @fig-1 we have taken out the countries that belongs to our selection - Austria (AT), Belgium (BE), Bulgaria (BG), Croatia (HR), Italy (IT), Serbia (RS) and Sweden (SE) - and added them in to a time series from year 2000 - 2020 (X-axis) to compare the evolution of GDP per capita (Y-axis) over the given time period.
 The abbreviation CC in the figure stands for Countries Combined.
-The data is found and downloaded from Eurostat [@StatisticsEurostata].
 Seven out of eight countries we where given was available for download trough Eurostat, the country which we are missing is Bosnia and Herzegovina.
 
 From the plot we can see that none of the countries have data from the whole time frame, some are missing data from the first years and others are missing from the last years.
 Serbia only have data from around 2017 to 2019.
-This might come from the fact that Serbia became an independent republic in 2006 and for that reason has not been collecting og establishing much info around GDP [@Serbia].
-The countries with the highest GDP per capita is Belgium and Sweden, where both countries has experienced growth in GDP per capita over time.
-Sweden also has had the biggest growth in GDP Per capita compared to the other countries.
-From the graphs, the three countries with highest GDP per capita had a noticeable decline around 2008, which is related to the financial crises at this time.
-Sweden also experiences the largest dip around this time [@EconomicRecoveryEU].
+This might come from the fact that Serbia became an independent republic in 2006 and for that reason has not been collecting og establishing much info around GDP [@Serbia]. The countries with the highest GDP per capita is Belgium and Sweden, where both countries has experienced growth in GDP per capita over time. Sweden also has had the biggest growth in GDP Per capita compared to the other countries. From the graphs in @fig-1, the three countries with highest GDP per capita had a noticeable decline around 2008, which is related to the financial crises at this time. Sweden also experiences the largest dip around this time [@EconomicRecoveryEU].
 Four of the five countries on the bottom also has experienced growth, just not as significant as Sweden and Belgium.
 Austria had a big downfall in GDP per capita from year 2000 to 2001, but has had a stable growth since then.
 
 ### Bulgaria GDP
 
 @fig-2 shows the GDP per capita on a NUTS3 level for Bulgaria alone.
-One Region sticks out from the rest (BG411) with a higher GDP per capita and a higher growth from 2000 to 2020, almost reaching a GDP per capita on 20 000.
+One Region sticks out from the rest (BG411) with a higher GDP per capita and a higher growth from 2000 to 2020, almost reaching a GDP per capita on 20,000.
 BG411 is a Region in Sofia, capital city of Bulgaria.
 The reason for this might be because of a better work situation in Sofia with less unemployed people and more business going around [@StatisticalRegionsEuropean].
 From year 2000 to around 2005 the other regions had around the same GDP per capita with a similar growth.
-The following years after 2005 some of the regions have split a bit from others and had a faster growth which laded them to surpass a GDP per capita over 5000 in 2019, some reaching a GDP per capita over 7500 by the year 2019.
+The following years after 2005 some of the regions have split a bit from others and had a faster growth which laded them to surpass a GDP per capita over 5,000 in 2019, some reaching a GDP per capita over 7,500 by the year 2019.
 
 Using 2010 as a base point which is after the financial crisis, we found that the three regions with highest GDP per capita is BG411 (Sofia), BG344 (Stara Zagora) and BG331 (Varna), all major cities in Bulgaria.
 These Regions also managed to maintain a good growth in GDP per capita through the years until 2019 [@StatisticalRegionsEuropean].
@@ -206,7 +201,7 @@ We believe this has a connection to the employment rates and there would be a bi
 Another interesting bit about the Swedish GDP per capita is that their smallest region by population (2019) is Gotland (SE214) with 59,249, comparing Gotland to Stockholm there is almost 40x more people in Stockholm (2,344,124).
 The GDP is 2050,4 against 151 284,4 which is aprox a 74x difference in favor Stockholm.
 This makes the GDP per capita 34,603 against\
-Stockholms 64,537, less then a 2x difference [@StatisticalRegionsEuropean].
+Stockholms 64,537, less than a 2x difference [@StatisticalRegionsEuropean].
 
 As previously we chose 2010 as a benchmark, where the recovery from the financial crisis was in route.
 Stockholm had a GDP per capita of 56,036 at that time while Norrbottens came in second with 43,768 and Vastra Gotaland at third with 38,740, as shown in @tbl-14.
@@ -216,7 +211,7 @@ Stockholm had a GDP per capita of 56,036 at that time while Norrbottens came in 
 
 Comparing the regions with the highest GDP per capita between the countries in @fig-9, we see BE100 (Brussels) with a GDP that was rising well above 70,000 before the corona pandemic, and was slightly lower than 70 000 in 2020.
 From this dataset among the highest GDP per capita regions, it was only Brussels and Antwerp that had data available until 2020.
-AT323 which is Salzburg, more specifically Salzburg und Umgebung \[\@NUTSStatisticalRegions2022\], had a population of 366,866 in 2019, which is a great difference compared to SE110 - Stockholm with a population of 2,344,124 in 2019.
+AT323 which is Salzburg, more specifically Salzburg und Umgebung, had a population of 366,866 in 2019, which is a great difference compared to SE110 - Stockholm with a population of 2,344,124 in 2019.
 A considerable difference, showing how the GDP per capita is fairly close to each other even though the aforementioned population difference.
 
 ### 10 regions with lowest GDP per capita
@@ -461,7 +456,7 @@ All six assumptions are listed below:
 3.  Random sampling: There is a random sample from the population of interest. Our data is collected from Eurostat, which is a reliable source in terms of random sampling. We have omitted NA values and countries that did not belong to our dataset. For some of the countries we also have omitted some observations because these countries had a large amount of collected observations
 4.  Exogeneity: The explanatory variable ($X_i$) is exogenous, i.e., it is not influenced by any other variables in the explanatory model. This is true in this case, GDP Per capita is not influenced, but rather the one that could influence the other variables.
 5.  Homoskedasticity: The error term ($ε_i$) has the same variance for each value of the independent variable ($X_i$). The scatter plot shows that the error term does not have the same variance like this assumption wishes for.
-6.  Normality: The population error term ($ε_i$) is normally distributed. As our Error term does not equal zero this assumption is not for filled in our dataset
+6.  Normality: The population error term ($ε_i$) is normally distributed. As our Error term does not equal zero this assumption is not for filled in our dataset.
 
 ## Other determinants of inequity
 
@@ -719,10 +714,24 @@ plm4 <- plm(GINI_NUTS3 ~ GDP_capita, data = Panel_Inequity_Data, index = c("NUTS
   coeftest(vcov. = vcovHC, type = "HC1", save = TRUE)
 ```
 
-In the fixed model above the groups country, year and NUTS2 are fixed and not random or mixed.
-If the the individual-specific effects are correlated with the independent variables, it is called The Fixed effects assumption.
+In the fixed model the variables country, year and NUTS2 are fixed and not random or mixed.
+From @tbl-25 we can see that we have 4253 observations on each fixed effect.
+None of the correlations of the fixed effects are notably high, and therefore don't explain a big proportion of the variation in the dependent variable that can be attributed to the independent variable.
+The only fixed effect that seem to have some form of correlation is the fixed effect on the variable year, which have an $R^2$ of 0.163 and a p-value \< 0.01 that tells us the correlation is statistically significant.
 
-From @tbl-25 we can see that we have 4253 observations on each fixed effect and none of the Fixed effects are notable high, and therefore don't explain a big enough proportion of the variation in the dependent variable that can be attributed to the independent variable.
+## Final conclusion
+
+We conclude this paper by shortly explaining our findings concerning our main hypothesis, which is the following; That we can observe a significant and positive effect of development on regional inequality for our set of countries.
+It is clear that through development in our countries that there has been a positive effect on the gap of inequality in their respective regions.
+In the sense that the gap and the Gini coefficient has increased, for that matter, the overall affect is negative.
+With a situation with economical inequity, a pattern might assert itself if not handled accordingly.
+The leading regions will continue to develop and advance their own region while the lower regions will struggle to follow leading regions.
+This can result in an even bigger gap, and lower regions are usually prone to have smaller opportunities in form of education, health and general social securities.
+Factors that can be considered crucial to being able to evolve at all.
+Looking through our data, tables and figures it is clear what the common denominator is for being the leading region in all countries, where the capital, and the business cluster reside.
+These countries and their development is reflected by each of their governments policies concerning the countries.
+Where countries with stronger social policies, such as Sweden, will put more pressure on lifting the lowered regions and sharing wealth with the goal of decreasing the inequality gap.
+In most cases of this paper, the development of the respective countries apparently had a negative effect on the inequality in the regions.
 
 ## References
 
