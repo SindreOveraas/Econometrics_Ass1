@@ -459,12 +459,15 @@ There are six classical assumptions for OLS regression.
 If the first four are fulfilled, our models are unbiased.
 All six assumptions are listed below:
 
-1.  Linearity: There must be a linear relationship between the dependent ($Y_i$) and independent ($X_i$) variables. As shown on our scatter plots with the fitted line, we see that the fitted line represents all plots as good as possible
+1.  Linearity: There must be a linear relationship between the dependent ($Y_i$) and independent ($X_i$) variables. As shown on our scatter plots with the fitted line, we see that the fitted line represents all plots as good as possible.
+    We can see from the scatterplot that the
+    relationship between GINI and GDP per capita variates, we have some outliers with
+    a much higher standard error then the rest of the selection
 2.  Sample variation: There is variation in the independent variable ($X_i$).
-3.  Random sampling: There is a random sample from the population of interest. Our data is collected from Eurostat, which is a reliable source in terms of random sampling.
-4.  Exogeneity: The explanatory variable ($X_i$) is exogenous, i.e., it is not influenced by any other variables in the explanatory model.
-5.  Homoskedasticity: The error term ($ε_i$) has the same variance for each value of the independent variable ($X_i$).
-6.  Normality: The population error term ($ε_i$) is normally distributed.
+3.  Random sampling: There is a random sample from the population of interest. Our data is collected from Eurostat, which is a reliable source in terms of random sampling. We have omitted NA values and countries that did not belong to our dataset. For some of the countries we also have omitted some observations because these countries had a large amount of collected observations
+4.  Exogeneity: The explanatory variable ($X_i$) is exogenous, i.e., it is not influenced by any other variables in the explanatory model. This is true in this case, GDP Per capita is not influenced, but rather the one that could influence the other variables.
+5.  Homoskedasticity: The error term ($ε_i$) has the same variance for each value of the independent variable ($X_i$). The scatter plot shows that the error term does not have the same variance like this assumption wishes for.
+6.  Normality: The population error term ($ε_i$) is normally distributed. As our Error term does not equal zero this assumption is not for filled in our dataset
 
 ## Other determinants of inequity
 
@@ -717,8 +720,8 @@ Its not possible to search for causality with the regression, it can only be use
 
 To establish causality, two predictions need to be fulfilled:
 
-1.   There needs to be a significant relationship, significant correlation.
-2.   It needs to be a temporal sequence of the variables, variable A took place before variable B. Or if it is a theoretical justified and plausible theory which direction the causal relationship goes
+1.  There needs to be a significant relationship, significant correlation.
+2.  It needs to be a temporal sequence of the variables, variable A took place before variable B. Or if it is a theoretical justified and plausible theory which direction the causal relationship goes
 
 From our models we find that the correlation between log GDP per Capita and Gini is not significant in total for all countries in the dataset.
 This means that we cannot for fill the first point to Causality.
