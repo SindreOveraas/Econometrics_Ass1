@@ -722,7 +722,7 @@ plm4 <- plm(GINI_NUTS3 ~ GDP_capita, data = Panel_Inequity_Data, index = c("NUTS
 In the fixed model above the groups country, year and NUTS2 are fixed and not random or mixed.
 If the the individual-specific effects are correlated with the independent variables, it is called The Fixed effects assumption.
 
-From @tbl-25 we can see that we have 4253 observations on each fixed effect and none of the Fixed effects are notable significantly correlated based on R squared
+From @tbl-25 we can see that we have 4253 observations on each fixed effect and none of the Fixed effects are notable high, and therefore don't explain a big enough proportion of the variation in the dependent variable that can be attributed to the independent variable.
 
 ## References
 
