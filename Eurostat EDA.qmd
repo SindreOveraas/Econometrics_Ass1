@@ -170,8 +170,8 @@ As illustrated in @fig-9 Italy consists of many NUTS3 Regions.
 We piced out only the 500 biggest and used them in our plot.
 Some of the regions in the plot do not have GDP per capita data for the whole-time frame.
 We can see that is a big difference in the Regions at the bottom and the one on top.
-The top Region ITC4C (Milano) also stands out from the rest with a higher GDP per capita at all times between year 2000 and 2020 [@StatisticalRegionsEuropean] .
-We can also see that it is some what of a dip around 2011 too.
+The top Region ITC4C (Milano) also stands out from the rest with a higher GDP per capita at all times between year 2000 and 2020 [@StatisticalRegionsEuropean].
+We can also see that it is some what of a decline around 2011 too.
 This could come from Sovereign Debt [@romano2011CrisisItaly2021] and later on tension between Russia and Ukraine witch impacted exports [@ewingItalyFallsBack2014].
 
 @tbl-10 show that TC4C (Milano), ITH10 (Bolzano-Bozen) and ITI43 (Rome) are the three regions in Italy with the highest GDP per capita by 2010 [@StatisticalRegionsEuropean].
@@ -210,7 +210,6 @@ Stockholms 64,537, less then a 2x difference [@StatisticalRegionsEuropean].
 
 As previously we chose 2010 as a benchmark, where the recovery from the financial crisis was in route.
 Stockholm had a GDP per capita of 56,036 at that time while Norrbottens came in second with 43,768 and Vastra Gotaland at third with 38,740, as shown in @tbl-14.
-
 @tbl-15 show Swedish regions with the lowest GDP per capita in 2010 were fairly close, and little that differed them from each other as well as some other regions.
 
 ### 10 regions with highest GDP per capita
@@ -499,7 +498,7 @@ MRM_NUTS2 <- function(mlrdata){
 MRM_NUTS2(AT2010)
 ```
 
-In this table we have two multiple regression models and three simple regression models.
+@tbl-20 and @tbl-21 have two multiple regression models and three simple regression models.
 Model 3 and 5 are the multiple regression models, whereas 1, 2 and 4 are simple regression models.
 
 @tbl-20 show the multiple regression models for Austria show a coefficient of determination $R^2$ of 0.794 for Model 3 and 0.941 for Model 5, respectively.
@@ -533,20 +532,7 @@ To determine this we will create a dummy variable.
 A dummy variable is a variable used to explain qualitative values in a regression model.
 Dummy variables usually take binary values, i.e. 0 or 1.
 We have chosen to use the data of Italy as the dummy variable, considering this is the country with most observations of 2010, and it is therefore the appropriate variable to compare with the rest of the data from all the other countries.
-We choose to multiply our dependent variable of the GINI coefficient by 10,000, so we get a better visualization of the slope coefficient.
-
-```{r, echo=FALSE}
-#| label: tbl-22
-#| tbl-cap: "Italy compared to CC"
-Inequity_Data$Italy <- ifelse(Inequity_Data$NUTS == "IT", 1,0)
-Inequity_Data$Other <- ifelse(Inequity_Data$NUTS == "IT", 0,1)
-
-Inequity_Data <- Inequity_Data
-lm23 = lm(GINI_NUTS2*10000 ~ GDP_capita_NUTS2, filter(Inequity_Data, Italy == 1))
-lm24 = lm(GINI_NUTS2*10000 ~ GDP_capita_NUTS2, filter( Inequity_Data, Italy == 0))
-
-huxreg(list("Italy" = lm23, "All other countries" = lm24), statistics = c(N = "nobs", R2 = "r.squared", FStat = "statistic", PValue = "p.value"), note = "Note: {stars} T statistics in brackets.")
-```
+We choose to multiply our dependent variable of the Gini coefficient by 10,000, so we get a better visualization of the slope coefficient.
 
 As seen from @tbl-22 we have an appropriate distribution of observations, with Italy having 34 observations and the other countries combined having 37.
 We also see that the correlation between the dependent and the independent variable for the two regression models, that is the effect of regional economic development ($X_i$) on regional inequality ($Y_i$), are very similar.
@@ -561,20 +547,6 @@ For this sub-task we will explore alternative functional forms of our previous e
 More specifically we will estimate the log of GDP per capita in a linear regression model, and assign this variable as the new determinant of effect on regional economic development $y_j$.
 According to Lessmann and Seidel, the level of economic development can be measured by the logarithm of GDP per capita [@lessmannRegionalInequalityConvergence2017].
 That is therefore the reason we will use the log of GDP per capita in our new estimates in the linear regression model, and we will determine if this fits our model better.
-
-```{r, echo=FALSE, warning=FALSE}
-#| label: tbl-23
-#| tbl-cap: "Log of GDP per capita on Gini"
-lm13 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = AT2010)
-lm14 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = BE2010)
-lm15 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = BG2010)
-lm16 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = HR2010)
-lm17 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = IT2010)
-lm18 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = SE2010)
-lm19 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = Inequity_Data)
-
-huxreg(list("AT" = lm13, "BE" = lm14,  "BG" = lm15, "HR" = lm16, "IT" = lm17, "SE" = lm18, "CC" = lm19), statistics = c(N = "nobs", R2 = "r.squared", FStat = "statistic", PValue = "p.value"), coefs = c(log_GDP_capita_NUTS2 = "log_GDP_capita_NUTS2", const. = "(Intercept)"), note = "Note: {stars} T statistics in brackets.")
-```
 
 As we can tell from the descriptive statistics in @tbl-23 of the regression models where the logarithm of GDP per capita has been assigned as the explanatory variable as compared to our previous simple regression models in part 2, with GDP per capita as the explanatory variable, the coefficients of determination has a slight tendency to be at a lower level.
 This applies more specifically to the regressions of Austria, Belgium, Italy and Sweden.
@@ -597,23 +569,16 @@ Furthermore, we would like to present a polynomial regression analysis of our da
 In these regressions we will still keep the logarithm of GDP per capita ($X_i$) as our explanatory variable.
 The analysis consists of 2^nd^ and 3^rd^ degree polynomial regressions in @tbl-24.
 
-```{r, echo=FALSE}
-#| label: tbl-24
-#| tbl-cap: "Polynomial GDP per capita on Gini"
-lm20 <- lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = Inequity_Data)
-lm21 <- lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2 + I(log_GDP_capita_NUTS2^2), data = Inequity_Data)
-lm22 <- lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2 + I(log_GDP_capita_NUTS2^2) + I(log_GDP_capita_NUTS2^3), data = Inequity_Data)
-
-huxreg(list("Simple linear reg" = lm20,  "2nd degree polynomial" = lm21, "3rd degree polynomial" = lm22),
-       statistics = c(N = "nobs", R2 = "r.squared", FStat = "statistic", PValue = "p.value"), 
-       coefs = c("log GDP per capita NUTS2" = "log_GDP_capita_NUTS2","log GDP per capita NUTS2 ^2" = "I(log_GDP_capita_NUTS2^2)","log GDP capita NUTS2 ^3" = "I(log_GDP_capita_NUTS2^3)", const. = "(Intercept)"),
-       note = "Note: {stars} T statistics in brackets.")
-```
-
 Comparing the simple linear regression with the polynomial regressions of 2^nd^ and 3^rd^ degree, we observe that the coefficient of determination increases.
 We can observe in particular that the 3^rd^ degree polynomial regression show a significantly greater degree of explanation with an $R^2$ of 0.204, compared to 0.09 of the previous estimated model.
 Polynomial regression is however sensitive to outliers, which seems to be the case for our estimates.
 The models are visualized by @fig-20 and @fig-21.
+
+```{r, echo=FALSE}
+lm20 <- lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = Inequity_Data)
+lm21 <- lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2 + I(log_GDP_capita_NUTS2^2), data = Inequity_Data)
+lm22 <- lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2 + I(log_GDP_capita_NUTS2^2) + I(log_GDP_capita_NUTS2^3), data = Inequity_Data)
+```
 
 ```{r, echo=FALSE}
 #| label: fig-20
@@ -634,7 +599,7 @@ Inequity_Data %>%
 ### Breusch Pagan Test (Heteroscedasticity)
 
 We will be using the Breush-Pagan test, to test for heteroskedasticity in linear regression models.
-When doing this test, the goal is to assert wether there is heteroscedasticity or homoscedasticity, which then will tell us wether the results of the regression are reliable or not.
+When doing this test, the goal is to assert whether there is heteroscedasticity or homoscedasticity, which then will tell us whether the results of the regression are reliable or not.
 
 ```{r, echo=FALSE}
 bptest(lm20)$p.value
@@ -754,20 +719,10 @@ plm4 <- plm(GINI_NUTS3 ~ GDP_capita, data = Panel_Inequity_Data, index = c("NUTS
   coeftest(vcov. = vcovHC, type = "HC1", save = TRUE)
 ```
 
-```{r, echo=FALSE}
-#| label: tbl-25
-#| tbl-cap: "Panel estimates"
-huxreg(list( "Fixed effect Country" = plm1, "Fixed effect Year" = plm2, "Fixed effect NUTS2" = plm3, "Fixed effect jointly" = plm4),
-  statistics = c(N = "nobs", R2 = "r.squared", FStat = "statistic", PValue = "p.value"),
-  stars = c("*" = 0.1, "**" = 0.05, "***" = 0.01),
-  note = "Note): {stars} T statistics in brackets."
-  )
-```
-
 In the fixed model above the groups country, year and NUTS2 are fixed and not random or mixed.
 If the the individual-specific effects are correlated with the independent variables, it is called The Fixed effects assumption.
 
-From the model we can see that we have 4253 observations on each fixed effect and none of the Fixed effects are notable significant based on R squared
+From @tbl-25 we can see that we have 4253 observations on each fixed effect and none of the Fixed effects are notable significantly correlated based on R squared
 
 ## References
 
@@ -1085,4 +1040,50 @@ GDP_Per_Capita %>%
 #| fig-cap: "Gini & GDP per capita IT"
 IT2010 %>%
   ggplot(aes(x = GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + geom_abline(intercept = b0_GDP_on_GINI_IT, slope = b1_GDP_on_GINI_IT, color = "blue", alpha = 0.5) + labs(x = "GDP per Capita IT", y = "GINI IT") + theme_bw()
+```
+
+```{r, echo=FALSE}
+#| label: tbl-22
+#| tbl-cap: "Italy compared to CC"
+Inequity_Data$Italy <- ifelse(Inequity_Data$NUTS == "IT", 1,0)
+Inequity_Data$Other <- ifelse(Inequity_Data$NUTS == "IT", 0,1)
+
+Inequity_Data <- Inequity_Data
+lm23 = lm(GINI_NUTS2*10000 ~ GDP_capita_NUTS2, filter(Inequity_Data, Italy == 1))
+lm24 = lm(GINI_NUTS2*10000 ~ GDP_capita_NUTS2, filter( Inequity_Data, Italy == 0))
+
+huxreg(list("Italy" = lm23, "All other countries" = lm24), statistics = c(N = "nobs", R2 = "r.squared", FStat = "statistic", PValue = "p.value"), note = "Note: {stars} T statistics in brackets.")
+```
+
+```{r, echo=FALSE, warning=FALSE}
+#| label: tbl-23
+#| tbl-cap: "Log of GDP per capita on Gini"
+lm13 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = AT2010)
+lm14 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = BE2010)
+lm15 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = BG2010)
+lm16 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = HR2010)
+lm17 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = IT2010)
+lm18 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = SE2010)
+lm19 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = Inequity_Data)
+
+huxreg(list("AT" = lm13, "BE" = lm14,  "BG" = lm15, "HR" = lm16, "IT" = lm17, "SE" = lm18, "CC" = lm19), statistics = c(N = "nobs", R2 = "r.squared", FStat = "statistic", PValue = "p.value"), coefs = c(log_GDP_capita_NUTS2 = "log_GDP_capita_NUTS2", const. = "(Intercept)"), note = "Note: {stars} T statistics in brackets.")
+```
+
+```{r, echo=FALSE}
+#| label: tbl-24
+#| tbl-cap: "Polynomial GDP per capita on Gini"
+huxreg(list("Simple linear reg" = lm20,  "2nd degree polynomial" = lm21, "3rd degree polynomial" = lm22),
+       statistics = c(N = "nobs", R2 = "r.squared", FStat = "statistic", PValue = "p.value"), 
+       coefs = c("log GDP per capita NUTS2" = "log_GDP_capita_NUTS2","log GDP per capita NUTS2 ^2" = "I(log_GDP_capita_NUTS2^2)","log GDP capita NUTS2 ^3" = "I(log_GDP_capita_NUTS2^3)", const. = "(Intercept)"),
+       note = "Note: {stars} T statistics in brackets.")
+```
+
+```{r, echo=FALSE}
+#| label: tbl-25
+#| tbl-cap: "Panel estimates"
+huxreg(list( "Fixed effect Country" = plm1, "Fixed effect Year" = plm2, "Fixed effect NUTS2" = plm3, "Fixed effect jointly" = plm4),
+  statistics = c(N = "nobs", R2 = "r.squared", FStat = "statistic", PValue = "p.value"),
+  stars = c("*" = 0.1, "**" = 0.05, "***" = 0.01),
+  note = "Note): {stars} T statistics in brackets."
+  )
 ```
