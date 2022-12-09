@@ -67,8 +67,7 @@ Its reason to believe that high population equals high GDP based on the fact tha
 However, this can not be applied in every circumstances.
 For example Monaco with a population in 2020 of just above 39,000 [@MonacoPopulation2022] had a GDP on 6.25 billion USD the same year versus Burundi with a GDP on 3.22 billion [@GDPConstant2015] and a population just above 11.89 million [@BurundiPopulation2022].
 The GDP per capita gives us a more accurate measure.
-in the model above we can see that its a big difference in GDP per capita in each region, this can be caused by a population or a cluster with rich/poor individuals.
-
+In @tbl-1 we can see that its a big difference in GDP per capita in each region, this can be caused by a population or a cluster with rich/poor individuals.
 We also had some NA values witch we chose to take out of the dataset.
 NA values may come from the fact that Population or the GDP was not measured this year or was not available when the dataset was made.
 
@@ -113,7 +112,6 @@ Austria had a big downfall in GDP per capita from year 2000 to 2001, but has had
 One Region sticks out from the rest (BG411) with a higher GDP per capita and a higher growth from 2000 to 2020, almost reaching a GDP per capita on 20 000.
 BG411 is a Region in Sofia, capital city of Bulgaria.
 The reason for this might be because of a better work situation in Sofia with less unemployed people and more business going around [@StatisticalRegionsEuropean].
-
 From year 2000 to around 2005 the other regions had around the same GDP per capita with a similar growth.
 The following years after 2005 some of the regions have split a bit from others and had a faster growth which laded them to surpass a GDP per capita over 5000 in 2019, some reaching a GDP per capita over 7500 by the year 2019.
 
@@ -156,11 +154,10 @@ Both Weinviertel and Mühlviertel are located north and boarders to the Czech Re
 
 @fig-5 illustrate graphs for Croatia that show the financial crisis also had an impact on the GDP per capita in 2008 until 2012/2013 before the GDP per capita started to increase again before it once again decreases around 2018.
 We can see that region HR036 and HR031 has GDP per capita that lay a bit higher than the other regions for the most part.
-
 However, region HR037 and HR032 also had some good years.
 Croatia has also fewer regions with available GDP data on a NUTS 3 level than the other countries.
 
-The top three regions in 2010 measured by GDP per capita is HR036 (Istarska županija), HR031 (Primorsko-goranska županija) and HR037 (Dubrovnik-Neretva) sown in [@tbl-8; @StatisticalRegionsEuropean].
+The top three regions in 2010 measured by GDP per capita is HR036 (Istarska županija), HR031 (Primorsko-goranska županija) and HR037 (Dubrovnik-Neretva) shown in @tbl-8 [@StatisticalRegionsEuropean].
 Istarska županija is big on processing industry, tourism and trade [@Economy].
 Dubrovnik-Neretva is the capital of Croatia and are also big on tourism, but also makes a living out of hospitality industry, agriculture and maritime industry [@Economya].
 
@@ -206,10 +203,10 @@ As expected from the capital of Sweden.
 This is where the main industrial clusters are located, which draws population and GDP higher.
 What is notable her is that the neighbor region SE122 (Sódermanland) which borders Stockholm, is second to last at the bottom with half the GDP per Capita compared to Stockholm.
 We believe this has a connection to the employment rates and there would be a bigger attraction for workers to employ in Stockholm.
-Another interesting bit about the Swedish GDP per capita is that their smallest region by population (2019) is Gotland (SE214) with 59,249, comparing Gotland to Stockholm there is almost 40x more people in Stockholm (2 344 124).
+Another interesting bit about the Swedish GDP per capita is that their smallest region by population (2019) is Gotland (SE214) with 59,249, comparing Gotland to Stockholm there is almost 40x more people in Stockholm (2,344,124).
 The GDP is 2050,4 against 151 284,4 which is aprox a 74x difference in favor Stockholm.
-This makes the GDP per capita 34 603 against\
-Stockholm´s 64 537, less then a 2x difference [@StatisticalRegionsEuropean].
+This makes the GDP per capita 34,603 against\
+Stockholms 64,537, less then a 2x difference [@StatisticalRegionsEuropean].
 
 As previously we chose 2010 as a benchmark, where the recovery from the financial crisis was in route.
 Stockholm had a GDP per capita of 56,036 at that time while Norrbottens came in second with 43,768 and Vastra Gotaland at third with 38,740, as shown in @tbl-14.
@@ -264,6 +261,7 @@ The density is at its peak at approximately 0.03, reaching almost 10 in density.
 This signalizes that there is adequate equality between regions.
 
 In the scatterplot @fig-12 we see 4 countries touching the 0.00 Gini point, symbolizing perfect equality for some regions, with one stretching beyond 0.2 going towards adequate equality.
+We have however chosen to ignore Gini coefficients of the value 0, considering these observations are most likely due to missing data.
 Further on we see Sweden being the country that scored the best with having the biggest density closest to 0.00 and we can with that confirm Sweden being the country that is closest to perfect equality between its own regions.
 
 We can take a closer look at Sweden in @fig-13 and we see their regions and how their Gini index has been throughout the years.
@@ -278,7 +276,7 @@ The overall mean also increased with the years implying they are moving further 
 
 In conclusion our regions do have some differences as well as similarities, some of the patterns we noticed were the capitals of the respected countries, were usually on top of the GDP per capita compared to their regions.
 This for several reasons as we mentioned earlier, how the industrial clusters usually are located there and attract more workers.
-Further on when we went deeper into detail, we saw the GINI coefficients of the countries and their regions, we can concluded that they were all within the limit of adequate equality, while some were close and even on perfect equality.
+Further on when we went deeper into detail, we saw the Gini coefficients of the countries and their regions, we can concluded that they were all within the limit of adequate equality, while some were close satisfactory equality.
 
 ## Growth and inequity
 
@@ -459,10 +457,7 @@ There are six classical assumptions for OLS regression.
 If the first four are fulfilled, our models are unbiased.
 All six assumptions are listed below:
 
-1.  Linearity: There must be a linear relationship between the dependent ($Y_i$) and independent ($X_i$) variables. As shown on our scatter plots with the fitted line, we see that the fitted line represents all plots as good as possible.
-    We can see from the scatterplot that the
-    relationship between GINI and GDP per capita variates, we have some outliers with
-    a much higher standard error then the rest of the selection
+1.  Linearity: There must be a linear relationship between the dependent ($Y_i$) and independent ($X_i$) variables. As shown on our scatter plots with the fitted line, we see that the fitted line represents all plots as good as possible. We can see from the scatterplot that the relationship between GINI and GDP per capita variates, we have some outliers with a much higher standard error then the rest of the selection
 2.  Sample variation: There is variation in the independent variable ($X_i$).
 3.  Random sampling: There is a random sample from the population of interest. Our data is collected from Eurostat, which is a reliable source in terms of random sampling. We have omitted NA values and countries that did not belong to our dataset. For some of the countries we also have omitted some observations because these countries had a large amount of collected observations
 4.  Exogeneity: The explanatory variable ($X_i$) is exogenous, i.e., it is not influenced by any other variables in the explanatory model. This is true in this case, GDP Per capita is not influenced, but rather the one that could influence the other variables.
@@ -671,18 +666,8 @@ Our fourth, and second simple regression going through the Breusch Pagan Test, s
 We followed through with our given recommendations for how to solve this task of looking for heteroscedasticity, giving us the results as seen above.
 But we would like to add a note; According to Dr. Nisha Arora, *the Breusch Pagan Test assumes heteroscedasticity is a linear function of the independent variables.* Where if one would fail to find heteroscedisticity with the Breuch Pagan test, it would not necessarily mean that there is not a nonlinear relation between the error variance and the independent variables.
 Further it seems to be recommended to use the *White Test,* where as this test gives us a more flexible functional form that is suited for recognizing a greater amount of patterns for heteroscedasticity.
-The *White Test* also lets the independent variables to have a interactive and nonlinear effect on the error variance.
-@aroraAnswerWhatCriterion2016 We followed through with our given recommendations for how to solve this task of looking for heteroscedasticity, giving us the results as seen above.
-But we would like to add a note; According to Dr. Nisha Arora, *the Breusch Pagan Test assumes heteroscedasticity is a linear function of the independent variables.* Where if one would fail to find heteroscedisticity with the Breuch Pagan test, it would not necessarily mean that there is not a nonlinear relation between the error variance and the independent variables.
-Further it seems to be recommended to use the *White Test,* where as this test gives us a more flexible functional form that is suited for recognizing a greater amount of patterns for heteroscedasticity.
-We followed through with our given recommendations for how to solve this task of looking for heteroscedasticity, giving us the results as seen above.
-But we would like to add a note to the test of the lm21 and lm22 which are not linear regressions.
-According to Dr. Nisha Arora, *the Breusch Pagan Test assumes heteroscedasticity is a linear function of the independent variables.* Where if one would fail to find heteroscedisticity with the Breuch Pagan test, it would not necessarily mean that there is not a nonlinear relation between the error variance and the independent variables.
-Further it seems to be recommended to use the *White Test,* where as this test gives us a more flexible functional form that is suited for recognizing a greater amount of patterns for heteroscedasticity.
-The *White Test* also lets the independent variables to have a interactive and nonlinear effect on the error variance @aroraAnswerWhatCriterion2016.
-
-After feedback on our statement, we have removed the claim that lm21 and lm22 are not linear regressions.
-Further we add in that the *White test* can be used as a safety measure.
+The *White Test* also lets the independent variables to have a interactive and nonlinear effect on the error variance, and is a good tool as a safety measure @aroraAnswerWhatCriterion2016. This note was added due to the fact that we are actually looking at a theoretical nonlinear model, but through the transformation of data, we can still consider this as a linear model.
+Hence, this is why we did not do the White Test as an extra safety measure.
 
 ## Potential remedies for eventual problems
 
@@ -725,8 +710,8 @@ To establish causality, two predictions need to be fulfilled:
 
 From our models we find that the correlation between log GDP per Capita and Gini is not significant in total for all countries in the dataset.
 This means that we cannot for fill the first point to Causality.
-Furthermore, if the correlation where to be significant, we would argue that A (GDP per Capita) could not predict B (GINI/Inequality).
-Taking a starting point in that GINI is measured out from different regions, this means that it based on location and if GDP per Capita where to stay the same, the population of the regions could still move around resulting in changes in Inequality.
+Furthermore, if the correlation where to be significant, we would argue that A (GDP per Capita) could not predict B (Gini/Inequality).
+Taking a starting point in that Gini is measured out from different regions, this means that it based on location and if GDP per Capita where to stay the same, the population of the regions could still move around resulting in changes in Inequality.
 
 For example; if the population in the regions split equally around to make all regions have the same GDP per capita, the inequality between the regions would end up becoming lower.
 So there could be a correlation between X and Y, but Z could be the explanation for Y.
@@ -772,7 +757,7 @@ plm4 <- plm(GINI_NUTS3 ~ GDP_capita, data = Panel_Inequity_Data, index = c("NUTS
 #| label: tbl-25
 #| tbl-cap: "Panel estimates"
 huxreg(list( "Fixed effect Country" = plm1, "Fixed effect Year" = plm2, "Fixed effect NUTS2" = plm3, "Fixed effect jointly" = plm4),
-  statistics = c(N = "nobs", R2 = "r.squared"),
+  statistics = c(N = "nobs", R2 = "r.squared", FStat = "statistic", PValue = "p.value"),
   stars = c("*" = 0.1, "**" = 0.05, "***" = 0.01),
   note = "Note): {stars} T statistics in brackets."
   )
