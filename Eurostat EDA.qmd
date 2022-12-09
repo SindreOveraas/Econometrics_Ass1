@@ -206,7 +206,7 @@ As expected from the capital of Sweden.
 This is where the main industrial clusters are located, which draws population and GDP higher.
 What is notable her is that the neighbor region SE122 (Sódermanland) which borders Stockholm, is second to last at the bottom with half the GDP per Capita compared to Stockholm.
 We believe this has a connection to the employment rates and there would be a bigger attraction for workers to employ in Stockholm.
-Another interesting bit about the Swedish GDP per capita is that their smallest region by population (2019) is Gotland (SE214) with 59 249, comparing Gotland to Stockholm there is almost 40x more people in Stockholm (2 344 124).
+Another interesting bit about the Swedish GDP per capita is that their smallest region by population (2019) is Gotland (SE214) with 59,249, comparing Gotland to Stockholm there is almost 40x more people in Stockholm (2 344 124).
 The GDP is 2050,4 against 151 284,4 which is aprox a 74x difference in favor Stockholm.
 This makes the GDP per capita 34 603 against\
 Stockholm´s 64 537, less then a 2x difference [@StatisticalRegionsEuropean].
@@ -685,7 +685,7 @@ Further we add in that the *White test* can be used as a safety measure.
 
 Throughout this whole task we chose to target the most visible problem; economic inequality.
 Some countries and regions have a more visible gaps then other such as Sweden with the lowest inequality against Bulgaria with the highest.
-First of explaining what this means, in short, high GINI coefficients values implies that the income is spread uneven.
+First of explaining what this means, in short, high Gini coefficients values implies that the income is spread uneven.
 That the greater amount of the income percentage in the area is earned by a fewer population.
 This over time will result in higher inequality gap even tho the general GDP per capita is rising.
 We will then see a reduction of middle class, where those who once were there, would either enter the upper class or the lower class, usually they will fall in to the latter category and the gap will expand.
@@ -717,8 +717,8 @@ Its not possible to search for causality with the regression, it can only be use
 
 To establish causality, two predictions need to be fulfilled:
 
-1.   There needs to be a significant relationship, significant correlation.
-2.   It needs to be a temporal sequence of the variables, variable A took place before variable B. Or if it is a theoretical justified and plausible theory which direction the causal relationship goes
+1.  There needs to be a significant relationship, significant correlation.
+2.  It needs to be a temporal sequence of the variables, variable A took place before variable B. Or if it is a theoretical justified and plausible theory which direction the causal relationship goes
 
 From our models we find that the correlation between log GDP per Capita and Gini is not significant in total for all countries in the dataset.
 This means that we cannot for fill the first point to Causality.
