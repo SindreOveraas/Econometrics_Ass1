@@ -95,19 +95,15 @@ GDP_Per_Capita  %<>%
 In the plot @fig-1 we have taken out the countries that belongs to our selection - Austria (AT), Belgium (BE), Bulgaria (BG), Croatia (HR), Italy (IT), Serbia (RS) and Sweden (SE) - and added them in to a time series from year 2000 - 2020 (X-axis) to compare the evolution of GDP per capita (Y-axis) over the given time period.
 The abbreviation CC in the figure stands for Countries Combined.
 The data is found and downloaded from Eurostat [@StatisticsEurostata].
-
-Seven out of eight countries we where given was available for download trough Eurostat, the country witch we are missing is Bosnia and Herzegovina.
+Seven out of eight countries we where given was available for download trough Eurostat, the country which we are missing is Bosnia and Herzegovina.
 
 From the plot we can see that none of the countries have data from the whole time frame, some are missing data from the first years and others are missing from the last years.
 Serbia only have data from around 2017 to 2019.
 This might come from the fact that Serbia became an independent republic in 2006 and for that reason has not been collecting og establishing much info around GDP [@Serbia].
-
 The countries with the highest GDP per capita is Belgium and Sweden, where both countries has experienced growth in GDP per capita over time.
 Sweden also has had the biggest growth in GDP Per capita compared to the other countries.
-
 From the graphs, the three countries with highest GDP per capita had a noticeable decline around 2008, which is related to the financial crises at this time.
-Sweden also experiences the largest dip around this time [@EconomicRecoveryEU]
-
+Sweden also experiences the largest dip around this time [@EconomicRecoveryEU].
 Four of the five countries on the bottom also has experienced growth, just not as significant as Sweden and Belgium.
 Austria had a big downfall in GDP per capita from year 2000 to 2001, but has had a stable growth since then.
 
@@ -231,7 +227,7 @@ A considerable difference, showing how the GDP per capita is fairly close to eac
 
 The 10 regions with the lowest GDP per capita, illustrated in @fig-10, show us they are *all* located in Bulgaria**.** Eight of the lowest GDP per capita regions are located in NUTS 1 - BG3 (Northern & Eastern Bulgaria).
 BG 3 is divided into 4 NUTS 2 regions: (BG31) Northwestern, (BG32) Northern Central, (BG33) Northeastern, (BG34) Southeastern.
-BG31 has three provinces that are on our top 10 list; Vidin Province(311), Montana Province(312) and Pleven Province(314).
+BG31 has three provinces that are on our top 10 list; Vidin Province (311), Montana Province(312) and Pleven Province (314).
 It is clear to see that the pattern for where the GDP per capita is low, is around the Eastern areas, Northeast, central east and southeast.
 These are also some of the areas that are furthest away from the Capital.
 The interesting part of this diagram is that around 2004, the GDP per capita of the regions were fairly aligned with each other at 2000, before they started ascending and increasing the gap.
@@ -251,83 +247,28 @@ $$
 GINIW_j=\frac{1}{2 \bar{y_j}} \sum_{i}^{n_j}\sum_{l}^{n_j}\frac{p_i}{P_j} \frac{p_l}{P_j} |y_i-y_l|
 $$
 
-```{r, echo=FALSE}
-#| label: tbl-16
-#| tbl-cap: "GDP Gini coefficient CC"
-kable(summary(GDP_Per_Capita %>%
-  select(GINI_NUTS2)))
-```
-
 The summary statistics in @tbl-16 give us the descriptive figures for all our selected countries combined, throughout the whole period of 2000 - 2020.
 Based on the statistics, we can note that the lowest coefficient is equal to 0, meaning that there are some regions where inequality is absent.
 We can also observe that the highest inequality throughout the entire period is 0.235.
 The mean of the Gini coefficients are 0.071.
 
-```{r, echo=FALSE}
-#| label: tbl-17
-#| tbl-cap: "GDP Gini coefficient CC 2010"
-kable(summary(GDP_Per_Capita %>%
-  filter(Year == 2010) %>%
-  select(GINI_NUTS2)))
-```
-
 Based on the data of @tbl-17 we see that all of the countries are collectively within adequate equality or better.
 Where the min, 1st q, median and mean are all below the 0,1 point.
 The max is at 0.23524 which you can see on the graphs under, and is within the Bulgarian regions.
-Seeing how all of the top 10 regions that scored the lowest were from Bulgaria, it does not come of as a shock, that they also have the highest GINI score.
-The capital of Bulgaria, Sofia, has more than twice of the average GDP per capita of the remaining regions, and for some of the lower regions, more than 5times the amount.
-
-```{r, echo=FALSE}
-#| label: fig-11
-#| fig-cap: "Density plot of Gini CC"
-ggplot(data = GDP_Per_Capita) + geom_density(aes(x = GINI_NUTS2), fill = "maroon", col = "maroon", alpha = 0.2) + labs(x = "GINI", y = "Density") + theme_bw()
-```
+Seeing how all of the top 10 regions that scored the lowest were from Bulgaria, it does not come of as a shock, that they also have the highest Gini score.
+The capital of Bulgaria, Sofia, has more than twice of the average GDP per capita of the remaining regions, and for some of the lower regions, more than 5 times the amount.
 
 @fig-11 show the density distribution of all Gini coefficients in all selected countries.
 We can observe that the density plot matches our summary statistics of the coefficients.
 The density is at its peak at approximately 0.03, reaching almost 10 in density.
 This signalizes that there is adequate equality between regions.
 
-```{r, echo=FALSE}
-#| label: fig-12
-#| fig-cap: "Scatterplot of Gini CC"
-ggplot(data = GDP_Per_Capita, aes(x = NUTS, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.25) + labs(x = "Country", y = "GINI") + theme_bw()
-```
-
-In the scatterplot @fig-12 we see 4 countries touching the 0.00 GINI point, symbolizing perfect equality for some regions, with one stretching beyond 0.2 going towards adequate equality.
+In the scatterplot @fig-12 we see 4 countries touching the 0.00 Gini point, symbolizing perfect equality for some regions, with one stretching beyond 0.2 going towards adequate equality.
 Further on we see Sweden being the country that scored the best with having the biggest density closest to 0.00 and we can with that confirm Sweden being the country that is closest to perfect equality between its own regions.
 
-```{r, echo=FALSE}
-#| label: fig-13
-#| fig-cap: "Scatterplot of Gini Sweden"
-GDP_Per_Capita %>%
-  filter(NUTS == "SE") %>%
-  distinct(NUTS2, Year, .keep_all = TRUE) %>%
-  ggplot(aes(x = Year, y = GINI_NUTS2, fill = NUTS2, color = NUTS2)) + geom_point(lwd = 0.7) + labs(x = "Year", y = "GINI") + theme_bw()
-```
-
-Taking a closer look at Sweden in @fig-13 and we see their regions and how their GINI index has been throughout the years.
-
-```{r, echo=FALSE}
-#| label: fig-14
-#| fig-cap: "Scatterplot of Gini Belgium"
-GDP_Per_Capita %>%
-  filter(NUTS == "BE") %>%
-  distinct(NUTS2, Year, .keep_all = TRUE) %>%
-  ggplot(aes(x = Year, y = GINI_NUTS2, fill = NUTS2, color = NUTS2)) + geom_point(lwd = 0.7) + labs(x = "Year", y = "GINI") + theme_bw()
-```
-
+We can take a closer look at Sweden in @fig-13 and we see their regions and how their Gini index has been throughout the years.
 Comparing the @fig-13 of Sweden to @fig-14 of Belgium, we see there is a bigger diversity and inequality in Belgium compared.
 This is still well within limits of adequate equality, and only one region that crosses the 0.1 line.
-
-```{r, echo=FALSE}
-#| label: fig-15
-#| fig-cap: "Scatterplot of Gini Bulgaria"
-GDP_Per_Capita %>%
-  filter(NUTS == "BG") %>%
-  distinct(NUTS2, Year, .keep_all = TRUE) %>%
-  ggplot(aes(x = Year, y = GINI_NUTS2, fill = NUTS2, color = NUTS2)) + geom_point(lwd = 0.7) + labs(x = "Year", y = "GINI") + theme_bw()
-```
 
 The Bulgarian Gini plot which is the one with the biggest spread between our three plots, where the range is from 0.04 to 0.235.
 This visualization of @fig-15 shows us how the plot excelled during the years and created a bigger gap with the years.
@@ -469,13 +410,6 @@ b0_GDP_on_GINI_IT <- lm_GDP_on_GINI_IT$coefficients[1]
 b1_GDP_on_GINI_IT <- lm_GDP_on_GINI_IT$coefficients[2]
 ```
 
-```{r, echo=FALSE}
-#| label: fig-16
-#| fig-cap: "Gini & GDP per capita IT"
-IT2010 %>%
-  ggplot(aes(x = GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + geom_abline(intercept = b0_GDP_on_GINI_IT, slope = b1_GDP_on_GINI_IT, color = "blue", alpha = 0.5) + labs(x = "GDP per Capita IT", y = "GINI IT") + theme_bw()
-```
-
 For all the countries combined (CC) we have the coefficient of determination of 0.090, i.e. that the independent variable of economic regional growth, explains around 9% of the variance in the dependent variable regional inequality.
 This can also be visualized with scatter plot as shown in @fig-17.
 
@@ -545,12 +479,14 @@ More specifically, we will in this part of the paper explore the effect of the n
 The analysis will be delimited by the fact we are only exploring the year of 2010, as mentioned previously.
 
 ```{r, echo=FALSE}
+#| label: tbl-19
+#| tbl-cap: "MRM CC"
 MRM_NUTS2 <- function(mlrdata){
   lm8 = lm(GINI_NUTS2 ~ Tertiary_educ, mlrdata)
   lm9 = lm(GINI_NUTS2 ~ Number_of_MWAY_and_RL, mlrdata)
-  lm10 = lm(GINI_NUTS2 ~ Tertiary_educ + Number_of_MWAY_and_RL, mlrdata)
+  lm10 = lm(GINI_NUTS2 ~ GDP_capita_NUTS2 + Tertiary_educ + Number_of_MWAY_and_RL, mlrdata)
   lm11 = lm(GINI_NUTS2 ~ Life_expectency, mlrdata)
-  lm12 = lm(GINI_NUTS2 ~ Tertiary_educ + Life_expectency, mlrdata)
+  lm12 = lm(GINI_NUTS2 ~ GDP_capita_NUTS2 + Tertiary_educ + Life_expectency, mlrdata)
   
   huxreg(
     list("Model 1" = lm8, "Model 2" = lm9, "Model 3" = lm10, "Model 4" = lm11, "Model 5" = lm12), statistics = c(N = "nobs", R2 = "r.squared"), coefs = c(Higher.educ = "Tertiary_educ","Number_of_MWAY_and_RL", Life.expec = "Life_expectency", const. = "(Intercept)"),note = "Note: {stars} T statistics in brackets.")
@@ -560,27 +496,29 @@ MRM_NUTS2 <- function(mlrdata){
 ### Multiple regression model Austria
 
 ```{r, echo=FALSE}
-#| tbl-cap: MRM AT
+#| label: tbl-20
+#| tbl-cap: "MRM AT"
 MRM_NUTS2(AT2010)
 ```
 
 In this table we have two multiple regression models and three simple regression models.
 Model 3 and 5 are the multiple regression models, whereas 1, 2 and 4 are simple regression models.
 
-The multiple regression models for Austria show a coefficient of determination $R^2$ of 0.792 for Model 3 and 0.639 for Model 5, respectively.
-Model 3 concerns a multiple regression of percentage of the population with higher education and the number of railways and motorways as the independent variables, and the GINI coefficient as the dependent variable.
+@tbl-20 show the multiple regression models for Austria show a coefficient of determination $R^2$ of 0.794 for Model 3 and 0.941 for Model 5, respectively.
+Model 3 concerns a multiple regression of percentage of the population with higher education, the number of railways and motorways, and GDP per capita as the independent variables, and the Gini coefficient as the dependent variable.
 Model 5 also has the percentage of the population with higher education as an independent variable, but has life expectancy as the second independent variable.
 Both models show significant correlation as the coefficient of determination $R^2$ \> 0.35.
 
 ### Multiple regression model Belgium
 
 ```{r, echo=FALSE}
-#| tbl-cap: MRM BE
+#| label: tbl-21
+#| tbl-cap: "MRM BE"
 MRM_NUTS2(BE2010)
 ```
 
 Furthermore, we want to look at how the multiple regression models for Belgium.
-In this table we see a much lower degree of explanation for the models, than that of Austria.
+In @tbl-21 we see a much lower degree of explanation for the models, than that of Austria.
 It therefore suggests that the correlation between the independent and dependent variables is not as significant in comparison.
 A desired condition for correlation in regression models is that the coefficient of determination $R^2$ is equal to or higher than 0.35, which in these instances they are not.
 
@@ -600,6 +538,8 @@ We have chosen to use the data of Italy as the dummy variable, considering this 
 We choose to multiply our dependent variable of the GINI coefficient by 10,000, so we get a better visualization of the slope coefficient.
 
 ```{r, echo=FALSE}
+#| label: tbl-22
+#| tbl-cap: "Italy compared to CC"
 Inequity_Data$Italy <- ifelse(Inequity_Data$NUTS == "IT", 1,0)
 Inequity_Data$Other <- ifelse(Inequity_Data$NUTS == "IT", 0,1)
 
@@ -610,7 +550,7 @@ lm24 = lm(GINI_NUTS2*10000 ~ GDP_capita_NUTS2, filter( Inequity_Data, Italy == 0
 huxreg(list("Italy" = lm23, "All other countries" = lm24), statistics = c(N = "nobs", R2 = "r.squared", FStat = "statistic", PValue = "p.value"), note = "Note: {stars} T statistics in brackets.")
 ```
 
-As seen from our table we have an appropriate distribution of observations, with Italy having 34 observations and the other countries combined having 37.
+As seen from @tbl-22 we have an appropriate distribution of observations, with Italy having 34 observations and the other countries combined having 37.
 We also see that the correlation between the dependent and the independent variable for the two regression models, that is the effect of regional economic development ($X_i$) on regional inequality ($Y_i$), are very similar.
 For Italy only we have a coefficient of determination of 0.33, compared to the other combined countries of 0.316.
 Based on this it suggests that the effect of regional economic development is not significantly different for different subsets of countries in our data set.
@@ -625,6 +565,8 @@ According to Lessmann and Seidel, the level of economic development can be measu
 That is therefore the reason we will use the log of GDP per capita in our new estimates in the linear regression model, and we will determine if this fits our model better.
 
 ```{r, echo=FALSE, warning=FALSE}
+#| label: tbl-23
+#| tbl-cap: "Log of GDP per capita on Gini"
 lm13 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = AT2010)
 lm14 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = BE2010)
 lm15 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = BG2010)
@@ -636,12 +578,14 @@ lm19 = lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = Inequity_Data)
 huxreg(list("AT" = lm13, "BE" = lm14,  "BG" = lm15, "HR" = lm16, "IT" = lm17, "SE" = lm18, "CC" = lm19), statistics = c(N = "nobs", R2 = "r.squared", FStat = "statistic", PValue = "p.value"), coefs = c(log_GDP_capita_NUTS2 = "log_GDP_capita_NUTS2", const. = "(Intercept)"), note = "Note: {stars} T statistics in brackets.")
 ```
 
-As we can tell from the descriptive statistics of the regression models where the logarithm of GDP per capita has been assigned as the explanatory variable as compared to our previous simple regression models in part 2, with GDP per capita as the explanatory variable, the coefficients of determination has a slight tendency to be at a lower level.
+As we can tell from the descriptive statistics in @tbl-23 of the regression models where the logarithm of GDP per capita has been assigned as the explanatory variable as compared to our previous simple regression models in part 2, with GDP per capita as the explanatory variable, the coefficients of determination has a slight tendency to be at a lower level.
 This applies more specifically to the regressions of Austria, Belgium, Italy and Sweden.
 The regression analysis of all the Countries Combined (CC) however has a slightly better $R^2$, with the coefficient of 0.09, compared to 0.064 of the previous model.
-The scatterplot for the regression of the CC with the log of GDP per capita data is shown below.
+The scatterplot for the regression of the CC with the log of GDP per capita data is shown in @fig-19.
 
 ```{r, echo=FALSE}
+#| label: fig-19
+#| fig-cap: "Log of GDP per capita on Gini"
 lm_log_GDP_on_GINI <- lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = Inequity_Data)
 
 b0_log_GDP_on_GINI <- lm_log_GDP_on_GINI$coefficients[1]
@@ -653,9 +597,11 @@ Inequity_Data %>%
 
 Furthermore, we would like to present a polynomial regression analysis of our data.
 In these regressions we will still keep the logarithm of GDP per capita ($X_i$) as our explanatory variable.
-The analysis consists of 2^nd^ and 3^rd^ degree polynomial regressions.
+The analysis consists of 2^nd^ and 3^rd^ degree polynomial regressions in @tbl-24.
 
 ```{r, echo=FALSE}
+#| label: tbl-24
+#| tbl-cap: "Polynomial GDP per capita on Gini"
 lm20 <- lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2, data = Inequity_Data)
 lm21 <- lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2 + I(log_GDP_capita_NUTS2^2), data = Inequity_Data)
 lm22 <- lm(GINI_NUTS2 ~ log_GDP_capita_NUTS2 + I(log_GDP_capita_NUTS2^2) + I(log_GDP_capita_NUTS2^3), data = Inequity_Data)
@@ -669,13 +615,18 @@ huxreg(list("Simple linear reg" = lm20,  "2nd degree polynomial" = lm21, "3rd de
 Comparing the simple linear regression with the polynomial regressions of 2^nd^ and 3^rd^ degree, we observe that the coefficient of determination increases.
 We can observe in particular that the 3^rd^ degree polynomial regression show a significantly greater degree of explanation with an $R^2$ of 0.204, compared to 0.09 of the previous estimated model.
 Polynomial regression is however sensitive to outliers, which seems to be the case for our estimates.
+The models are visualized by @fig-20 and @fig-21.
 
 ```{r, echo=FALSE}
+#| label: fig-20
+#| fig-cap: "Second degree polynomial"
 Inequity_Data %>%
   ggplot(aes(x = log_GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + stat_smooth(method = "lm", formula = y ~ poly(x, 2), se = FALSE, color = "blue", alpha = 0.2) + labs(x = "log GDP per Capita", y = "GINI") + theme_bw()
 ```
 
 ```{r, echo=FALSE}
+#| label: fig-21
+#| fig-cap: "Third degree polynomial"
 Inequity_Data %>%
   ggplot(aes(x = log_GDP_capita_NUTS2, y = GINI_NUTS2)) + 
   geom_point(color = "maroon", alpha = 0.7) + 
@@ -766,13 +717,10 @@ Its not possible to search for causality with the regression, it can only be use
 
 To establish causality, two predictions need to be fulfilled:
 
-1.There needs to be a significant relationship, significant correlation.
+1.   There needs to be a significant relationship, significant correlation.
+2.   It needs to be a temporal sequence of the variables, variable A took place before variable B. Or if it is a theoretical justified and plausible theory which direction the causal relationship goes
 
-2.a It needs to be a temporal sequence of the variables, variable A took place before variable B.
-
-2.b Or if it is a theoretical justified and plausible theory which direction the causal relationship goes
-
-From our models we find that the correlation between log GDP per Capita and GINI is not significant in total for all countries in the dataset.
+From our models we find that the correlation between log GDP per Capita and Gini is not significant in total for all countries in the dataset.
 This means that we cannot for fill the first point to Causality.
 Furthermore, if the correlation where to be significant, we would argue that A (GDP per Capita) could not predict B (GINI/Inequality).
 Taking a starting point in that GINI is measured out from different regions, this means that it based on location and if GDP per Capita where to stay the same, the population of the regions could still move around resulting in changes in Inequality.
@@ -781,6 +729,51 @@ For example; if the population in the regions split equally around to make all r
 So there could be a correlation between X and Y, but Z could be the explanation for Y.
 
 ## Panel estimates
+
+So far we have mostly been using time-series data to determine how regional development has an effect on regional inequality.
+In the last part of the paper we want to explore how the data in a panel setup might determine the statistical outcome of the effect of regional development $y_j$ on regional inequality $GINIW_j$.
+For this part we have chosen to base our analysis on the NUTS 3 level, i.e., use the values of the variables such as GDP per capita and Gini coefficients on the NUTS 3 level.
+We will more specifically estimate the following fixed effects: Country fixed effects, year fixed effects, NUTS 2 fixed effects as well as these variables fixed jointly.
+The fixed effect models will only focus on variation within the individual observations we have in our dataset.
+
+```{r, echo=FALSE}
+Panel_Inequity_Data <- GDP_Per_Capita %>%
+  distinct(Year, NUTS2, GINI_NUTS2, GDP_capita, Population) %>%
+  mutate(GDP_capita = GDP_capita) %>%
+  mutate(GINI_NUTS3 = GINI_NUTS2*100000) %>% 
+  mutate(NUTS = substr(NUTS2,1,2)) %>%
+  select(Year, NUTS, NUTS2, Population, GDP_capita, GINI_NUTS2, GINI_NUTS3)
+```
+
+```{r, echo=FALSE}
+plm1 <- plm(GINI_NUTS3 ~ GDP_capita, data = Panel_Inequity_Data, index = c("NUTS"), model = "within") %>% 
+  coeftest(vcov. = vcovHC, type = "HC1", save = TRUE)
+```
+
+```{r, echo=FALSE}
+plm2 <- plm(GINI_NUTS3 ~ GDP_capita, data = Panel_Inequity_Data, index = c("Year"), model = "within", effect = "twoways") %>% 
+  coeftest(vcov. = vcovHC, type = "HC1", save = TRUE)
+```
+
+```{r, echo=FALSE}
+plm3 <- plm(GINI_NUTS3 ~ GDP_capita, data = Panel_Inequity_Data, index = c("NUTS2"), model = "within") %>% 
+  coeftest(vcov. = vcovHC, type = "HC1", save = TRUE)
+```
+
+```{r, echo=FALSE, warning=FALSE}
+plm4 <- plm(GINI_NUTS3 ~ GDP_capita, data = Panel_Inequity_Data, index = c("NUTS", "Year", "NUTS2"), model = "within") %>% 
+  coeftest(vcov. = vcovHC, type = "HC1", save = TRUE)
+```
+
+```{r, echo=FALSE}
+#| label: tbl-25
+#| tbl-cap: "Panel estimates"
+huxreg(list( "Fixed effect Country" = plm1, "Fixed effect Year" = plm2, "Fixed effect NUTS2" = plm3, "Fixed effect jointly" = plm4),
+  statistics = c(N = "nobs", R2 = "r.squared"),
+  stars = c("*" = 0.1, "**" = 0.05, "***" = 0.01),
+  note = "Note): {stars} T statistics in brackets."
+  )
+```
 
 ## References
 
@@ -1037,4 +1030,65 @@ GDP_Per_Capita_Min <- GDP_Per_Capita %>%
 GDP_Per_Capita %>%
   filter(Region %in% GDP_Per_Capita_Min$Region) %>%
   ggplot(aes(x = Year, y = GDP_capita, colour = Region)) + geom_line(lwd = .5) + labs(x = "Year", y = "GDP per capita") + theme_bw()
+```
+
+```{r, echo=FALSE}
+#| label: tbl-16
+#| tbl-cap: "GDP Gini coefficient CC"
+kable(summary(GDP_Per_Capita %>%
+  select(GINI_NUTS2)))
+```
+
+```{r, echo=FALSE}
+#| label: tbl-17
+#| tbl-cap: "GDP Gini coefficient CC 2010"
+kable(summary(GDP_Per_Capita %>%
+  filter(Year == 2010) %>%
+  select(GINI_NUTS2)))
+```
+
+```{r, echo=FALSE}
+#| label: fig-11
+#| fig-cap: "Density plot of Gini CC"
+ggplot(data = GDP_Per_Capita) + geom_density(aes(x = GINI_NUTS2), fill = "maroon", col = "maroon", alpha = 0.2) + labs(x = "GINI", y = "Density") + theme_bw()
+```
+
+```{r, echo=FALSE}
+#| label: fig-12
+#| fig-cap: "Scatterplot of Gini CC"
+ggplot(data = GDP_Per_Capita, aes(x = NUTS, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.25) + labs(x = "Country", y = "GINI") + theme_bw()
+```
+
+```{r, echo=FALSE}
+#| label: fig-13
+#| fig-cap: "Scatterplot of Gini Sweden"
+GDP_Per_Capita %>%
+  filter(NUTS == "SE") %>%
+  distinct(NUTS2, Year, .keep_all = TRUE) %>%
+  ggplot(aes(x = Year, y = GINI_NUTS2, fill = NUTS2, color = NUTS2)) + geom_point(lwd = 0.7) + labs(x = "Year", y = "GINI") + theme_bw()
+```
+
+```{r, echo=FALSE}
+#| label: fig-14
+#| fig-cap: "Scatterplot of Gini Belgium"
+GDP_Per_Capita %>%
+  filter(NUTS == "BE") %>%
+  distinct(NUTS2, Year, .keep_all = TRUE) %>%
+  ggplot(aes(x = Year, y = GINI_NUTS2, fill = NUTS2, color = NUTS2)) + geom_point(lwd = 0.7) + labs(x = "Year", y = "GINI") + theme_bw()
+```
+
+```{r, echo=FALSE}
+#| label: fig-15
+#| fig-cap: "Scatterplot of Gini Bulgaria"
+GDP_Per_Capita %>%
+  filter(NUTS == "BG") %>%
+  distinct(NUTS2, Year, .keep_all = TRUE) %>%
+  ggplot(aes(x = Year, y = GINI_NUTS2, fill = NUTS2, color = NUTS2)) + geom_point(lwd = 0.7) + labs(x = "Year", y = "GINI") + theme_bw()
+```
+
+```{r, echo=FALSE}
+#| label: fig-16
+#| fig-cap: "Gini & GDP per capita IT"
+IT2010 %>%
+  ggplot(aes(x = GDP_capita_NUTS2, y = GINI_NUTS2)) + geom_point(color = "maroon", alpha = 0.7) + geom_abline(intercept = b0_GDP_on_GINI_IT, slope = b1_GDP_on_GINI_IT, color = "blue", alpha = 0.5) + labs(x = "GDP per Capita IT", y = "GINI IT") + theme_bw()
 ```
