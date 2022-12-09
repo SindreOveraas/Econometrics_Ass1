@@ -125,7 +125,8 @@ Using 2010 as a base point which is after the financial crisis, we found that th
 These Regions also managed to maintain a good growth in GDP per capita through the years until 2019 [@StatisticalRegionsEuropean].
 This is shown in @tbl-2.
 
-The three regions with lowest GDP per capita is BG325 (Silistra), BG311 (Vidin) and BG342 (Silven) where BG325 and BG311 both are cities located north in Bulgaria, as shown in @tbl-3. BG342 is a larger city located more in the middle of Bulgaria a bit southeast [@StatisticalRegionsEuropean].
+The three regions with lowest GDP per capita is BG325 (Silistra), BG311 (Vidin) and BG342 (Silven) where BG325 and BG311 both are cities located north in Bulgaria, as shown in @tbl-3.
+BG342 is a larger city located more in the middle of Bulgaria a bit southeast [@StatisticalRegionsEuropean].
 
 ### Belgium GDP
 
@@ -149,7 +150,8 @@ Waremme is located more mid-east.
 With @fig-4 we can see that Austria has a more aggregated graphs, even though it is a gap between highest and lowest, the GDP per capita development is more equal.
 We can see that some regions has experience a bit more ups and downs trough the years and most regions has a dip around the financial crises in 2008.
 
-AT312 (Linz-Wels), AT130 (Wien) and AT323 (Salzburg) is the Regions with the highest scoring GDP per capita in 2010, as displayed by @tbl-6. They have held a similar pattern and GDP per capita from 2000 to 2020 [@StatisticalRegionsEuropean].
+AT312 (Linz-Wels), AT130 (Wien) and AT323 (Salzburg) is the Regions with the highest scoring GDP per capita in 2010, as displayed by @tbl-6.
+They have held a similar pattern and GDP per capita from 2000 to 2020 [@StatisticalRegionsEuropean].
 
 @tbl-7 show the three lowest scoring regions are AT125 (Weinviertel), AT111 (Mittelburgenland) and AT313 (Mühlviertel) witch all is more greener areas.
 Both Weinviertel and Mühlviertel are located north and boarders to the Czech Republic while Mittelburgenland southeast and boarders to Hungary [@StatisticalRegionsEuropean].
@@ -162,11 +164,12 @@ We can see that region HR036 and HR031 has GDP per capita that lay a bit higher 
 However, region HR037 and HR032 also had some good years.
 Croatia has also fewer regions with available GDP data on a NUTS 3 level than the other countries.
 
-The top three regions in 2010 measured by GDP per capita is HR036 (Istarska županija), HR031 (Primorsko-goranska županija) and HR037 (Dubrovnik-Neretva) sown in @tbl-8 [@StatisticalRegionsEuropean].
+The top three regions in 2010 measured by GDP per capita is HR036 (Istarska županija), HR031 (Primorsko-goranska županija) and HR037 (Dubrovnik-Neretva) sown in [@tbl-8; @StatisticalRegionsEuropean].
 Istarska županija is big on processing industry, tourism and trade [@Economy].
 Dubrovnik-Neretva is the capital of Croatia and are also big on tourism, but also makes a living out of hospitality industry, agriculture and maritime industry [@Economya].
 
-On the other side, the three regions with lowest GDP per capita by 2010 is HR034 (Šibensko-kninska županija), HR032 (Ličko-senjska županija) and HR035 (Splitsko-dalmatinska županija) shown in @tbl-9. All are located south in Croatia by the coast and boarders to Bosnia-Herzegovina [@StatisticalRegionsEuropean] .
+On the other side, the three regions with lowest GDP per capita by 2010 is HR034 (Šibensko-kninska županija), HR032 (Ličko-senjska županija) and HR035 (Splitsko-dalmatinska županija) shown in @tbl-9.
+All are located south in Croatia by the coast and boarders to Bosnia-Herzegovina [@StatisticalRegionsEuropean] .
 
 ### Italy GDP
 
@@ -688,14 +691,14 @@ When doing this test, the goal is to assert wether there is heteroscedasticity o
 bptest(lm20)$p.value
 ```
 
-Reading this output shows u a p-value(0.9137) that is above alpha (0.05), stating it is not significant.
+Reading this output shows u a p-value (0.9137) that is above alpha (0.05), stating it is not significant.
 This gives us the conclusion that the we can keep the null-hypothesis and reject the A-hypothesis, further assuming the residuals of lm20 are *homoscedastic.*
 
 ```{r, echo=FALSE}
 bptest(lm21)$p.value
 ```
 
-This output from the second degree polynomial regression shows us similiar data as far as keeping the null-hypothesis and assuming *homoscedasticity* for the residuals.
+This output from the second degree polynomial regression shows us similar data as far as keeping the null-hypothesis and assuming *homoscedasticity* for the residuals.
 With a p-value(0.9303) higher than 0.05.
 
 ```{r, echo=FALSE}
@@ -761,7 +764,7 @@ In Causality variable A can predict variable B.
 We know the direction of the relationship.
 Its not possible to search for causality with the regression, it can only be used if a casual relationship is assumed.
 
-To establish causality, two predictions need to be fufilled:
+To establish causality, two predictions need to be fulfilled:
 
 1.There needs to be a significant relationship, significant correlation.
 
@@ -777,7 +780,7 @@ Taking a starting point in that GINI is measured out from different regions, thi
 For example; if the population in the regions split equally around to make all regions have the same GDP per capita, the inequality between the regions would end up becoming lower.
 So there could be a correlation between X and Y, but Z could be the explanation for Y.
 
-## Penal estimates
+## Panel estimates
 
 ## References
 
