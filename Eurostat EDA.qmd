@@ -157,7 +157,7 @@ We can see that region HR036 and HR031 has GDP per capita that lay a bit higher 
 However, region HR037 and HR032 also had some good years.
 Croatia has also fewer regions with available GDP data on a NUTS 3 level than the other countries.
 
-The top three regions in 2010 measured by GDP per capita is HR036 (Istarska županija), HR031 (Primorsko-goranska županija) and HR037 (Dubrovnik-Neretva) shown in @tbl-8 [@StatisticalRegionsEuropean].
+The top three regions in 2010 measured by GDP per capita is HR036 (Istarska županija), HR031 (Primorsko-goranska županija) and HR037 (Dubrovnik-Neretva) shown in [@tbl-8; @StatisticalRegionsEuropean].
 Istarska županija is big on processing industry, tourism and trade [@Economy].
 Dubrovnik-Neretva is the capital of Croatia and are also big on tourism, but also makes a living out of hospitality industry, agriculture and maritime industry [@Economya].
 
@@ -666,7 +666,8 @@ Our fourth, and second simple regression going through the Breusch Pagan Test, s
 We followed through with our given recommendations for how to solve this task of looking for heteroscedasticity, giving us the results as seen above.
 But we would like to add a note; According to Dr. Nisha Arora, *the Breusch Pagan Test assumes heteroscedasticity is a linear function of the independent variables.* Where if one would fail to find heteroscedisticity with the Breuch Pagan test, it would not necessarily mean that there is not a nonlinear relation between the error variance and the independent variables.
 Further it seems to be recommended to use the *White Test,* where as this test gives us a more flexible functional form that is suited for recognizing a greater amount of patterns for heteroscedasticity.
-The *White Test* also lets the independent variables to have a interactive and nonlinear effect on the error variance, and is a good tool as a safety measure @aroraAnswerWhatCriterion2016. This note was added due to the fact that we are actually looking at a theoretical nonlinear model, but through the transformation of data, we can still consider this as a linear model.
+The *White Test* also lets the independent variables to have a interactive and nonlinear effect on the error variance, and is a good tool as a safety measure @aroraAnswerWhatCriterion2016.
+This note was added due to the fact that we are actually looking at a theoretical nonlinear model, but through the transformation of data, we can still consider this as a linear model.
 Hence, this is why we did not do the White Test as an extra safety measure.
 
 ## Potential remedies for eventual problems
@@ -762,6 +763,11 @@ huxreg(list( "Fixed effect Country" = plm1, "Fixed effect Year" = plm2, "Fixed e
   note = "Note): {stars} T statistics in brackets."
   )
 ```
+
+In the fixed model above the groupse over ar fixed and not random or mixed.
+If the the individual-spesific effects are correlated with the independent variables, it is called The Fixed effects assumption.
+
+From the model we can see that we have 4253 observations on each fixed effect and none of the Fixed effects are notable significant based on R squared
 
 ## References
 
